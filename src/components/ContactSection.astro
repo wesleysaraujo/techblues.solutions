@@ -1,0 +1,49 @@
+---
+import Icon from './Icon.astro';
+import DiagnosticoBot from './DiagnosticoBot.astro';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  source?: string;
+  segment?: string;
+  interestLabel?: string;
+  interests?: string[];
+}
+const {
+  eyebrow = 'Diagnóstico do projeto',
+  title = 'Conte o seu desafio. A gente mostra o caminho.',
+  source = 'diagnostico',
+  segment,
+  interestLabel,
+  interests,
+} = Astro.props;
+
+const steps = ['Seu segmento e o tamanho da operação', 'O desafio que precisa resolver', 'Prazo e investimento previstos'];
+---
+
+<section id="diagnostico" class="scroll-mt-24 bg-azul text-white">
+  <div class="container-tb grid items-center gap-10 py-16 md:grid-cols-2 md:py-24">
+    <div class="md:pl-12">
+      <p class="eyebrow mb-1.5 text-white!">{eyebrow}</p>
+      <h2 class="font-display text-[24px] leading-[1.1] font-black uppercase md:text-[34px]">{title}</h2>
+      <p class="mt-5 text-[15px]">
+        Responda algumas perguntas rápidas, leva cerca de 2 minutos. Assim o especialista certo chega na conversa já
+        conhecendo o seu contexto, e você não perde tempo explicando tudo de novo.
+      </p>
+      <ul class="mt-5 space-y-2">
+        {
+          steps.map((s) => (
+            <li class="flex items-center gap-2 text-[14px] uppercase">
+              <Icon name="CircleCheck" class="size-5 shrink-0 text-laranja" /> {s}
+            </li>
+          ))
+        }
+      </ul>
+      <slot />
+    </div>
+    <div class="md:max-w-[440px]">
+      <DiagnosticoBot source={source} segment={segment} interestLabel={interestLabel} interests={interests} />
+    </div>
+  </div>
+</section>

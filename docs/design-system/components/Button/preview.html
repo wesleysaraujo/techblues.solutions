@@ -1,0 +1,29 @@
+<!-- @dsCard group="Ações" height=220 subtitle="5 variantes de botão + CTA do cabeçalho" -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;900&family=Open+Sans:wght@400;600;700;800&display=swap">
+<style>
+  .wrap { display:flex; flex-direction:column; gap:16px; padding:20px; font-family: var(--font-corpo); }
+  .row { display:flex; gap:var(--gap-botoes, 10px); align-items:center; flex-wrap:wrap; }
+  .btn { border:none; cursor:pointer; border-radius:var(--raio-md); padding:0 18px; height:40px; display:inline-flex; align-items:center; justify-content:center; }
+  .btn-azul { background:var(--azul-techblues); color:var(--branco); }
+  .btn-branco { background:var(--branco); color:var(--azul-techblues); border:1px solid var(--azul-techblues); }
+  .btn-cinza { background:var(--cinza-claro-techblues); color:var(--cinza-escuro-techblues); }
+  .btn-laranja { background:var(--laranja); color:var(--cinza-max); }
+  .btn-laranja-hover { background:var(--amarelo-hover); color:var(--cinza-max); }
+  .cta-header { background:var(--laranja); color:var(--cinza-max); height:52px; padding:0 24px; }
+  .cta-header-hover { background:var(--amarelo-hover); color:var(--cinza-max); height:52px; padding:0 24px; }
+  .note { font-size:12px; color:var(--cinza-medio-techblues); }
+</style>
+<div class="wrap">
+  <div class="row">
+    <button class="btn btn-azul rotulo-botao">BOTÃO</button>
+    <button class="btn btn-branco rotulo-botao">BOTÃO</button>
+    <button class="btn btn-cinza rotulo-botao">BOTÃO</button>
+    <button class="btn btn-laranja rotulo-botao">BOTÃO</button>
+    <button class="btn btn-laranja-hover rotulo-botao">BOTÃO</button>
+  </div>
+  <div class="row">
+    <button class="btn cta-header rotulo-botao" style="font-size:15px">APROVEITE SUA CONSULTORIA GRÁTIS!</button>
+    <button class="btn cta-header-hover rotulo-botao" style="font-size:15px">APROVEITE SUA CONSULTORIA GRÁTIS!</button>
+  </div>
+  <div class="note">Da esquerda: Azul, Branco, Cinza, Laranja, Laranja (hover) — depois o CTA do cabeçalho e seu hover. Observado na fonte: as variantes "Branco" e "Laranja" do componente estavam salvas com o mesmo preenchimento azul (provável estado incompleto do arquivo); aqui elas seguem o nome pretendido de cada variante.</div>
+</div>

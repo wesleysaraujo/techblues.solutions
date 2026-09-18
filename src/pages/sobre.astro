@@ -1,0 +1,108 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import CheckItem from '../components/CheckItem.astro';
+import StatsBar from '../components/StatsBar.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { cta } from '../data/site';
+
+const method = [
+  {
+    title: 'Diagnóstico',
+    text: 'Analisamos o processo e a operação do cliente como um todo, ouvimos quem executa e definimos indicadores claros de sucesso antes de escolher qualquer ferramenta.',
+  },
+  {
+    title: 'Arquitetura',
+    text: 'Desenhamos a solução orientada a processos, aproveitando o que já funciona e combinando automação, integração, I.A e nuvem com o menor impacto possível na rotina.',
+  },
+  {
+    title: 'Entrega e evolução',
+    text: 'Implantamos em ciclos curtos, treinamos a equipe e acompanhamos os indicadores. Tecnologia que ninguém usa não é transformação digital.',
+  },
+];
+---
+
+<Base title="Sobre a Tech Blues" description="A Tech Blues democratiza transformação digital e Inteligência Artificial para pequenas e médias empresas, com foco em advocacia, condomínios, contabilidade e engenharia.">
+  <PageHero title="Sobre a Tech Blues" crumbs={[{ href: '/', label: 'Home' }, { label: 'Sobre' }]} />
+
+  <section class="py-16 md:py-24">
+    <div class="container-tb grid items-center gap-10 lg:grid-cols-2">
+      <img src="/img/sobre-dados.jpg" alt="Pessoa analisando indicadores de negócio no celular" class="aspect-[4/3] w-full rounded-md object-cover" />
+      <div>
+        <p class="eyebrow mb-1.5">Estamos com você</p>
+        <h2 class="h2">Razões para nos escolher</h2>
+        <p class="mt-5 text-[15px]">
+          Em um mercado cada vez mais competitivo, a transformação digital deixou de ser diferencial e virou condição para
+          acompanhar o crescimento do negócio. Com a Inteligência Artificial, essa distância só aumentou.
+        </p>
+        <p class="mt-3 text-[15px]">
+          A Tech Blues nasceu para democratizar soluções que antes eram quase exclusividade de grandes empresas. Hoje
+          concentramos nossa experiência em mercados que conhecemos por dentro: escritórios de advocacia, síndicos
+          profissionais, contabilidades, engenharia e fornecedores do mercado condominial.
+        </p>
+        <ul class="mt-6 flex flex-wrap gap-x-6 gap-y-2.5">
+          <CheckItem>Inovação e produtividade</CheckItem>
+          <CheckItem>Economia</CheckItem>
+          <CheckItem>Suporte especializado</CheckItem>
+        </ul>
+        <a href={cta.href} class="btn-azul mt-8">{cta.label}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-superficie py-16 md:py-24">
+    <div class="container-tb">
+      <div class="grid items-center gap-10 lg:grid-cols-2">
+        <div>
+          <p class="eyebrow mb-1.5">O caminho</p>
+          <h2 class="h2">Nossa visão de mercado</h2>
+          <p class="mt-5 text-[15px]">
+            Empresas em crescimento precisam se adaptar rápido às exigências e oscilações do seu mercado. Para isso, contar
+            com um parceiro de tecnologia que entende essas exigências e entrega soluções adaptadas ao negócio é essencial.
+          </p>
+          <ul class="mt-6 flex flex-col gap-2.5">
+            <CheckItem>Processos eficientes</CheckItem>
+            <CheckItem>Soluções baseadas em arquitetura</CheckItem>
+            <CheckItem>Ecossistema de ferramentas e serviços</CheckItem>
+            <CheckItem>Inteligência Artificial aplicada com responsabilidade</CheckItem>
+          </ul>
+        </div>
+        <img src="/img/visao-mercado.jpg" alt="" loading="lazy" class="aspect-[5/3] w-full rounded-md object-cover" />
+      </div>
+      <div class="mt-10 grid gap-6 text-[15px] lg:grid-cols-2">
+        <p>
+          Um dos motivos de nossos clientes gostarem de trabalhar conosco é que nossas soluções são orientadas à arquitetura
+          e a processos que colocam o cliente no centro do projeto. A partir daí buscamos as ferramentas que menos impactam
+          os processos eficientes que já existem.
+        </p>
+        <p>
+          Nosso trabalho vai além de fornecer recursos de tecnologia: analisamos a operação como um todo, definimos
+          indicadores claros e só então iniciamos o projeto de transformação, com os melhores recursos disponíveis, incluindo
+          produtos próprios como o <a href="/projetos/sindiops" class="font-bold text-azul underline">SindiOps</a> e o
+          ecossistema <a href="/zoho" class="font-bold text-azul underline">Zoho</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-azul py-16 text-white md:py-24">
+    <div class="container-tb">
+      <SectionTitle eyebrow="Como trabalhamos" title="Do diagnóstico ao resultado medido" light />
+      <div class="grid gap-8 md:grid-cols-3">
+        {
+          method.map((m, i) => (
+            <div>
+              <span class="font-display text-[40px] leading-none font-black text-laranja">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="mt-2 text-[16px] font-bold uppercase">{m.title}</h3>
+              <p class="mt-2 text-[15px]">{m.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <StatsBar />
+  <ContactSection source="sobre" />
+</Base>

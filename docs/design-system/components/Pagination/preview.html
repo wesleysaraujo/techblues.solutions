@@ -1,0 +1,12 @@
+<!-- @dsCard group="Navegação" height=140 subtitle="Setas de paginação circulares" -->
+<style>
+  .wrap { display:flex; gap:16px; padding:24px; align-items:center; }
+  .nav-btn { width:50px; height:50px; border-radius:var(--raio-full); display:flex; align-items:center; justify-content:center; border:8px solid var(--azul-techblues); background:transparent; box-sizing:border-box; }
+  .nav-btn.filled { background:var(--azul-techblues); }
+  .nav-btn svg { stroke:var(--azul-techblues); }
+  .nav-btn.filled svg { stroke:var(--branco); }
+</style>
+<div class="wrap">
+  <button class="nav-btn"><svg width="18" height="14" viewBox="0 0 18 14" fill="none"><path d="M17 7H1M1 7L7 1M1 7L7 13" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <button class="nav-btn filled"><svg width="18" height="14" viewBox="0 0 18 14" fill="none"><path d="M1 7H17M17 7L11 1M17 7L11 13" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+</div>

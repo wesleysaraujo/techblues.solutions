@@ -1,0 +1,80 @@
+---
+import { segments } from '../data/segments';
+import { whatsapp } from '../data/site';
+
+interface Props {
+  source: string;
+  interestLabel?: string;
+  interests?: string[];
+  submitLabel?: string;
+}
+const { source, interestLabel = 'Segmento', interests, submitLabel = 'Enviar' } = Astro.props;
+const options = interests ?? segments.map((s) => s.title).concat('Outro');
+const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? '';
+---
+
+<form class="lead-form grid gap-2.5 sm:grid-cols-2" data-endpoint={endpoint} data-source={source} data-whatsapp={whatsapp('')}>
+  <label class="sr-only" for={`${source}-nome`}>Nome</label>
+  <input id={`${source}-nome`} name="nome" required autocomplete="name" placeholder="Nome" class="field" />
+  <label class="sr-only" for={`${source}-email`}>E-mail</label>
+  <input id={`${source}-email`} name="email" type="email" required autocomplete="email" placeholder="E-mail" class="field" />
+  <label class="sr-only" for={`${source}-empresa`}>Nome da empresa</label>
+  <input id={`${source}-empresa`} name="empresa" autocomplete="organization" placeholder="Nome da Empresa" class="field sm:col-span-2" />
+  <label class="sr-only" for={`${source}-telefone`}>Telefone ou WhatsApp</label>
+  <input id={`${source}-telefone`} name="telefone" type="tel" required autocomplete="tel" placeholder="Telefone / WhatsApp" class="field" />
+  <label class="sr-only" for={`${source}-interesse`}>{interestLabel}</label>
+  <select id={`${source}-interesse`} name="interesse" class="field">
+    <option value="">{interestLabel}</option>
+    {options.map((o) => <option>{o}</option>)}
+  </select>
+  <label class="sr-only" for={`${source}-mensagem`}>Mensagem</label>
+  <textarea id={`${source}-mensagem`} name="mensagem" rows="4" placeholder="Mensagem" class="field sm:col-span-2"></textarea>
+  <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+  <div class="mt-2 flex flex-wrap items-center gap-3 sm:col-span-2">
+    <button type="submit" class="btn-laranja px-5 py-2.5">{submitLabel}</button>
+    <p class="form-status text-[12px]" role="status"></p>
+  </div>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.lead-form').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
+      if (data.website) return; // honeypot
+      delete data.website;
+      const status = form.querySelector<HTMLElement>('.form-status')!;
+      const { endpoint, source, whatsapp } = form.dataset;
+
+      if (endpoint) {
+        status.textContent = 'Enviando…';
+        try {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...data, origem: source, pagina: location.pathname }),
+          });
+          if (!res.ok) throw new Error(String(res.status));
+          form.reset();
+          status.textContent = 'Recebemos sua mensagem. Um especialista vai falar com você em breve.';
+          return;
+        } catch {
+          status.textContent = 'Não conseguimos enviar agora. Vamos abrir o WhatsApp para você.';
+        }
+      }
+
+      const text = [
+        `Olá! Vim pelo site da Tech Blues (${source}).`,
+        `Nome: ${data.nome}`,
+        data.empresa && `Empresa: ${data.empresa}`,
+        `E-mail: ${data.email}`,
+        `Telefone: ${data.telefone}`,
+        data.interesse && `Interesse: ${data.interesse}`,
+        data.mensagem && `\n${data.mensagem}`,
+      ]
+        .filter(Boolean)
+        .join('\n');
+      window.open(`${whatsapp}${encodeURIComponent(text)}`, '_blank', 'noopener');
+    });
+  });
+</script>

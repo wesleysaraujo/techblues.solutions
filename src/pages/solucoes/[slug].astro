@@ -1,0 +1,105 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Icon from '../../components/Icon.astro';
+import CheckItem from '../../components/CheckItem.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import SindiOpsHighlight from '../../components/SindiOpsHighlight.astro';
+import { solutions, type Solution } from '../../data/solutions';
+import { segments } from '../../data/segments';
+import { cta } from '../../data/site';
+
+export function getStaticPaths() {
+  return solutions.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props as { s: Solution };
+const related = segments.filter((seg) => seg.solutions.some((x) => x.solution === s.slug));
+const others = solutions.filter((o) => o.slug !== s.slug);
+---
+
+<Base title={s.title} description={`${s.short} ${s.intro.slice(0, 80)}…`}>
+  <PageHero title={s.title} crumbs={[{ href: '/', label: 'Home' }, { href: '/solucoes', label: 'Soluções' }, { label: s.title }]} />
+
+  <section class="py-16 md:py-24">
+    <div class="container-tb grid items-center gap-10 lg:grid-cols-2">
+      <img src={s.image} alt="" loading="lazy" class="aspect-[4/3] w-full rounded-md object-cover object-left-top" />
+      <div>
+        <p class="eyebrow mb-1.5">{s.title}</p>
+        <h2 class="h2">{s.headline}</h2>
+        <p class="mt-5 text-[15px]">{s.intro}</p>
+        <ul class="mt-6 flex flex-col gap-2.5">
+          {s.outcomes.map((o) => <CheckItem>{o}</CheckItem>)}
+        </ul>
+        <a href={cta.href} class="btn-azul mt-8">{cta.label}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-superficie py-16 md:py-24">
+    <div class="container-tb">
+      <SectionTitle eyebrow="O que entregamos" title="Como colocamos isso para rodar" />
+      <div class="grid gap-6 md:grid-cols-2">
+        {
+          s.deliverables.map((d, i) => (
+            <div class="card flex gap-5 p-6">
+              <span class="font-display text-[36px] leading-none font-black text-laranja">{String(i + 1).padStart(2, '0')}</span>
+              <div class="border-l border-dotted border-cinza-medio pl-5">
+                <h3 class="text-[14px] font-bold text-cinza-escuro uppercase">{d.title}</h3>
+                <p class="mt-1.5 text-[14px] leading-snug">{d.text}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <section class="bg-azul py-16 text-white md:py-24">
+        <div class="container-tb">
+          <SectionTitle eyebrow="Na prática" title="Aplicações por segmento" light />
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {related.map((seg) => {
+              const items = seg.solutions.filter((x) => x.solution === s.slug);
+              return (
+                <a href={`/segmentos/${seg.slug}`} class="rounded-md bg-white/10 p-6 ring-1 ring-white/20 transition-colors hover:bg-white/15">
+                  <span class="flex items-center gap-2 text-[14px] font-bold uppercase">
+                    <Icon name={seg.icon} class="size-5 text-laranja" /> {seg.title}
+                  </span>
+                  <ul class="mt-3 space-y-2 text-[14px]">
+                    {items.map((it) => (
+                      <li>
+                        <strong>{it.title}:</strong> {it.text}
+                      </li>
+                    ))}
+                  </ul>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {s.slug === 'plataformas-saas' && <SindiOpsHighlight />}
+
+  <section class="py-16">
+    <div class="container-tb">
+      <p class="eyebrow mb-6 text-center">Outras soluções</p>
+      <div class="grid gap-4 md:grid-cols-3">
+        {
+          others.map((o) => (
+            <a href={`/solucoes/${o.slug}`} class="flex items-center gap-3 rounded-md bg-cinza-claro p-4 text-[14px] font-bold text-cinza-escuro uppercase hover:text-azul">
+              <Icon name={o.icon} class="size-5 text-azul" /> {o.title}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ContactSection title={`Vamos avaliar o seu projeto de ${s.title.toLowerCase()}`} source={`solucao-${s.slug}`} />
+</Base>

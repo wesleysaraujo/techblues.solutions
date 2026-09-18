@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+import { getProject } from '../data/projects';
+
+const p = getProject('sindiops')!;
+---
+
+<section class="overflow-hidden bg-marinho text-white">
+  <div class="container-tb grid items-center gap-10 py-16 md:py-24 lg:grid-cols-[1fr_1.15fr]">
+    <div>
+      <p class="eyebrow mb-3 text-laranja!">Projeto destaque</p>
+      <div class="flex items-center gap-3">
+        <img src={p.logo} alt="" class="size-12 rounded-md bg-white p-1.5" />
+        <div>
+          <h2 class="font-display text-[28px] leading-none font-black md:text-[40px]">{p.name}</h2>
+          <p class="mt-1 text-[12px] font-bold tracking-wide text-laranja uppercase">{p.kind}</p>
+        </div>
+      </div>
+      <p class="mt-6 font-display text-[20px] leading-tight font-black md:text-[26px]">“{p.headline}”</p>
+      <p class="mt-4 text-[15px] opacity-90">{p.summary}</p>
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+        {
+          p.principles.map((pr) => (
+            <li class="flex items-start gap-2 text-[13px]">
+              <Icon name="CircleCheck" class="mt-0.5 size-4 shrink-0 text-laranja" />
+              <span>
+                <strong class="uppercase">{pr.title}.</strong> {pr.text}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/projetos/sindiops" class="btn-laranja">Conheça o case</a>
+        <a href={p.url} target="_blank" rel="noopener" class="btn-branco">
+          Acessar o SindiOps <Icon name="ExternalLink" class="size-4" />
+        </a>
+      </div>
+    </div>
+    <div class="relative">
+      <div class="absolute -top-6 -right-6 size-24 rounded-md bg-laranja/90" aria-hidden="true"></div>
+      <img
+        src={p.cover}
+        alt="Painel do SindiOps com contratos, documentos indexados, consultas e orçamentos do condomínio"
+        loading="lazy"
+        class="relative w-full rounded-md shadow-2xl ring-1 ring-white/10"
+      />
+    </div>
+  </div>
+</section>

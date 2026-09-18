@@ -1,0 +1,13 @@
+<!-- @dsCard group="Conteúdo" height=140 subtitle="Item de lista personalizada" -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap">
+<style>
+  .wrap { display:flex; flex-direction:column; gap:10px; padding:20px; font-family: var(--font-corpo); background:var(--azul-profundo); border-radius:8px; }
+  .li { display:flex; align-items:center; gap:10px; color:var(--branco); font-size:13px; }
+  .marker { width:6px; height:6px; border-radius:var(--raio-tag); }
+  .marker.default { background:#D9D9D9; }
+  .marker.active { background:var(--laranja); }
+</style>
+<div class="wrap">
+  <div class="li"><span class="marker default"></span><span class="texto-normal">Item da lista</span></div>
+  <div class="li"><span class="marker active"></span><span class="texto-normal">Item em destaque</span></div>
+</div>

@@ -1,0 +1,29 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<section class="bg-laranja text-cinza-max" aria-label="Números da Tech Blues">
+  <ul
+    class:list={[
+      'container-tb flex flex-col gap-3 sm:flex-row sm:items-center',
+      compact ? 'justify-between py-4' : 'justify-center gap-x-10 py-12 md:py-16',
+    ]}
+  >
+    {
+      site.stats.map((s) => (
+        <li class="flex items-center gap-2.5 text-[16px] uppercase md:text-[20px]">
+          <Icon name={s.icon} class="size-7 shrink-0 md:size-8" />
+          <span>
+            {s.value} {s.label}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

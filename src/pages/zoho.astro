@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Icon from '../components/Icon.astro';
+import CheckItem from '../components/CheckItem.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { zohoCategories, zohoSteps, zohoProductNames } from '../data/zoho';
+import { segments } from '../data/segments';
+import { whatsapp } from '../data/site';
+---
+
+<Base
+  title="Parceiro Zoho: CRM, Zoho One e todo o ecossistema"
+  description="A Tech Blues é parceiro Zoho. Licenciamento, implantação, integração, treinamento e suporte de Zoho CRM, Zoho One, Desk, Creator, Projects e todo o ecossistema."
+>
+  <PageHero
+    title="Parceiro Zoho"
+    subtitle="Licença, implantação, integração e suporte com quem entende do seu processo."
+    crumbs={[{ href: '/', label: 'Home' }, { label: 'Parceiro Zoho' }]}
+  />
+
+  <section class="py-16 md:py-24">
+    <div class="container-tb grid items-center gap-10 lg:grid-cols-2">
+      <div>
+        <p class="eyebrow mb-1.5">Por que comprar com a Tech Blues</p>
+        <h2 class="h2">Você não compra só a licença. Compra a ferramenta funcionando.</h2>
+        <p class="mt-5 text-[15px]">
+          Somos parceiro de todo o portfólio Zoho. A diferença é que, antes de vender, entendemos o seu processo; depois de
+          vender, implantamos, integramos com o que você já usa e acompanhamos a adoção pela equipe. O Zoho vira parte da
+          operação, e não mais uma assinatura esquecida.
+        </p>
+        <ul class="mt-6 flex flex-col gap-2.5">
+          <CheckItem>Plano e produtos certos para o tamanho da sua empresa</CheckItem>
+          <CheckItem>Integração com ERP, WhatsApp e sistemas do seu setor</CheckItem>
+          <CheckItem>Automações e I.A configuradas desde o primeiro dia</CheckItem>
+          <CheckItem>Atendimento próximo, em português</CheckItem>
+        </ul>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#diagnostico" class="btn-azul">Solicitar proposta</a>
+          <a href={whatsapp('Olá! Quero saber mais sobre os produtos Zoho.')} target="_blank" rel="noopener" class="btn-contorno">
+            <Icon name="Whatsapp" class="size-4" /> Falar no WhatsApp
+          </a>
+        </div>
+      </div>
+      <ol class="grid gap-4 sm:grid-cols-2">
+        {
+          zohoSteps.map((st, i) => (
+            <li class="card p-6">
+              <span class="font-display text-[36px] leading-none font-black text-laranja">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="mt-2 text-[14px] font-bold text-cinza-escuro uppercase">{st.title}</h3>
+              <p class="mt-1.5 text-[14px] leading-snug">{st.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section id="produtos" class="bg-superficie py-16 md:py-24">
+    <div class="container-tb">
+      <SectionTitle eyebrow="Catálogo" title="Produtos Zoho que revendemos e implantamos" />
+      <div class="space-y-10">
+        {
+          zohoCategories.map((cat) => (
+            <div>
+              <h3 class="mb-4 flex items-center gap-2 text-[15px] font-bold text-cinza-escuro uppercase">
+                <Icon name={cat.icon} class="size-5 text-azul" /> {cat.title}
+              </h3>
+              <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {cat.products.map((p) => (
+                  <li class="card flex h-full flex-col p-5">
+                    <span class="text-[15px] font-bold text-azul">{p.name}</span>
+                    <span class="mt-1 text-[13px] leading-snug">{p.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-10 text-center text-[13px]">
+        Precisa de outro aplicativo Zoho? Revendemos todo o portfólio. <a href="#diagnostico" class="font-bold text-azul underline">Fale com a gente.</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-azul py-16 text-white md:py-24">
+    <div class="container-tb">
+      <SectionTitle eyebrow="Zoho por segmento" title="O que recomendamos para cada mercado" light />
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+        {
+          segments.map((s) => (
+            <a href={`/segmentos/${s.slug}`} class="rounded-md bg-white/10 p-5 ring-1 ring-white/20 transition-colors hover:bg-white/15">
+              <Icon name={s.icon} class="size-6 text-laranja" />
+              <p class="mt-3 text-[13px] font-bold uppercase">{s.title}</p>
+              <ul class="mt-3 space-y-1 text-[13px]">
+                {s.zoho.map((z) => (
+                  <li>{z}</li>
+                ))}
+              </ul>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ContactSection
+    eyebrow="Parceiro Zoho"
+    title="Descubra o plano Zoho certo para a sua empresa"
+    source="zoho"
+    segment="Parceiro Zoho"
+    interestLabel="Produto de interesse"
+    interests={[...zohoProductNames, 'Ainda não sei, quero orientação']}
+  />
+</Base>

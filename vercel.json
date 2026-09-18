@@ -1,0 +1,107 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/sobre-a-techblues",
+      "destination": "/sobre",
+      "permanent": true
+    },
+    {
+      "source": "/servicos-de-tecnologia",
+      "destination": "/solucoes",
+      "permanent": true
+    },
+    {
+      "source": "/fale-com-a-techblues",
+      "destination": "/contato",
+      "permanent": true
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap-index.xml",
+      "permanent": true
+    },
+    {
+      "source": "/5-ferramentas-de-automacao-populares-no-mercado",
+      "destination": "/blog/5-ferramentas-de-automacao-populares-no-mercado",
+      "permanent": true
+    },
+    {
+      "source": "/5-passos-para-comecar-a-usar-a-i-a-generativa-no-seu-negocio",
+      "destination": "/blog/5-passos-para-comecar-a-usar-a-i-a-generativa-no-seu-negocio",
+      "permanent": true
+    },
+    {
+      "source": "/a-importancia-da-integracao-de-dados-para-sua-empresa",
+      "destination": "/blog/a-importancia-da-integracao-de-dados-para-sua-empresa",
+      "permanent": true
+    },
+    {
+      "source": "/a-nova-atualizacao-da-openai-para-o-gpt-4-turbo",
+      "destination": "/blog/a-nova-atualizacao-da-openai-para-o-gpt-4-turbo",
+      "permanent": true
+    },
+    {
+      "source": "/automacao-ajudando-negocios-no-setor-de-telecom-e-viagens",
+      "destination": "/blog/automacao-ajudando-negocios-no-setor-de-telecom-e-viagens",
+      "permanent": true
+    },
+    {
+      "source": "/automacao-e-integracao-de-fluxo-de-trabalho",
+      "destination": "/blog/automacao-e-integracao-de-fluxo-de-trabalho",
+      "permanent": true
+    },
+    {
+      "source": "/bpa-automacao-de-processos-de-negocios",
+      "destination": "/blog/bpa-automacao-de-processos-de-negocios",
+      "permanent": true
+    },
+    {
+      "source": "/chatbot-e-inteligencia-artificial-sao-a-mesma-coisa",
+      "destination": "/blog/chatbot-e-inteligencia-artificial-sao-a-mesma-coisa",
+      "permanent": true
+    },
+    {
+      "source": "/como-a-analise-de-dados-pode-ajudar-sua-empresa-a-tomar-decisoes-mais-inteligentes",
+      "destination": "/blog/como-a-analise-de-dados-pode-ajudar-sua-empresa-a-tomar-decisoes-mais-inteligentes",
+      "permanent": true
+    },
+    {
+      "source": "/custo-para-implantar-processos-automatizados-no-seu-negocio",
+      "destination": "/blog/custo-para-implantar-processos-automatizados-no-seu-negocio",
+      "permanent": true
+    },
+    {
+      "source": "/inovacao-aberta-inteligencia-artificial-e-automacao-como-transformar-processos-de-negocio",
+      "destination": "/blog/inovacao-aberta-inteligencia-artificial-e-automacao-como-transformar-processos-de-negocio",
+      "permanent": true
+    },
+    {
+      "source": "/integracao-de-apis",
+      "destination": "/blog/integracao-de-apis",
+      "permanent": true
+    },
+    {
+      "source": "/n8n-a-plataforma-de-automacao-para-todos",
+      "destination": "/blog/n8n-a-plataforma-de-automacao-para-todos",
+      "permanent": true
+    },
+    {
+      "source": "/o-que-e-transformacao-digital",
+      "destination": "/blog/o-que-e-transformacao-digital",
+      "permanent": true
+    },
+    {
+      "source": "/o-que-e-uma-outsourcing-de-ti",
+      "destination": "/blog/o-que-e-uma-outsourcing-de-ti",
+      "permanent": true
+    },
+    {
+      "source": "/os-3-pilares-da-transformacao-digital",
+      "destination": "/blog/os-3-pilares-da-transformacao-digital",
+      "permanent": true
+    }
+  ]
+}

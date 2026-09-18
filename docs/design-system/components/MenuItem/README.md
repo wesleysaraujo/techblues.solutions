@@ -1,0 +1,1 @@
+Item da navegação principal, sempre em `item-menu` (Open Sans SemiBold, 13px). Padrão: texto `cinza-escuro-techblues` sobre fundo branco do menu. Ativo: caixa com fundo `azul-techblues`, texto `branco` e borda 1px em um azul mais escuro (#215EBD, específico deste estado). Existe ainda uma variante de texto simples sobre fundo colorido (ex.: barra superior), em `branco`.

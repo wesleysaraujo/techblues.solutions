@@ -1,0 +1,12 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  light?: boolean;
+}
+const { light = false } = Astro.props;
+---
+
+<li class:list={['flex items-start gap-2 text-[14px] uppercase md:text-[15px]', light ? 'text-white' : 'text-azul']}>
+  <Icon name="CircleCheck" class="mt-0.5 size-5 shrink-0" />
+  <span><slot /></span>
+</li>

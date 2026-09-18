@@ -1,0 +1,1 @@
+Cartão de post do blog: imagem no topo (proporção ~329×250 na fonte), depois título (`titulo-h3`, cor `azul-techblues`) e um resumo curto (`texto-reduzido`, cor `cinza-escuro-techblues`). Raio `raio-md` aplicado à imagem; o cartão em si não tem preenchimento próprio, só a imagem e o texto.

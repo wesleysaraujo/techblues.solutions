@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import ContactSection from '../components/ContactSection.astro';
+
+const next = [
+  { title: 'Você responde', text: 'Perguntas curtas sobre o seu negócio e o desafio. Leva cerca de 2 minutos.' },
+  { title: 'Analisamos o contexto', text: 'Um especialista no seu segmento avalia as respostas antes de falar com você.' },
+  { title: 'Conversa objetiva', text: 'Você recebe o caminho recomendado e, fazendo sentido, uma proposta de projeto.' },
+];
+---
+
+<Base
+  title="Diagnóstico do projeto"
+  description="Responda algumas perguntas rápidas sobre o seu negócio e fale com um especialista da Tech Blues que já conhece o seu contexto."
+>
+  <PageHero
+    title="Diagnóstico do projeto"
+    subtitle="Conte o seu desafio em poucos minutos e fale com quem entende do seu mercado."
+    crumbs={[{ href: '/', label: 'Home' }, { label: 'Diagnóstico' }]}
+  />
+
+  <ContactSection source="pagina-diagnostico" eyebrow="Comece por aqui" title="Vamos entender o seu projeto" />
+
+  <section class="py-16 md:py-20">
+    <div class="container-tb">
+      <SectionTitle eyebrow="Depois do diagnóstico" title="O que acontece em seguida" />
+      <ol class="grid gap-6 md:grid-cols-3">
+        {
+          next.map((n, i) => (
+            <li class="card p-6">
+              <span class="font-display text-[36px] leading-none font-black text-laranja">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="mt-2 text-[15px] font-bold text-cinza-escuro uppercase">{n.title}</h3>
+              <p class="mt-1.5 text-[14px] leading-snug">{n.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,16 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  align?: 'center' | 'left';
+  light?: boolean;
+  as?: 'h1' | 'h2';
+}
+const { eyebrow, title, align = 'center', light = false, as: Tag = 'h2' } = Astro.props;
+---
+
+<header class:list={['mb-8 md:mb-12', align === 'center' && 'text-center']}>
+  <p class:list={['eyebrow mb-1.5', light && 'text-white!']}>{eyebrow}</p>
+  <Tag class:list={['h2', light && 'text-white!']}>{title}</Tag>
+  <slot />
+</header>

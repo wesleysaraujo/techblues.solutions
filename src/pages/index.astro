@@ -1,0 +1,176 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import StatsBar from '../components/StatsBar.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import PostCard from '../components/PostCard.astro';
+import SindiOpsHighlight from '../components/SindiOpsHighlight.astro';
+import Newsletter from '../components/Newsletter.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { solutions } from '../data/solutions';
+import { segments } from '../data/segments';
+import { zohoCategories } from '../data/zoho';
+import { cta, whatsapp } from '../data/site';
+
+const posts = (await getCollection('blog')).sort((a, b) => +b.data.pubDate - +a.data.pubDate).slice(0, 4);
+const zohoHighlights = ['Zoho CRM', 'Zoho One', 'Zoho Desk', 'Zoho Creator', 'Zoho Projects', 'Zoho Sign', 'Zoho Analytics', 'Zoho FSM'];
+const zohoCount = zohoCategories.flatMap((c) => c.products).length;
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-azul to-azul-profundo text-white">
+    <div class="container-tb grid items-end gap-8 pt-12 md:pt-16 lg:grid-cols-[1.1fr_1fr]">
+      <div class="pb-12 lg:pb-20">
+        <p class="mb-4 inline-flex items-center gap-2 rounded-tag bg-white/15 px-3 py-1.5 text-[11px] font-extrabold tracking-wide uppercase md:text-[12px]">
+          <Icon name="Sparkles" class="size-4 text-laranja" /> Transformação digital e Inteligência Artificial
+        </p>
+        <h1 class="font-display text-[34px] leading-none font-black uppercase sm:text-[46px] lg:text-[64px]">
+          tecnologia corajosamente disruptiva.
+        </h1>
+        <p class="mt-6 max-w-xl text-[15px] font-light md:text-[20px] md:leading-snug">
+          Automações com I.A, integrações, plataformas SaaS e infraestrutura cloud para escritórios de advocacia, síndicos
+          profissionais, contabilidades, engenharia e fornecedores do mercado condominial.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={cta.href} class="btn-laranja text-[13px] md:text-[15px]">{cta.label}</a>
+          <a href={whatsapp()} target="_blank" rel="noopener" class="btn-branco text-[13px] md:text-[15px]">
+            <Icon name="Whatsapp" class="size-4" /> WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="relative mx-auto w-full max-w-[520px] self-end">
+        <img
+          src="/img/hero.webp"
+          alt="Mulher sorrindo, representando clientes satisfeitos com a Tech Blues"
+          width="900"
+          height="1200"
+          fetchpriority="high"
+          class="relative mx-auto max-h-[360px] w-auto md:max-h-[520px]"
+        />
+      </div>
+    </div>
+  </section>
+  <StatsBar compact />
+
+  <!-- Soluções -->
+  <section class="bg-superficie py-16 md:py-24">
+    <div class="container-tb">
+      <SectionTitle eyebrow="Como podemos ajudar?" title="Transformação digital e I.A sob medida para o seu negócio" />
+      <div class="grid gap-6 md:grid-cols-2">
+        {solutions.map((s) => <ServiceCard href={`/solucoes/${s.slug}`} icon={s.icon} title={s.title} text={s.short} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Citação -->
+  <section class="bg-azul text-white">
+    <div class="container-tb grid gap-8 py-16 md:grid-cols-2 md:py-24">
+      <div>
+        <p class="text-[18px] leading-tight font-bold uppercase md:text-[23px]">
+          “Tecnologia como agente de transformação e crescimento do seu negócio.”
+        </p>
+        <p class="mt-5 text-[18px] font-bold uppercase md:text-[20px]">Tech Blues Solutions</p>
+      </div>
+      <div class="space-y-3 text-[15px]">
+        <p>
+          Se antes a pergunta era “vale a pena usar Inteligência Artificial?”, hoje ela é “como colocar a I.A para trabalhar
+          no meu negócio com segurança e retorno?”.
+        </p>
+        <p>
+          A Tech Blues responde isso na prática: entendemos a operação, apontamos onde a tecnologia gera resultado e
+          entregamos o projeto funcionando, das automações do dia a dia ao produto SaaS completo.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Segmentos -->
+  <section class="py-16 md:py-24">
+    <div class="container-tb">
+      <SectionTitle eyebrow="Para quem trabalhamos" title="Especialistas na rotina do seu mercado" />
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          segments.map((s) => (
+            <a href={`/segmentos/${s.slug}`} class="card group flex flex-col p-6 ring-1 ring-cinza-ea transition-transform hover:-translate-y-1">
+              <span class="grid size-12 place-items-center rounded-md bg-azul/10 text-azul transition-colors group-hover:bg-azul group-hover:text-white">
+                <Icon name={s.icon} class="size-6" />
+              </span>
+              <h3 class="mt-4 text-[16px] font-bold text-cinza-escuro uppercase">{s.title}</h3>
+              <p class="mt-2 text-[14px] leading-snug">{s.short}</p>
+              <span class="mt-auto flex items-center gap-1 pt-4 text-[12px] font-bold text-azul uppercase">
+                Ver soluções <Icon name="ArrowRight" class="size-3.5" />
+              </span>
+            </a>
+          ))
+        }
+        <a href={cta.href} class="group flex flex-col justify-center rounded-md bg-laranja p-6 text-cinza-max transition-colors hover:bg-amarelo">
+          <h3 class="font-display text-[22px] leading-tight font-black uppercase">Seu segmento não está aqui?</h3>
+          <p class="mt-2 text-[14px]">Conte o desafio da sua operação. Se a tecnologia puder resolver, a gente resolve.</p>
+          <span class="mt-4 flex items-center gap-1 text-[12px] font-extrabold uppercase">
+            Fale com um especialista <Icon name="ArrowRight" class="size-3.5" />
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <SindiOpsHighlight />
+
+  <!-- Zoho -->
+  <section class="bg-cinza-claro py-16 md:py-24">
+    <div class="container-tb grid items-center gap-10 lg:grid-cols-2">
+      <div>
+        <p class="eyebrow mb-1.5">Parceiro Zoho</p>
+        <h2 class="h2">Todo o ecossistema Zoho com quem implanta de verdade</h2>
+        <p class="mt-5 text-[15px]">
+          Somos parceiro Zoho: licenciamos, implantamos, integramos e treinamos. Você compra com quem entende do seu
+          processo e sai com a ferramenta funcionando, não só com a licença na mão.
+        </p>
+        <ul class="mt-5 space-y-2">
+          {
+            ['Indicação do plano certo, sem licença sobrando', 'Implantação, migração e integração com seus sistemas', 'Treinamento e suporte em português'].map((t) => (
+              <li class="flex items-start gap-2 text-[14px] text-azul uppercase">
+                <Icon name="CircleCheck" class="mt-0.5 size-5 shrink-0" />
+                {t}
+              </li>
+            ))
+          }
+        </ul>
+        <a href="/zoho" class="btn-azul mt-8">Conheça os produtos Zoho</a>
+      </div>
+      <div class="card p-6 md:p-8">
+        <p class="text-[13px] font-bold text-cinza-escuro uppercase">Mais procurados</p>
+        <ul class="mt-4 grid grid-cols-2 gap-3">
+          {
+            zohoHighlights.map((z) => (
+              <li class="flex items-center gap-2 rounded-md bg-cinza-claro px-3 py-3 text-[13px] font-semibold text-cinza-max">
+                <span class="size-2 rounded-full bg-laranja" aria-hidden="true" />
+                {z}
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-4 text-[12px]">E mais {zohoCount - zohoHighlights.length} produtos no catálogo, além de toda a suíte Zoho One.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section class="py-16 md:py-24">
+    <div class="container-tb">
+      <SectionTitle eyebrow="Tech Blog" title="Fique por dentro das novidades no universo tech" />
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {posts.map((post) => <PostCard post={post} />)}
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/blog" class="btn-contorno">Ver todos os conteúdos</a>
+      </div>
+    </div>
+  </section>
+
+  <Newsletter />
+  <ContactSection />
+</Base>

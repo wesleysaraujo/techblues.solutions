@@ -1,0 +1,1 @@
+Item de lista com marcador quadrado pequeno (6×6px, `raio-tag`) e texto `texto-normal` em `branco`, pensado para fundo escuro/colorido (ex.: rodapé, seção azul). Marcador padrão em cinza claro (#D9D9D9); marcador de destaque em `laranja` para chamar atenção a um item específico da lista.

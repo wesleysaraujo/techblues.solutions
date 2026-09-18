@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { site, whatsapp } from '../data/site';
+---
+
+<Base title="Contato" description={`Fale com a Tech Blues pelo WhatsApp ${site.phone} ou pelo e-mail ${site.email} ou faça o diagnóstico do seu projeto.`}>
+  <PageHero title="Fale com a gente" crumbs={[{ href: '/', label: 'Home' }, { label: 'Contato' }]} />
+
+  <section class="py-14">
+    <div class="container-tb grid gap-6 md:grid-cols-3">
+      <a href={whatsapp()} target="_blank" rel="noopener" class="card flex items-center gap-4 p-6 ring-1 ring-cinza-ea hover:ring-azul">
+        <span class="grid size-12 place-items-center rounded-full bg-[#25D366] text-white"><Icon name="Whatsapp" class="size-6" /></span>
+        <span><span class="block text-[12px] font-bold uppercase">WhatsApp</span><span class="text-[16px] font-bold text-cinza-max">{site.phone}</span></span>
+      </a>
+      <a href={`mailto:${site.email}`} class="card flex items-center gap-4 p-6 ring-1 ring-cinza-ea hover:ring-azul">
+        <span class="grid size-12 place-items-center rounded-full bg-azul text-white"><Icon name="Mail" class="size-6" /></span>
+        <span class="min-w-0"><span class="block text-[12px] font-bold uppercase">E-mail</span><span class="block truncate text-[15px] font-bold text-cinza-max">{site.email}</span></span>
+      </a>
+      <a href={site.social.linkedin} target="_blank" rel="noopener" class="card flex items-center gap-4 p-6 ring-1 ring-cinza-ea hover:ring-azul">
+        <span class="grid size-12 place-items-center rounded-full bg-marinho text-white"><Icon name="Linkedin" class="size-6" /></span>
+        <span><span class="block text-[12px] font-bold uppercase">LinkedIn</span><span class="text-[15px] font-bold text-cinza-max">Tech Blues Solutions</span></span>
+      </a>
+    </div>
+  </section>
+
+  <ContactSection source="pagina-contato" />
+</Base>

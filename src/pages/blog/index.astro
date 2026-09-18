@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import PostCard from '../../components/PostCard.astro';
+import Icon from '../../components/Icon.astro';
+import Newsletter from '../../components/Newsletter.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) => +b.data.pubDate - +a.data.pubDate);
+const categories = [...new Set(posts.map((p) => p.data.category))];
+---
+
+<Base title="Tech Blog" description="Conteúdos sobre Inteligência Artificial, automação, integração de sistemas e transformação digital para o seu negócio.">
+  <PageHero title="Tech Blog" subtitle="Fique por dentro das novidades no universo tech" crumbs={[{ href: '/', label: 'Home' }, { label: 'Blog' }]} />
+
+  <section id="busca" class="scroll-mt-24 bg-superficie py-14 md:py-20">
+    <div class="container-tb">
+      <div class="mb-10 flex flex-col items-center gap-5">
+        <label class="flex w-full max-w-md items-center rounded-md border border-cinza-medio bg-white px-3">
+          <span class="sr-only">Buscar no blog</span>
+          <input id="blog-search" type="search" placeholder="Digite aqui o que você procura." class="min-w-0 flex-1 py-2.5 text-[13px] focus:outline-none" />
+          <Icon name="Search" class="size-5 text-cinza-escuro" />
+        </label>
+        <div class="flex flex-wrap justify-center gap-2" role="group" aria-label="Filtrar por categoria">
+          <button type="button" data-cat="" aria-pressed="true" class="cat-btn tag bg-azul px-3 py-1.5 text-white">Todas as categorias</button>
+          {
+            categories.map((c) => (
+              <button type="button" data-cat={c} aria-pressed="false" class="cat-btn tag bg-cinza-medio px-3 py-1.5 text-white">
+                {c}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+      <div id="post-grid" class="grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        {posts.map((post) => <PostCard post={post} />)}
+      </div>
+      <p id="no-results" class="hidden py-10 text-center text-[15px]">Nenhum conteúdo encontrado.</p>
+    </div>
+  </section>
+
+  <Newsletter />
+</Base>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>('#blog-search')!;
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.cat-btn');
+  const cards = document.querySelectorAll<HTMLElement>('#post-grid > article');
+  const empty = document.querySelector<HTMLElement>('#no-results')!;
+  const params = new URLSearchParams(location.search);
+  let cat = params.get('categoria') ?? '';
+  input.value = params.get('q') ?? '';
+
+  function apply() {
+    const q = input.value.trim().toLowerCase();
+    let visible = 0;
+    cards.forEach((c) => {
+      const show = (!cat || c.dataset.category === cat) && (!q || c.dataset.search!.includes(q));
+      c.hidden = !show;
+      if (show) visible++;
+    });
+    empty.classList.toggle('hidden', visible > 0);
+    buttons.forEach((b) => {
+      const on = b.dataset.cat === cat;
+      b.setAttribute('aria-pressed', String(on));
+      b.classList.toggle('bg-azul', on);
+      b.classList.toggle('bg-cinza-medio', !on);
+    });
+  }
+  buttons.forEach((b) => b.addEventListener('click', () => ((cat = b.dataset.cat ?? ''), apply())));
+  input.addEventListener('input', apply);
+  apply();
+</script>

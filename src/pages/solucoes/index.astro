@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Icon from '../../components/Icon.astro';
+import StatsBar from '../../components/StatsBar.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import { solutions } from '../../data/solutions';
+---
+
+<Base title="Soluções em Transformação Digital e I.A" description="Automações com Inteligência Artificial, integrações de sistemas, plataformas SaaS e infraestrutura cloud. Conheça as soluções da Tech Blues.">
+  <PageHero title="Nossas soluções" crumbs={[{ href: '/', label: 'Home' }, { label: 'Soluções' }]} />
+
+  <section class="py-16 md:py-24">
+    <div class="container-tb">
+      <SectionTitle eyebrow="O que entregamos" title="Quatro frentes, um objetivo: sua operação mais eficiente">
+        <p class="mx-auto mt-4 max-w-2xl text-[15px]">
+          Começamos pelo processo, não pela ferramenta. Cada projeto combina as frentes abaixo conforme o que o seu negócio
+          precisa, com Inteligência Artificial aplicada onde ela gera resultado.
+        </p>
+      </SectionTitle>
+      <div class="space-y-6">
+        {
+          solutions.map((s, i) => (
+            <article class="card grid gap-6 p-6 md:grid-cols-[auto_1fr_auto] md:items-center md:p-8">
+              <span class:list={['grid size-16 place-items-center rounded-full text-white', i % 2 ? 'bg-laranja' : 'bg-azul']}>
+                <Icon name={s.icon} class="size-7" />
+              </span>
+              <div>
+                <h2 class="text-[18px] font-bold text-cinza-escuro uppercase">{s.title}</h2>
+                <p class="mt-1 text-[15px]">{s.short}</p>
+                <ul class="mt-3 flex flex-wrap gap-2">
+                  {s.deliverables.map((d) => (
+                    <li class="tag bg-cinza-claro text-cinza-escuro">{d.title}</li>
+                  ))}
+                </ul>
+              </div>
+              <a href={`/solucoes/${s.slug}`} class="btn-azul">
+                Saiba mais
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <StatsBar />
+  <ContactSection />
+</Base>

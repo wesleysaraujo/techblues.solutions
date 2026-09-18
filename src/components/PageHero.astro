@@ -1,0 +1,44 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  title: string;
+  crumbs: { href?: string; label: string }[];
+  image?: string;
+  subtitle?: string;
+}
+const { title, crumbs, image, subtitle } = Astro.props;
+---
+
+<section
+  class:list={[
+    'relative overflow-hidden text-white',
+    image ? 'bg-cinza-max' : 'bg-gradient-to-b from-azul to-azul-profundo',
+  ]}
+>
+  {image && <img src={image} alt="" class="absolute inset-0 size-full object-cover opacity-25" />}
+  <div class:list={['container-tb relative text-center', image ? 'py-20 md:py-32' : 'py-14 md:py-20']}>
+    <h1 class="mx-auto max-w-4xl font-display text-[26px] leading-[1.1] font-black uppercase md:text-[42px]">{title}</h1>
+    {subtitle && <p class="mx-auto mt-4 max-w-2xl text-[15px] font-light md:text-[18px]">{subtitle}</p>}
+    <nav aria-label="Trilha de navegação" class="mt-4 text-[13px]">
+      <ol class="flex flex-wrap items-center justify-center gap-1">
+        {
+          crumbs.map((c, i) => (
+            <li class="flex items-center gap-1">
+              {i > 0 && <Icon name="ChevronsRight" class="size-3.5" />}
+              {c.href ? (
+                <a href={c.href} class="hover:underline">
+                  {c.label}
+                </a>
+              ) : (
+                <span class="font-bold" aria-current="page">
+                  {c.label}
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+  </div>
+</section>

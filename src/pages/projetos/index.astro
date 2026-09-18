@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Icon from '../../components/Icon.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import { projects } from '../../data/projects';
+---
+
+<Base title="Projetos em destaque" description="Produtos e projetos desenvolvidos pela Tech Blues, como o SindiOps, startup incubada para síndicos profissionais.">
+  <PageHero title="Projetos em destaque" crumbs={[{ href: '/', label: 'Home' }, { label: 'Projetos' }]} />
+
+  <section class="py-16 md:py-24">
+    <div class="container-tb">
+      <SectionTitle eyebrow="Do papel para o mercado" title="Tecnologia que a gente constrói e coloca para rodar">
+        <p class="mx-auto mt-4 max-w-2xl text-[15px]">
+          Além dos projetos para clientes, a Tech Blues incuba produtos próprios. É onde testamos, na pele, a mesma
+          engenharia e a mesma I.A que entregamos para você.
+        </p>
+      </SectionTitle>
+      {
+        projects.map((p) => (
+          <a href={`/projetos/${p.slug}`} class="card group grid overflow-hidden transition-transform hover:-translate-y-1 lg:grid-cols-2">
+            <img src={p.cover} alt={`Tela do ${p.name}`} loading="lazy" class="h-full w-full object-cover object-left-top" />
+            <div class="p-6 md:p-10">
+              <div class="flex flex-wrap gap-2">
+                <span class="tag bg-laranja text-cinza-max">{p.kind}</span>
+                <span class="tag bg-azul text-white">{p.status}</span>
+              </div>
+              <div class="mt-4 flex items-center gap-3">
+                <img src={p.logo} alt="" class="size-10" />
+                <h2 class="font-display text-[30px] font-black text-cinza-escuro">{p.name}</h2>
+              </div>
+              <p class="mt-4 text-[15px]">{p.summary}</p>
+              <ul class="mt-4 flex flex-wrap gap-2">
+                {p.audience.map((a) => (
+                  <li class="tag bg-cinza-claro text-cinza-escuro">{a}</li>
+                ))}
+              </ul>
+              <span class="mt-6 inline-flex items-center gap-1 text-[13px] font-bold text-azul uppercase">
+                Ver o case completo <Icon name="ArrowRight" class="size-4" />
+              </span>
+            </div>
+          </a>
+        ))
+      }
+      <div class="mt-8 rounded-md border-2 border-dashed border-cinza-medio/40 p-8 text-center">
+        <p class="font-display text-[20px] font-black text-cinza-escuro uppercase">Seu projeto pode ser o próximo destaque</p>
+        <p class="mt-2 text-[15px]">Tem uma ideia de produto ou plataforma para o seu mercado? Desenvolvemos com você, do MVP à escala.</p>
+        <a href="/solucoes/plataformas-saas" class="btn-contorno mt-5">Plataformas SaaS</a>
+      </div>
+    </div>
+  </section>
+
+  <ContactSection title="Tem uma ideia de produto? Vamos tirar do papel" source="projetos" />
+</Base>

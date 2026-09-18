@@ -1,0 +1,1979 @@
+{
+  "version": "6.1",
+  "id": "tb05pyh6s19kq",
+  "name": "Tech Blues: diagnóstico do projeto",
+  "icon": "🧭",
+  "events": [
+    {
+      "id": "ev05nuypvvhso",
+      "type": "start",
+      "graphCoordinates": {
+        "x": -1550,
+        "y": 400
+      },
+      "outgoingEdgeId": "e05oz0qmcxfu"
+    }
+  ],
+  "groups": [
+    {
+      "id": "g00sg2s62227",
+      "title": "Enviar para o CRM",
+      "graphCoordinates": {
+        "x": 4200,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b00pk16bsva8",
+          "type": "Webhook",
+          "options": {
+            "isCustomBody": true,
+            "isExecutedOnClient": false,
+            "timeout": 20,
+            "webhook": {
+              "method": "POST",
+              "url": "https://SEU-N8N.exemplo.com/webhook/diagnostico-techblues",
+              "headers": [
+                {
+                  "id": "h00qgbcqqtp2",
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"nome\": \"{{nome}}\",\n  \"empresa\": \"{{empresa}}\",\n  \"email\": \"{{email}}\",\n  \"whatsapp\": \"{{whatsapp}}\",\n  \"segmento\": \"{{segmento}}\",\n  \"papel\": \"{{papel}}\",\n  \"porte\": \"{{porte}}\",\n  \"desafio\": \"{{desafio_txt}}\",\n  \"descricao\": \"{{descricao}}\",\n  \"prazo\": \"{{prazo}}\",\n  \"investimento\": \"{{investimento}}\",\n  \"score\": \"{{score}}\",\n  \"temperatura\": \"{{temperatura}}\",\n  \"ia_fit\": \"{{ia_fit}}\",\n  \"ia_categoria\": \"{{ia_categoria}}\",\n  \"ia_resumo\": \"{{ia_resumo}}\",\n  \"origem\": \"{{origem}}\",\n  \"pagina\": \"{{pagina}}\",\n  \"utm_source\": \"{{utm_source}}\",\n  \"utm_medium\": \"{{utm_medium}}\",\n  \"utm_campaign\": \"{{utm_campaign}}\"\n}"
+            }
+          }
+        },
+        {
+          "id": "b00rw8faxgcn",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Obrigado, {{nome}}! Até logo. 👋"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "g00u74e5p4kz",
+      "title": "Quente: agendar",
+      "graphCoordinates": {
+        "x": 3850,
+        "y": 100
+      },
+      "blocks": [
+        {
+          "id": "b00tssg1m5r0",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Seu projeto tem tudo a ver com o que fazemos. "
+                  },
+                  {
+                    "bold": true,
+                    "text": "Escolha um horário com um especialista:"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "type": "a",
+                    "url": "https://bookings.zoho.com/SUBSTITUIR-PELO-SEU-LINK",
+                    "children": [
+                      {
+                        "text": "📅 Agendar conversa"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Se preferir, chame direto no WhatsApp: "
+                  },
+                  {
+                    "type": "a",
+                    "url": "https://wa.me/5521986304148?text=Ol%C3%A1!%20Acabei%20de%20fazer%20o%20diagn%C3%B3stico%20no%20site%20da%20Tech%20Blues.",
+                    "children": [
+                      {
+                        "text": "falar com um especialista"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "outgoingEdgeId": "e00vpgd6aums"
+        }
+      ]
+    },
+    {
+      "id": "g00xea63jspw",
+      "title": "Quente: recomendação da I.A",
+      "graphCoordinates": {
+        "x": 3500,
+        "y": -80
+      },
+      "blocks": [
+        {
+          "id": "b00wxfa7z2mn",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "{{ia_recomendacao}}"
+                  }
+                ]
+              }
+            ]
+          },
+          "outgoingEdgeId": "e00ywjaznk0q"
+        }
+      ]
+    },
+    {
+      "id": "g015g3whdb4m",
+      "title": "Quente",
+      "graphCoordinates": {
+        "x": 3150,
+        "y": 100
+      },
+      "blocks": [
+        {
+          "id": "b00z7hv1p39v",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vtemperatura00kuu1fltmg",
+            "expressionToEvaluate": "\"quente\""
+          }
+        },
+        {
+          "id": "b010tykje71w",
+          "type": "openai",
+          "options": {
+            "action": "Create chat completion",
+            "model": "gpt-4o-mini",
+            "temperature": 0.6,
+            "messages": [
+              {
+                "role": "system",
+                "content": "Você é consultor da Tech Blues, empresa de transformação digital e Inteligência Artificial para escritórios de advocacia, síndicos profissionais, contabilidades, engenharia e fornecedores do mercado condominial. Frentes: automações com I.A, integrações de sistemas, plataformas SaaS, infraestrutura cloud e parceria Zoho. Produto próprio: SindiOps (I.A para síndicos, com contratos, orçamentos e consulta à convenção).\n\nEscreva uma mensagem curta (2 a 3 frases, no máximo 60 palavras) em português do Brasil, tratando a pessoa pelo nome, mostrando que entendeu o desafio e indicando qual frente da Tech Blues resolve isso. Termine dizendo que um especialista vai aprofundar na conversa.\n\nRegras: não cite preços, prazos nem promessas de resultado; não use jargão técnico; não faça perguntas; não use listas nem emojis."
+              },
+              {
+                "role": "user",
+                "content": "Nome: {{nome}}\nSegmento: {{segmento}}\nPapel: {{papel}}\nPorte: {{porte}}\nDesafios: {{desafio_txt}}\nDescrição do lead: \"{{descricao}}\"\nCategoria sugerida pela triagem: {{ia_categoria}}"
+              }
+            ],
+            "responseMapping": [
+              {
+                "item": "Message content",
+                "variableId": "viarecomendacao00ozry9fp60"
+              }
+            ]
+          }
+        },
+        {
+          "id": "b0121207xe3u",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "i0137cg7keky",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "c011b3nl23ib",
+                    "variableId": "viarecomendacao00ozry9fp60",
+                    "comparisonOperator": "Is set"
+                  }
+                ]
+              },
+              "outgoingEdgeId": "e0144ssb3s8s"
+            }
+          ],
+          "outgoingEdgeId": "e016lhn8nlth"
+        }
+      ]
+    },
+    {
+      "id": "g019e9cwfior",
+      "title": "Morno",
+      "graphCoordinates": {
+        "x": 3150,
+        "y": 450
+      },
+      "blocks": [
+        {
+          "id": "b0170owgbe4t",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vtemperatura00kuu1fltmg",
+            "expressionToEvaluate": "\"morno\""
+          }
+        },
+        {
+          "id": "b0187l70co31",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Obrigado, {{nome}}! Um especialista da Tech Blues em {{segmento}} vai analisar suas respostas e falar com você pelo WhatsApp."
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Enquanto isso, se quiser adiantar a conversa: "
+                  },
+                  {
+                    "type": "a",
+                    "url": "https://wa.me/5521986304148?text=Ol%C3%A1!%20Acabei%20de%20fazer%20o%20diagn%C3%B3stico%20no%20site%20da%20Tech%20Blues.",
+                    "children": [
+                      {
+                        "text": "chamar no WhatsApp"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "outgoingEdgeId": "e01ar0wtk751"
+        }
+      ]
+    },
+    {
+      "id": "g01cayqkas6h",
+      "title": "Nutrir: conteúdos",
+      "graphCoordinates": {
+        "x": 3850,
+        "y": 800
+      },
+      "blocks": [
+        {
+          "id": "b01blchs5je9",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Separei alguns conteúdos que ajudam a organizar as ideias:"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "type": "a",
+                    "url": "https://www.techblues.solutions/blog/5-passos-para-comecar-a-usar-a-i-a-generativa-no-seu-negocio",
+                    "children": [
+                      {
+                        "text": "5 passos para começar a usar I.A generativa no seu negócio"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "type": "a",
+                    "url": "https://www.techblues.solutions/blog/bpa-automacao-de-processos-de-negocios",
+                    "children": [
+                      {
+                        "text": "BPA: automação de processos de negócio e seus benefícios"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "type": "a",
+                    "url": "https://www.techblues.solutions/blog/a-importancia-da-integracao-de-dados-para-sua-empresa",
+                    "children": [
+                      {
+                        "text": "A importância da integração de dados para sua empresa"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Todos os artigos ficam em "
+                  },
+                  {
+                    "type": "a",
+                    "url": "https://www.techblues.solutions/blog",
+                    "children": [
+                      {
+                        "text": "techblues.solutions/blog"
+                      }
+                    ]
+                  },
+                  {
+                    "text": ". Quando o projeto amadurecer, é só voltar aqui."
+                  }
+                ]
+              }
+            ]
+          },
+          "outgoingEdgeId": "e01di0uoykzb"
+        }
+      ]
+    },
+    {
+      "id": "g01gyrhcrtp0",
+      "title": "Nutrir: pedir e-mail",
+      "graphCoordinates": {
+        "x": 3500,
+        "y": 950
+      },
+      "blocks": [
+        {
+          "id": "b01ecg1jnin3",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Se quiser receber nossos conteúdos sobre automação e I.A, deixe seu e-mail:"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b01faxt1cnby",
+          "type": "email input",
+          "options": {
+            "variableId": "vemail00hyt26enyn",
+            "labels": {
+              "placeholder": "nome@empresa.com.br",
+              "button": "Enviar"
+            },
+            "retryMessageContent": "Esse e-mail não parece válido. Pode conferir?"
+          },
+          "outgoingEdgeId": "e01hmqjtjqzd"
+        }
+      ]
+    },
+    {
+      "id": "g01oxc972eau",
+      "title": "Nutrir",
+      "graphCoordinates": {
+        "x": 3150,
+        "y": 800
+      },
+      "blocks": [
+        {
+          "id": "b01iwgsl1m5c",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vtemperatura00kuu1fltmg",
+            "expressionToEvaluate": "\"nutrir\""
+          }
+        },
+        {
+          "id": "b01jonx105oo",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Sem problema, {{nome}}. Pesquisar antes é o caminho certo."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b01ledj3vyxt",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "i01m0cr8ngom",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "c01keubukcwx",
+                    "variableId": "vemail00hyt26enyn",
+                    "comparisonOperator": "Is empty"
+                  }
+                ]
+              },
+              "outgoingEdgeId": "e01ni4a9n53m"
+            }
+          ],
+          "outgoingEdgeId": "e01pf3w1ublx"
+        }
+      ]
+    },
+    {
+      "id": "g01sojs8mhnk",
+      "title": "Fora do perfil",
+      "graphCoordinates": {
+        "x": 2500,
+        "y": 1100
+      },
+      "blocks": [
+        {
+          "id": "b01q9wylkkdw",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vtemperatura00kuu1fltmg",
+            "expressionToEvaluate": "\"descartado\""
+          }
+        },
+        {
+          "id": "b01r81i4n20c",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Obrigado pelo contato, {{nome}}! Este canal é para empresas que querem um projeto de tecnologia com a Tech Blues."
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Para outros assuntos (parcerias, fornecedores, currículos), escreva para falecom@techblues.solutions."
+                  }
+                ]
+              }
+            ]
+          },
+          "outgoingEdgeId": "e01tvtr298iu"
+        }
+      ]
+    },
+    {
+      "id": "g0216eb3qpc7",
+      "title": "Classificação",
+      "graphCoordinates": {
+        "x": 2800,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b01woqs1f8z8",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "i01xn147plun",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "c01uihzymx3k",
+                    "variableId": "vscore00i4eoexh1m",
+                    "comparisonOperator": "Greater or equal to",
+                    "value": "9"
+                  }
+                ]
+              },
+              "outgoingEdgeId": "e01yau47s12y"
+            },
+            {
+              "id": "i01zy1hkq2lm",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "c01vl2dld00b",
+                    "variableId": "vscore00i4eoexh1m",
+                    "comparisonOperator": "Greater or equal to",
+                    "value": "5"
+                  }
+                ]
+              },
+              "outgoingEdgeId": "e020fgxhrezp"
+            }
+          ],
+          "outgoingEdgeId": "e022pn4m1nwf"
+        }
+      ]
+    },
+    {
+      "id": "g029gnh7m9nu",
+      "title": "8. Contato",
+      "graphCoordinates": {
+        "x": 2450,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b023sja4zso5",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Perfeito, {{nome}}. Para o especialista falar com você: qual é o nome da empresa?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b0240z12qqng",
+          "type": "text input",
+          "options": {
+            "variableId": "vempresa00f933f533v",
+            "isLong": false,
+            "labels": {
+              "placeholder": "Nome da empresa",
+              "button": "Enviar"
+            }
+          }
+        },
+        {
+          "id": "b025zoe5qghl",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Seu WhatsApp:"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b026oq5vf59n",
+          "type": "phone number input",
+          "options": {
+            "variableId": "vwhatsapp00gr0yj5k5z",
+            "defaultCountryCode": "BR",
+            "labels": {
+              "placeholder": "(21) 99999-9999",
+              "button": "Enviar"
+            },
+            "retryMessageContent": "Esse número não parece válido. Pode conferir?"
+          }
+        },
+        {
+          "id": "b0274mzde1yz",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "E o seu e-mail:"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b0283imfbfsu",
+          "type": "email input",
+          "options": {
+            "variableId": "vemail00hyt26enyn",
+            "labels": {
+              "placeholder": "nome@empresa.com.br",
+              "button": "Enviar"
+            },
+            "retryMessageContent": "Esse e-mail não parece válido. Pode conferir?"
+          },
+          "outgoingEdgeId": "e02anyymxlsz"
+        }
+      ]
+    },
+    {
+      "id": "g02kgua0z8kc",
+      "title": "7a. Investimento",
+      "graphCoordinates": {
+        "x": 2100,
+        "y": 250
+      },
+      "blocks": [
+        {
+          "id": "b02bnwh1ya9h",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Para te indicar o caminho certo: já existe uma faixa de investimento prevista para o projeto?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b02cijtfwjyp",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "i02dv1csgxot",
+              "content": "Até R$ 5 mil"
+            },
+            {
+              "id": "i02e87htaybp",
+              "content": "R$ 5 mil a R$ 20 mil"
+            },
+            {
+              "id": "i02fhca5uqin",
+              "content": "R$ 20 mil a R$ 50 mil"
+            },
+            {
+              "id": "i02gvhjkkyxv",
+              "content": "Acima de R$ 50 mil"
+            },
+            {
+              "id": "i02hu1hubs6j",
+              "content": "Ainda não sei"
+            }
+          ],
+          "options": {
+            "variableId": "vinvestimento00ejflp6y1b"
+          }
+        },
+        {
+          "id": "b02i9ho82y63",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vpts00jszkqiehn",
+            "expressionToEvaluate": "({\"Até R$ 5 mil\":1,\"R$ 5 mil a R$ 20 mil\":2,\"R$ 20 mil a R$ 50 mil\":3,\"Acima de R$ 50 mil\":3,\"Ainda não sei\":1})[{{investimento}}] ?? 0"
+          }
+        },
+        {
+          "id": "b02jcaen6t57",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vscore00i4eoexh1m",
+            "expressionToEvaluate": "{{score}} + {{pts}}"
+          },
+          "outgoingEdgeId": "e02lfblm1102"
+        }
+      ]
+    },
+    {
+      "id": "g02ulwvwo33w",
+      "title": "7b. Usuários Zoho",
+      "graphCoordinates": {
+        "x": 2100,
+        "y": 600
+      },
+      "blocks": [
+        {
+          "id": "b02mh0o2cu7x",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Quantas pessoas vão usar o Zoho?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b02nko1y6sw2",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "i02ogd3t1gen",
+              "content": "1 a 5 usuários"
+            },
+            {
+              "id": "i02pl8zjt1lf",
+              "content": "6 a 20 usuários"
+            },
+            {
+              "id": "i02qj2id76b8",
+              "content": "21 a 50 usuários"
+            },
+            {
+              "id": "i02rek0bufij",
+              "content": "Mais de 50 usuários"
+            }
+          ],
+          "options": {
+            "variableId": "vinvestimento00ejflp6y1b"
+          }
+        },
+        {
+          "id": "b02swa3fqsop",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vpts00jszkqiehn",
+            "expressionToEvaluate": "({\"1 a 5 usuários\":1,\"6 a 20 usuários\":2,\"21 a 50 usuários\":3,\"Mais de 50 usuários\":3})[{{investimento}}] ?? 0"
+          }
+        },
+        {
+          "id": "b02tg8807vg8",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vscore00i4eoexh1m",
+            "expressionToEvaluate": "{{score}} + {{pts}}"
+          },
+          "outgoingEdgeId": "e02vt3p4s4qx"
+        }
+      ]
+    },
+    {
+      "id": "g030c5q5exft",
+      "title": "7. Investimento (rota)",
+      "graphCoordinates": {
+        "x": 1800,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b02xhxstkxes",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "i02ya97eoetq",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "c02wh5swgsd1",
+                    "variableId": "vsegmento002sj66lppg",
+                    "comparisonOperator": "Contains",
+                    "value": "Zoho"
+                  }
+                ]
+              },
+              "outgoingEdgeId": "e02zqekfn0ga"
+            }
+          ],
+          "outgoingEdgeId": "e0319vxpgkqq"
+        }
+      ]
+    },
+    {
+      "id": "g03ah8ulvjj7",
+      "title": "6. Prazo",
+      "graphCoordinates": {
+        "x": 1450,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b0371ewi9meg",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Para quando você precisa disso funcionando?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b032nnx9ibng",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "i033p1ir47lq",
+              "content": "O quanto antes (até 30 dias)"
+            },
+            {
+              "id": "i034p5ki1lwz",
+              "content": "Em 1 a 3 meses"
+            },
+            {
+              "id": "i035jz5gwh7x",
+              "content": "Em 3 a 6 meses"
+            },
+            {
+              "id": "i0369409kzqj",
+              "content": "Só estou pesquisando",
+              "outgoingEdgeId": "e03cq1mgmqab"
+            }
+          ],
+          "options": {
+            "variableId": "vprazo00deyhnb100"
+          }
+        },
+        {
+          "id": "b038blnz8qeq",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vpts00jszkqiehn",
+            "expressionToEvaluate": "({\"O quanto antes (até 30 dias)\":3,\"Em 1 a 3 meses\":2,\"Em 3 a 6 meses\":1,\"Só estou pesquisando\":0})[{{prazo}}] ?? 0"
+          }
+        },
+        {
+          "id": "b0398vibkr98",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vscore00i4eoexh1m",
+            "expressionToEvaluate": "{{score}} + {{pts}}"
+          },
+          "outgoingEdgeId": "e03bkxtwnt75"
+        }
+      ]
+    },
+    {
+      "id": "g03lgxmp5xer",
+      "title": "5. Triagem com I.A",
+      "graphCoordinates": {
+        "x": 1100,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b03ds5goof2s",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vdesafiotxt00bql0560qm",
+            "expressionToEvaluate": "Array.isArray({{desafio}}) ? {{desafio}}.join(\", \") : ({{desafio}} ?? \"\")"
+          }
+        },
+        {
+          "id": "b03ethon0pmx",
+          "type": "openai",
+          "options": {
+            "action": "Generate variables",
+            "model": "gpt-4o-mini",
+            "prompt": "Você faz a triagem de contatos do site da Tech Blues, empresa de transformação digital e Inteligência Artificial (automações com I.A, integrações de sistemas, plataformas SaaS, infraestrutura cloud e parceria Zoho) para escritórios de advocacia, síndicos profissionais, contabilidades, engenharia e fornecedores do mercado condominial.\n\nDados informados pelo contato:\n\nNome: {{nome}}\nSegmento: {{segmento}}\nPapel na empresa: {{papel}}\nPorte: {{porte}}\nDesafios marcados: {{desafio_txt}}\nDescrição em texto livre: \"{{descricao}}\"\n\nClassifique o contato e resuma a necessidade. Considere \"cliente_potencial\" quem descreve um problema de operação ou um projeto de tecnologia para a própria empresa. Considere \"fornecedor_vendendo\" quem quer vender algo para a Tech Blues, \"candidato_emprego\" quem procura vaga ou estágio, \"estudante_curioso\" quem só quer aprender e \"sem_sentido\" quando o texto for vazio, aleatório ou ofensivo.",
+            "variablesToExtract": [
+              {
+                "type": "enum",
+                "variableId": "viafit00lk19bfrun",
+                "values": [
+                  "cliente_potencial",
+                  "fornecedor_vendendo",
+                  "candidato_emprego",
+                  "estudante_curioso",
+                  "sem_sentido"
+                ],
+                "description": "Tipo de contato",
+                "isRequired": true
+              },
+              {
+                "type": "enum",
+                "variableId": "viacategoria00m20ew1f64",
+                "values": [
+                  "Automações com I.A",
+                  "Integrações de sistemas",
+                  "Plataformas SaaS",
+                  "Infraestrutura Cloud",
+                  "Zoho",
+                  "SindiOps",
+                  "Indefinido"
+                ],
+                "description": "Frente da Tech Blues que melhor resolve o desafio descrito",
+                "isRequired": true
+              },
+              {
+                "type": "string",
+                "variableId": "viaresumo00ndojc8ube",
+                "description": "Resumo de uma frase, em português do Brasil, do que o contato precisa, escrito para o vendedor ler antes da reunião",
+                "isRequired": true
+              }
+            ]
+          }
+        },
+        {
+          "id": "b03i6edd7j6a",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "i03jnj8ch601",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "c03fp7bixdtf",
+                    "variableId": "viafit00lk19bfrun",
+                    "comparisonOperator": "Equal to",
+                    "value": "fornecedor_vendendo"
+                  },
+                  {
+                    "id": "c03gtahar956",
+                    "variableId": "viafit00lk19bfrun",
+                    "comparisonOperator": "Equal to",
+                    "value": "candidato_emprego"
+                  },
+                  {
+                    "id": "c03hmxb522b3",
+                    "variableId": "viafit00lk19bfrun",
+                    "comparisonOperator": "Equal to",
+                    "value": "sem_sentido"
+                  }
+                ],
+                "logicalOperator": "OR"
+              },
+              "outgoingEdgeId": "e03kg8iiu1lv"
+            }
+          ],
+          "outgoingEdgeId": "e03m6csz048y"
+        }
+      ]
+    },
+    {
+      "id": "g03zpyvp9gbo",
+      "title": "4. Desafio",
+      "graphCoordinates": {
+        "x": 750,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b03nx206pbzq",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "O que você mais precisa resolver agora? Pode marcar mais de uma opção."
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b03or7lwkzwj",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "i03pyiqydra0",
+              "content": "Atendimento e WhatsApp sobrecarregados"
+            },
+            {
+              "id": "i03qqhnvm0q9",
+              "content": "Tarefas manuais e retrabalho"
+            },
+            {
+              "id": "i03rjy41nxcy",
+              "content": "Sistemas que não conversam entre si"
+            },
+            {
+              "id": "i03sf5i0u66h",
+              "content": "Criar uma plataforma / produto digital"
+            },
+            {
+              "id": "i03tm7yflrsm",
+              "content": "Nuvem, servidores e segurança"
+            },
+            {
+              "id": "i03u2pz6xw76",
+              "content": "Licenças e implantação Zoho"
+            },
+            {
+              "id": "i03vd9jtkswn",
+              "content": "Usar I.A no dia a dia do negócio"
+            }
+          ],
+          "options": {
+            "variableId": "vdesafio00as25puczb",
+            "isMultipleChoice": true,
+            "buttonLabel": "Continuar"
+          }
+        },
+        {
+          "id": "b03w3ywwwzfa",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vscore00i4eoexh1m",
+            "expressionToEvaluate": "{{score}} + 2"
+          }
+        },
+        {
+          "id": "b03xgnjppsjh",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Em uma ou duas frases: o que acontece hoje que você quer mudar?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b03yodhn999j",
+          "type": "text input",
+          "options": {
+            "variableId": "vdescricao00c8fgbvteo",
+            "isLong": true,
+            "labels": {
+              "placeholder": "Ex.: perdemos prazos de renovação de contrato porque tudo está no e-mail…",
+              "button": "Enviar"
+            }
+          },
+          "outgoingEdgeId": "e040vkwx6wmu"
+        }
+      ]
+    },
+    {
+      "id": "g049jjsevodh",
+      "title": "3a. Porte (pessoas)",
+      "graphCoordinates": {
+        "x": 400,
+        "y": 250
+      },
+      "blocks": [
+        {
+          "id": "b041410zbgvj",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Quantas pessoas trabalham na operação hoje?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b042ojms1qjq",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "i043sewygv4h",
+              "content": "Só eu"
+            },
+            {
+              "id": "i044u42ex0bm",
+              "content": "2 a 10"
+            },
+            {
+              "id": "i045meltwkn8",
+              "content": "11 a 50"
+            },
+            {
+              "id": "i046y3nuu4rg",
+              "content": "Mais de 50"
+            }
+          ],
+          "options": {
+            "variableId": "vporte009gktyrezp"
+          }
+        },
+        {
+          "id": "b0471t8p2m9s",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vpts00jszkqiehn",
+            "expressionToEvaluate": "({\"Só eu\":0,\"2 a 10\":1,\"11 a 50\":2,\"Mais de 50\":3})[{{porte}}] ?? 0"
+          }
+        },
+        {
+          "id": "b048hk8s8xz9",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vscore00i4eoexh1m",
+            "expressionToEvaluate": "{{score}} + {{pts}}"
+          },
+          "outgoingEdgeId": "e04alggzf8sa"
+        }
+      ]
+    },
+    {
+      "id": "g04jdsuxzl35",
+      "title": "3b. Porte (condomínios)",
+      "graphCoordinates": {
+        "x": 400,
+        "y": 600
+      },
+      "blocks": [
+        {
+          "id": "b04b3spyvr8n",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Quantos condomínios você administra hoje?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b04clpvt1hh1",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "i04dw9ahygng",
+              "content": "1 a 3 condomínios"
+            },
+            {
+              "id": "i04e5yf7wmks",
+              "content": "4 a 10 condomínios"
+            },
+            {
+              "id": "i04fdsdxmev4",
+              "content": "11 a 30 condomínios"
+            },
+            {
+              "id": "i04g5r5dc2ph",
+              "content": "Mais de 30 condomínios"
+            }
+          ],
+          "options": {
+            "variableId": "vporte009gktyrezp"
+          }
+        },
+        {
+          "id": "b04hmsgp8vf6",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vpts00jszkqiehn",
+            "expressionToEvaluate": "({\"1 a 3 condomínios\":0,\"4 a 10 condomínios\":1,\"11 a 30 condomínios\":2,\"Mais de 30 condomínios\":3})[{{porte}}] ?? 0"
+          }
+        },
+        {
+          "id": "b04iwjmnqr21",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vscore00i4eoexh1m",
+            "expressionToEvaluate": "{{score}} + {{pts}}"
+          },
+          "outgoingEdgeId": "e04kv7qq6nuq"
+        }
+      ]
+    },
+    {
+      "id": "g04pqxwi0aea",
+      "title": "3. Porte (rota)",
+      "graphCoordinates": {
+        "x": 100,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b04m2814w4i6",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "i04ngk1t1t9l",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "c04l816ot9us",
+                    "variableId": "vsegmento002sj66lppg",
+                    "comparisonOperator": "Contains",
+                    "value": "índico"
+                  }
+                ]
+              },
+              "outgoingEdgeId": "e04oxdlzi2o6"
+            }
+          ],
+          "outgoingEdgeId": "e04qwkgh2du0"
+        }
+      ]
+    },
+    {
+      "id": "g04zc96e4swu",
+      "title": "2. Papel na decisão",
+      "graphCoordinates": {
+        "x": -250,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b04w3le4s033",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "E qual é o seu papel na empresa?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b04rc83nqjpq",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "i04svwt40xz3",
+              "content": "Sócio / dono / síndico responsável"
+            },
+            {
+              "id": "i04tlgm87chn",
+              "content": "Gestor da área"
+            },
+            {
+              "id": "i04u3spqz7sc",
+              "content": "Colaborador levantando opções"
+            },
+            {
+              "id": "i04vwe6vsi0s",
+              "content": "Estudante / pesquisa",
+              "outgoingEdgeId": "e051phwhs8a5"
+            }
+          ],
+          "options": {
+            "variableId": "vpapel008wlsg8kg2"
+          }
+        },
+        {
+          "id": "b04x8uqlqt66",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vpts00jszkqiehn",
+            "expressionToEvaluate": "({\"Sócio / dono / síndico responsável\":3,\"Gestor da área\":2,\"Colaborador levantando opções\":1})[{{papel}}] ?? 0"
+          }
+        },
+        {
+          "id": "b04ydg22n5hg",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vscore00i4eoexh1m",
+            "expressionToEvaluate": "{{score}} + {{pts}}"
+          },
+          "outgoingEdgeId": "e050niu64ovc"
+        }
+      ]
+    },
+    {
+      "id": "g05alazue1uz",
+      "title": "1. Segmento",
+      "graphCoordinates": {
+        "x": -600,
+        "y": 550
+      },
+      "blocks": [
+        {
+          "id": "b052ij988e6j",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Prazer, {{nome}}! Qual destas opções descreve melhor o seu negócio?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b053w86fjzno",
+          "type": "choice input",
+          "items": [
+            {
+              "id": "i054eef2zrwo",
+              "content": "Escritório de advocacia"
+            },
+            {
+              "id": "i055oa6qcwmd",
+              "content": "Síndico profissional / administradora"
+            },
+            {
+              "id": "i056zq40lxii",
+              "content": "Contabilidade"
+            },
+            {
+              "id": "i057e2zjtn7p",
+              "content": "Engenharia / construção"
+            },
+            {
+              "id": "i058db9p1o8i",
+              "content": "Fornecedor para condomínios"
+            },
+            {
+              "id": "i059hj8453aq",
+              "content": "Outro"
+            }
+          ],
+          "options": {
+            "variableId": "vsegmento002sj66lppg"
+          },
+          "outgoingEdgeId": "e05bi44dql70"
+        }
+      ]
+    },
+    {
+      "id": "g05gzpxi3b6d",
+      "title": "1. Segmento (rota)",
+      "graphCoordinates": {
+        "x": -950,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b05doydf7efx",
+          "type": "Condition",
+          "items": [
+            {
+              "id": "i05e9x0e8l8q",
+              "content": {
+                "comparisons": [
+                  {
+                    "id": "c05cn0c1nbnk",
+                    "variableId": "vsegmento002sj66lppg",
+                    "comparisonOperator": "Is set"
+                  }
+                ]
+              },
+              "outgoingEdgeId": "e05fnhlw7zzo"
+            }
+          ],
+          "outgoingEdgeId": "e05h9n9sbm9d"
+        }
+      ]
+    },
+    {
+      "id": "g05l0wjs3kz9",
+      "title": "0. Boas-vindas",
+      "graphCoordinates": {
+        "x": -1300,
+        "y": 400
+      },
+      "blocks": [
+        {
+          "id": "b05iigq9zve2",
+          "type": "Set variable",
+          "options": {
+            "variableId": "vscore00i4eoexh1m",
+            "expressionToEvaluate": "0"
+          }
+        },
+        {
+          "id": "b05joh5fpbl7",
+          "type": "text",
+          "content": {
+            "richText": [
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Oi! Sou o assistente da Tech Blues. 👋"
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Vou te fazer algumas perguntas rápidas para o especialista certo já chegar sabendo do seu contexto. Leva uns 2 minutos."
+                  }
+                ]
+              },
+              {
+                "type": "p",
+                "children": [
+                  {
+                    "text": "Como posso te chamar?"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "b05kca52w9xj",
+          "type": "text input",
+          "options": {
+            "variableId": "vnome00783u4zx4t",
+            "isLong": false,
+            "labels": {
+              "placeholder": "Seu nome",
+              "button": "Enviar"
+            }
+          },
+          "outgoingEdgeId": "e05mskz4wqp4"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "e00vpgd6aums",
+      "from": {
+        "blockId": "b00tssg1m5r0"
+      },
+      "to": {
+        "groupId": "g00sg2s62227"
+      }
+    },
+    {
+      "id": "e00ywjaznk0q",
+      "from": {
+        "blockId": "b00wxfa7z2mn"
+      },
+      "to": {
+        "groupId": "g00u74e5p4kz"
+      }
+    },
+    {
+      "id": "e0144ssb3s8s",
+      "from": {
+        "blockId": "b0121207xe3u",
+        "itemId": "i0137cg7keky"
+      },
+      "to": {
+        "groupId": "g00xea63jspw"
+      }
+    },
+    {
+      "id": "e016lhn8nlth",
+      "from": {
+        "blockId": "b0121207xe3u"
+      },
+      "to": {
+        "groupId": "g00u74e5p4kz"
+      }
+    },
+    {
+      "id": "e01ar0wtk751",
+      "from": {
+        "blockId": "b0187l70co31"
+      },
+      "to": {
+        "groupId": "g00sg2s62227"
+      }
+    },
+    {
+      "id": "e01di0uoykzb",
+      "from": {
+        "blockId": "b01blchs5je9"
+      },
+      "to": {
+        "groupId": "g00sg2s62227"
+      }
+    },
+    {
+      "id": "e01hmqjtjqzd",
+      "from": {
+        "blockId": "b01faxt1cnby"
+      },
+      "to": {
+        "groupId": "g01cayqkas6h"
+      }
+    },
+    {
+      "id": "e01ni4a9n53m",
+      "from": {
+        "blockId": "b01ledj3vyxt",
+        "itemId": "i01m0cr8ngom"
+      },
+      "to": {
+        "groupId": "g01gyrhcrtp0"
+      }
+    },
+    {
+      "id": "e01pf3w1ublx",
+      "from": {
+        "blockId": "b01ledj3vyxt"
+      },
+      "to": {
+        "groupId": "g01cayqkas6h"
+      }
+    },
+    {
+      "id": "e01tvtr298iu",
+      "from": {
+        "blockId": "b01r81i4n20c"
+      },
+      "to": {
+        "groupId": "g00sg2s62227"
+      }
+    },
+    {
+      "id": "e01yau47s12y",
+      "from": {
+        "blockId": "b01woqs1f8z8",
+        "itemId": "i01xn147plun"
+      },
+      "to": {
+        "groupId": "g015g3whdb4m"
+      }
+    },
+    {
+      "id": "e020fgxhrezp",
+      "from": {
+        "blockId": "b01woqs1f8z8",
+        "itemId": "i01zy1hkq2lm"
+      },
+      "to": {
+        "groupId": "g019e9cwfior"
+      }
+    },
+    {
+      "id": "e022pn4m1nwf",
+      "from": {
+        "blockId": "b01woqs1f8z8"
+      },
+      "to": {
+        "groupId": "g01oxc972eau"
+      }
+    },
+    {
+      "id": "e02anyymxlsz",
+      "from": {
+        "blockId": "b0283imfbfsu"
+      },
+      "to": {
+        "groupId": "g0216eb3qpc7"
+      }
+    },
+    {
+      "id": "e02lfblm1102",
+      "from": {
+        "blockId": "b02jcaen6t57"
+      },
+      "to": {
+        "groupId": "g029gnh7m9nu"
+      }
+    },
+    {
+      "id": "e02vt3p4s4qx",
+      "from": {
+        "blockId": "b02tg8807vg8"
+      },
+      "to": {
+        "groupId": "g029gnh7m9nu"
+      }
+    },
+    {
+      "id": "e02zqekfn0ga",
+      "from": {
+        "blockId": "b02xhxstkxes",
+        "itemId": "i02ya97eoetq"
+      },
+      "to": {
+        "groupId": "g02ulwvwo33w"
+      }
+    },
+    {
+      "id": "e0319vxpgkqq",
+      "from": {
+        "blockId": "b02xhxstkxes"
+      },
+      "to": {
+        "groupId": "g02kgua0z8kc"
+      }
+    },
+    {
+      "id": "e03bkxtwnt75",
+      "from": {
+        "blockId": "b0398vibkr98"
+      },
+      "to": {
+        "groupId": "g030c5q5exft"
+      }
+    },
+    {
+      "id": "e03cq1mgmqab",
+      "from": {
+        "blockId": "b032nnx9ibng",
+        "itemId": "i0369409kzqj"
+      },
+      "to": {
+        "groupId": "g01oxc972eau"
+      }
+    },
+    {
+      "id": "e03kg8iiu1lv",
+      "from": {
+        "blockId": "b03i6edd7j6a",
+        "itemId": "i03jnj8ch601"
+      },
+      "to": {
+        "groupId": "g01sojs8mhnk"
+      }
+    },
+    {
+      "id": "e03m6csz048y",
+      "from": {
+        "blockId": "b03i6edd7j6a"
+      },
+      "to": {
+        "groupId": "g03ah8ulvjj7"
+      }
+    },
+    {
+      "id": "e040vkwx6wmu",
+      "from": {
+        "blockId": "b03yodhn999j"
+      },
+      "to": {
+        "groupId": "g03lgxmp5xer"
+      }
+    },
+    {
+      "id": "e04alggzf8sa",
+      "from": {
+        "blockId": "b048hk8s8xz9"
+      },
+      "to": {
+        "groupId": "g03zpyvp9gbo"
+      }
+    },
+    {
+      "id": "e04kv7qq6nuq",
+      "from": {
+        "blockId": "b04iwjmnqr21"
+      },
+      "to": {
+        "groupId": "g03zpyvp9gbo"
+      }
+    },
+    {
+      "id": "e04oxdlzi2o6",
+      "from": {
+        "blockId": "b04m2814w4i6",
+        "itemId": "i04ngk1t1t9l"
+      },
+      "to": {
+        "groupId": "g04jdsuxzl35"
+      }
+    },
+    {
+      "id": "e04qwkgh2du0",
+      "from": {
+        "blockId": "b04m2814w4i6"
+      },
+      "to": {
+        "groupId": "g049jjsevodh"
+      }
+    },
+    {
+      "id": "e050niu64ovc",
+      "from": {
+        "blockId": "b04ydg22n5hg"
+      },
+      "to": {
+        "groupId": "g04pqxwi0aea"
+      }
+    },
+    {
+      "id": "e051phwhs8a5",
+      "from": {
+        "blockId": "b04rc83nqjpq",
+        "itemId": "i04vwe6vsi0s"
+      },
+      "to": {
+        "groupId": "g01oxc972eau"
+      }
+    },
+    {
+      "id": "e05bi44dql70",
+      "from": {
+        "blockId": "b053w86fjzno"
+      },
+      "to": {
+        "groupId": "g04zc96e4swu"
+      }
+    },
+    {
+      "id": "e05fnhlw7zzo",
+      "from": {
+        "blockId": "b05doydf7efx",
+        "itemId": "i05e9x0e8l8q"
+      },
+      "to": {
+        "groupId": "g04zc96e4swu"
+      }
+    },
+    {
+      "id": "e05h9n9sbm9d",
+      "from": {
+        "blockId": "b05doydf7efx"
+      },
+      "to": {
+        "groupId": "g05alazue1uz"
+      }
+    },
+    {
+      "id": "e05mskz4wqp4",
+      "from": {
+        "blockId": "b05kca52w9xj"
+      },
+      "to": {
+        "groupId": "g05gzpxi3b6d"
+      }
+    },
+    {
+      "id": "e05oz0qmcxfu",
+      "from": {
+        "eventId": "ev05nuypvvhso"
+      },
+      "to": {
+        "groupId": "g05l0wjs3kz9"
+      }
+    }
+  ],
+  "variables": [
+    {
+      "id": "vorigem001w54atuf5",
+      "name": "origem"
+    },
+    {
+      "id": "vsegmento002sj66lppg",
+      "name": "segmento"
+    },
+    {
+      "id": "vpagina00355gynctn",
+      "name": "pagina"
+    },
+    {
+      "id": "vutmsource0041wybl57d",
+      "name": "utm_source"
+    },
+    {
+      "id": "vutmmedium0050ygrnf27",
+      "name": "utm_medium"
+    },
+    {
+      "id": "vutmcampaign00697xp7nik",
+      "name": "utm_campaign"
+    },
+    {
+      "id": "vnome00783u4zx4t",
+      "name": "nome"
+    },
+    {
+      "id": "vpapel008wlsg8kg2",
+      "name": "papel"
+    },
+    {
+      "id": "vporte009gktyrezp",
+      "name": "porte"
+    },
+    {
+      "id": "vdesafio00as25puczb",
+      "name": "desafio"
+    },
+    {
+      "id": "vdesafiotxt00bql0560qm",
+      "name": "desafio_txt"
+    },
+    {
+      "id": "vdescricao00c8fgbvteo",
+      "name": "descricao"
+    },
+    {
+      "id": "vprazo00deyhnb100",
+      "name": "prazo"
+    },
+    {
+      "id": "vinvestimento00ejflp6y1b",
+      "name": "investimento"
+    },
+    {
+      "id": "vempresa00f933f533v",
+      "name": "empresa"
+    },
+    {
+      "id": "vwhatsapp00gr0yj5k5z",
+      "name": "whatsapp"
+    },
+    {
+      "id": "vemail00hyt26enyn",
+      "name": "email"
+    },
+    {
+      "id": "vscore00i4eoexh1m",
+      "name": "score"
+    },
+    {
+      "id": "vpts00jszkqiehn",
+      "name": "pts"
+    },
+    {
+      "id": "vtemperatura00kuu1fltmg",
+      "name": "temperatura"
+    },
+    {
+      "id": "viafit00lk19bfrun",
+      "name": "ia_fit"
+    },
+    {
+      "id": "viacategoria00m20ew1f64",
+      "name": "ia_categoria"
+    },
+    {
+      "id": "viaresumo00ndojc8ube",
+      "name": "ia_resumo"
+    },
+    {
+      "id": "viarecomendacao00ozry9fp60",
+      "name": "ia_recomendacao"
+    }
+  ],
+  "theme": {
+    "general": {
+      "font": {
+        "type": "Google",
+        "family": "Open Sans"
+      },
+      "background": {
+        "type": "Color",
+        "content": "#FFFFFF"
+      }
+    },
+    "chat": {
+      "container": {
+        "maxWidth": "100%",
+        "backgroundColor": "transparent"
+      },
+      "hostAvatar": {
+        "isEnabled": true,
+        "url": "https://www.techblues.solutions/img/techblues-mark-colorida.svg"
+      },
+      "guestAvatar": {
+        "isEnabled": false
+      },
+      "hostBubbles": {
+        "backgroundColor": "#F2F2F2",
+        "color": "#333333",
+        "border": {
+          "thickness": 0
+        }
+      },
+      "guestBubbles": {
+        "backgroundColor": "#307AEF",
+        "color": "#FFFFFF",
+        "border": {
+          "thickness": 0
+        }
+      },
+      "buttons": {
+        "backgroundColor": "#307AEF",
+        "color": "#FFFFFF",
+        "border": {
+          "thickness": 0
+        }
+      },
+      "inputs": {
+        "backgroundColor": "#FFFFFF",
+        "color": "#333333",
+        "placeholderColor": "#808080",
+        "border": {
+          "thickness": 1,
+          "color": "#EAEAEA"
+        }
+      },
+      "buttonsInput": {
+        "layout": "wrap"
+      }
+    }
+  },
+  "selectedThemeTemplateId": null,
+  "settings": {
+    "general": {
+      "isBrandingEnabled": false,
+      "isInputPrefillEnabled": false,
+      "isHideQueryParamsEnabled": true,
+      "rememberUser": {
+        "isEnabled": false
+      },
+      "systemMessages": {
+        "invalidMessage": "Não entendi. Pode tentar de novo?",
+        "botClosed": "Este atendimento está fechado no momento. Fale com a gente pelo WhatsApp 21 98630-4148.",
+        "networkErrorTitle": "Falha de conexão",
+        "networkErrorMessage": "Não conseguimos enviar sua resposta. Confira a internet e tente de novo."
+      }
+    },
+    "typingEmulation": {
+      "enabled": true,
+      "speed": 400,
+      "maxDelay": 1.2,
+      "delayBetweenBubbles": 0
+    },
+    "metadata": {
+      "title": "Diagnóstico do projeto | Tech Blues",
+      "description": "Responda algumas perguntas rápidas e fale com um especialista da Tech Blues.",
+      "favIconUrl": "https://www.techblues.solutions/favicon.svg",
+      "allowIndexing": false
+    }
+  },
+  "createdAt": "2026-09-18T17:10:22.594Z",
+  "updatedAt": "2026-09-18T17:10:22.594Z",
+  "folderId": null,
+  "publicId": null,
+  "customDomain": null,
+  "workspaceId": "workspace",
+  "resultsTablePreferences": null,
+  "isArchived": false,
+  "isClosed": false,
+  "whatsAppCredentialsId": null,
+  "riskLevel": null,
+  "spaceId": null
+}

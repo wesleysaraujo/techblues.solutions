@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+---
+
+<Base title="Política de privacidade" description="Como a Tech Blues trata os dados pessoais enviados pelo site.">
+  <PageHero title="Política de privacidade" crumbs={[{ href: '/', label: 'Home' }, { label: 'Política de privacidade' }]} />
+  <section class="py-16">
+    <div class="container-tb prose prose-neutral max-w-3xl prose-headings:font-display prose-headings:uppercase prose-a:text-azul">
+      <p>
+        A {site.legalName} respeita a sua privacidade e trata os dados pessoais de acordo com a Lei Geral de Proteção de
+        Dados (Lei nº 13.709/2018).
+      </p>
+      <h2>Quais dados coletamos</h2>
+      <p>
+        Coletamos apenas os dados que você informa nos formulários do site, como nome, e-mail, telefone, empresa e a
+        mensagem enviada, além de dados de navegação anônimos para medir a audiência.
+      </p>
+      <h2>Para que usamos</h2>
+      <p>
+        Usamos os dados para responder ao seu contato, enviar propostas solicitadas e, se você se inscrever, enviar nossa
+        newsletter. Não vendemos nem compartilhamos seus dados com terceiros para fins de marketing.
+      </p>
+      <h2>Seus direitos</h2>
+      <p>
+        Você pode pedir acesso, correção ou exclusão dos seus dados, ou cancelar a newsletter a qualquer momento, pelo e-mail
+        <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+    </div>
+  </section>
+</Base>

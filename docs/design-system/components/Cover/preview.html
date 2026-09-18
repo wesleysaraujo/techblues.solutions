@@ -1,0 +1,34 @@
+<!-- @dsCard height=320 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Open+Sans:wght@400&display=swap">
+<style>
+  html,body { margin:0; }
+  .cover-wrap { width:960px; height:320px; font-family: var(--font-display); }
+  .ground { fill: var(--marinho-footer); }
+  .blue { fill: var(--azul-techblues); }
+  .laranja { fill: var(--laranja); }
+  .tint { fill: var(--cinza-claro-techblues); }
+  .arc { fill: none; stroke: var(--marinho-footer); stroke-width: 10; }
+  .tile { rx: var(--raio-md); }
+  .name { fill: var(--branco); font-family: var(--font-display); font-weight: 900; }
+  .tagline { fill: var(--cinza-claro-techblues); font-family: var(--font-corpo); font-weight: 400; }
+</style>
+<svg class="cover-wrap" viewBox="0 0 960 320" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    blocks: azul-techblues slab (300x320, bleeds right edge) + laranja tile (140x140, raio-md) staggered above it + cinza-claro-techblues tile (100x60, raio-md) as relief — together ~35% of the cover, weighted to the two colors the brand is known by, not by their real UI frequency.
+    arrangement: one tall slab anchored right with a smaller staggered block above-left of it and a light relief block below, bleeding off the top-right edge — mirrors how the real site stacks solid-color sections (info/contato in azul-techblues, highlights in laranja) rather than a grid of equal chips.
+    pattern: three nested quarter-circle arcs, ground-colored, ascending diagonally across the blue slab — an abstraction of the real circular pagination arrow (raio-full) component, read as forward motion for "tecnologia corajosamente disruptiva."
+    scales: raio-md (8px) on every tile corner; arcs radii are raio-full-based steps (48/80/112px); ground = marinho-footer, the real footer color.
+  -->
+  <rect class="ground" x="0" y="0" width="960" height="320"/>
+  <rect class="blue tile" x="660" y="0" width="300" height="320"/>
+  <rect class="tint tile" x="590" y="30" width="100" height="60"/>
+  <rect class="laranja tile" x="560" y="120" width="140" height="140"/>
+  <path class="arc" d="M664,240 A56,56 0 0 1 720,184"/>
+  <path class="arc" d="M744,180 A56,56 0 0 1 800,124"/>
+  <path class="arc" d="M824,120 A56,56 0 0 1 880,64"/>
+  <text class="name" x="64" y="150" font-size="120" style="line-height:0.95">
+    <tspan x="64" dy="0">Tech</tspan>
+    <tspan x="64" dy="114">Blues</tspan>
+  </text>
+  <text class="tagline" x="64" y="292" font-size="14">tecnologia corajosamente disruptiva.</text>
+</svg>

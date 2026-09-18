@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+const { post } = Astro.props;
+const { title, description, cover, category } = post.data;
+const href = `/blog/${post.id}`;
+---
+
+<article class="flex flex-col" data-category={category} data-search={`${title} ${description} ${post.data.tags.join(' ')}`.toLowerCase()}>
+  <a href={href} class="group block relative aspect-[4/3] overflow-hidden rounded-md bg-gradient-to-br from-azul to-marinho" tabindex="-1" aria-hidden="true">
+    {
+      cover ? (
+        <div class="relative size-full">
+          <img
+            src={cover}
+            alt=""
+            loading="lazy"
+            class="size-full object-cover transition-transform duration-300 group-hover:scale-105"
+            onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+          />
+          <span class="hidden relative size-full items-center justify-center p-6">
+            <img
+              src="/img/techblues-mark-branca.svg"
+              alt=""
+              class="pointer-events-none absolute -right-6 -bottom-6 h-36 w-auto opacity-10"
+              aria-hidden="true"
+            />
+            <img
+              src="/img/techblues-logo-horizontal-branca.svg"
+              alt="Tech Blues"
+              class="relative z-10 w-48 max-w-[80%] h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
+          </span>
+        </div>
+      ) : (
+        <span class="relative flex size-full items-center justify-center p-6">
+          <img
+            src="/img/techblues-mark-branca.svg"
+            alt=""
+            class="pointer-events-none absolute -right-6 -bottom-6 h-36 w-auto opacity-10"
+            aria-hidden="true"
+          />
+          <img
+            src="/img/techblues-logo-horizontal-branca.svg"
+            alt="Tech Blues"
+            class="relative z-10 w-48 max-w-[80%] h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+          />
+        </span>
+      )
+    }
+  </a>
+  <span class="tag mt-4 self-start bg-cinza-medio text-white">{category}</span>
+  <h3 class="mt-2 text-[14px] leading-snug font-bold text-azul uppercase">
+    <a href={href} class="hover:underline">{title}</a>
+  </h3>
+  <p class="mt-1.5 line-clamp-3 text-[13px] leading-snug">{description}</p>
+  <a href={href} class="mt-auto flex items-center gap-1.5 border-t border-dotted border-cinza-medio pt-3 text-[12px] text-azul uppercase hover:underline">
+    Leia mais <Icon name="CircleArrowRight" class="size-4" />
+  </a>
+</article>

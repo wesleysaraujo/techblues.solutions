@@ -1,0 +1,27 @@
+---
+import * as lucide from 'lucide-static';
+import { siWhatsapp } from 'simple-icons';
+
+interface Props {
+  name: string;
+  class?: string;
+  label?: string;
+}
+const { name, class: className = 'size-5', label } = Astro.props;
+
+// Ícones de marca que o Lucide não tem (ou descontinuou)
+const brand: Record<string, string> = {
+  Whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="${siWhatsapp.path}"/></svg>`,
+};
+
+let svg = brand[name] ?? (lucide as Record<string, string>)[name] ?? '';
+if (!svg) throw new Error(`Ícone inexistente: ${name}`);
+// Só os atributos da tag <svg>: <rect> internos também usam width/height
+svg = svg.replace(/<svg[^>]*>/, (tag) =>
+  tag
+    .replace(/\s(class|width|height)="[^"]*"/g, '')
+    .replace('<svg', `<svg class="${className}" ${label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"'}`),
+);
+---
+
+<Fragment set:html={svg} />

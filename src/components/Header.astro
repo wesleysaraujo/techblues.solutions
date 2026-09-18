@@ -1,0 +1,88 @@
+---
+import Icon from './Icon.astro';
+import { cta, nav, site, whatsapp } from '../data/site';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
+---
+
+<div class="bg-azul-profundo text-white">
+  <div class="container-tb flex h-9 items-center justify-between text-[12px] font-bold md:text-[13px]">
+    <a href={whatsapp()} target="_blank" rel="noopener" class="flex items-center gap-2 hover:underline">
+      Fale conosco {site.phone}
+      <Icon name="Whatsapp" class="size-3.5" />
+    </a>
+    <div class="flex items-center gap-2.5">
+      <span class="hidden sm:inline">Junte-se a nós</span>
+      <a href={site.social.linkedin} target="_blank" rel="noopener" class="hover:opacity-80">
+        <Icon name="Linkedin" class="size-4" label="LinkedIn da Tech Blues" />
+      </a>
+      <a href={site.social.instagram} target="_blank" rel="noopener" class="hover:opacity-80">
+        <Icon name="Instagram" class="size-4" label="Instagram da Tech Blues" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<header class="sticky top-0 z-40 bg-white shadow-[0_1px_0_rgba(0,0,0,0.06)]">
+  <div class="container-tb flex h-[72px] items-center justify-between md:h-24">
+    <a href="/" class="shrink-0" aria-label="Tech Blues, página inicial">
+      <img src="/img/techblues-logo-horizontal-colorida.svg" alt="Tech Blues" width="220" height="41" class="h-7 w-auto md:h-10" />
+    </a>
+
+    <nav aria-label="Principal" class="hidden lg:block">
+      <ul class="flex items-center gap-5 xl:gap-6">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class:list={[
+                  'text-[13px] font-semibold uppercase transition-colors hover:text-azul',
+                  isActive(item.href) ? 'text-azul' : 'text-cinza-escuro',
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a href="/blog#busca" class="grid size-9 place-items-center rounded-full text-azul ring-1 ring-azul/30 ring-dashed hover:bg-cinza-claro">
+            <Icon name="Search" class="size-[18px]" label="Buscar no blog" />
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <details class="group lg:hidden">
+      <summary class="grid size-10 cursor-pointer list-none place-items-center rounded-md text-azul ring-1 ring-azul/30 [&::-webkit-details-marker]:hidden">
+        <span class="group-open:hidden"><Icon name="Menu" class="size-6" label="Abrir menu" /></span>
+        <span class="hidden group-open:block"><Icon name="X" class="size-6" label="Fechar menu" /></span>
+      </summary>
+      <nav aria-label="Principal (mobile)" class="absolute inset-x-0 top-full border-t border-cinza-ea bg-white shadow-lg">
+        <ul class="container-tb py-2">
+          {
+            nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    'block border-b border-cinza-claro py-3 text-[14px] font-semibold uppercase',
+                    isActive(item.href) ? 'text-azul' : 'text-cinza-escuro',
+                  ]}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li class="py-4">
+            <a href={cta.page} class="btn-laranja w-full">{cta.label}</a>
+          </li>
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>

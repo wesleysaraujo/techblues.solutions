@@ -1,0 +1,1 @@
+Botão circular de navegação (anterior/próximo), 50×50px, `raio-full`. Estado padrão: borda grossa (8px) em `azul-techblues`, fundo transparente, seta em `azul-techblues`. Estado preenchido/ativo: fundo sólido `azul-techblues` (borda 9px), seta em `branco`.

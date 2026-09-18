@@ -1,0 +1,54 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Icon from '../../components/Icon.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import { segments } from '../../data/segments';
+---
+
+<Base title="Segmentos atendidos" description="Tecnologia e I.A para escritórios de advocacia, síndicos profissionais, contabilidades, engenharia e fornecedores do mercado condominial.">
+  <PageHero title="Segmentos" crumbs={[{ href: '/', label: 'Home' }, { label: 'Segmentos' }]} />
+
+  <section class="py-16 md:py-24">
+    <div class="container-tb">
+      <SectionTitle eyebrow="Para quem trabalhamos" title="Conhecemos a rotina do seu mercado">
+        <p class="mx-auto mt-4 max-w-2xl text-[15px]">
+          Não vendemos tecnologia genérica. Cada segmento tem dores, sistemas e linguagem próprios, e nossos projetos partem
+          deles.
+        </p>
+      </SectionTitle>
+      <div class="space-y-6">
+        {
+          segments.map((s, i) => (
+            <a
+              href={`/segmentos/${s.slug}`}
+              class:list={['card group grid gap-6 p-6 transition-transform hover:-translate-y-1 md:grid-cols-[1fr_1.3fr] md:p-8', i % 2 && 'bg-cinza-claro']}
+            >
+              <div>
+                <span class="grid size-12 place-items-center rounded-md bg-azul text-white">
+                  <Icon name={s.icon} class="size-6" />
+                </span>
+                <h2 class="mt-4 font-display text-[22px] leading-tight font-black text-cinza-escuro uppercase">{s.title}</h2>
+                <p class="mt-2 text-[15px]">{s.short}</p>
+                <span class="mt-4 inline-flex items-center gap-1 text-[12px] font-bold text-azul uppercase">
+                  Ver soluções para {s.audience.toLowerCase()} <Icon name="ArrowRight" class="size-3.5" />
+                </span>
+              </div>
+              <ul class="grid content-start gap-2 sm:grid-cols-2">
+                {s.solutions.map((x) => (
+                  <li class="flex items-start gap-2 rounded-md bg-white p-3 text-[13px] ring-1 ring-cinza-ea">
+                    <Icon name="CircleCheck" class="mt-0.5 size-4 shrink-0 text-azul" />
+                    <span class="font-semibold text-cinza-max">{x.title}</span>
+                  </li>
+                ))}
+              </ul>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <ContactSection title="Conte o desafio do seu negócio" source="segmentos" />
+</Base>

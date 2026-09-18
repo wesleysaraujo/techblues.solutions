@@ -1,0 +1,45 @@
+---
+const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? '';
+---
+
+<section class="bg-cinza-ea">
+  <div class="container-tb grid items-center gap-6 py-10 md:grid-cols-2 md:py-12">
+    <h2 class="font-display text-[22px] font-black text-cinza-escuro uppercase md:text-[30px]">Receba conteúdos exclusivos.</h2>
+    <div>
+      <form id="newsletter" class="flex overflow-hidden rounded-md border-2 border-azul-claro bg-white" data-endpoint={endpoint}>
+        <label for="nl-email" class="sr-only">Seu e-mail</label>
+        <input id="nl-email" name="email" type="email" required placeholder="Seu e-mail" class="min-w-0 flex-1 px-3 py-2.5 text-[13px] focus:outline-none" />
+        <button class="bg-azul px-4 text-[11px] font-extrabold text-white uppercase hover:bg-azul-profundo md:px-6 md:text-[12px]">Assinar newsletter</button>
+      </form>
+      <p class="nl-status mt-2 text-[12px]" role="status">
+        Para se inscrever você precisa aceitar a nossa <a href="/politica-de-privacidade" class="underline">Política de privacidade</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#newsletter');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = new FormData(form).get('email');
+    const status = document.querySelector<HTMLElement>('.nl-status')!;
+    const endpoint = form.dataset.endpoint;
+    if (!endpoint) {
+      location.href = `mailto:falecom@techblues.solutions?subject=${encodeURIComponent('Quero receber a newsletter')}&body=${encodeURIComponent(`E-mail: ${email}`)}`;
+      return;
+    }
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, origem: 'newsletter', pagina: location.pathname }),
+      });
+      if (!res.ok) throw new Error();
+      form.reset();
+      status.textContent = 'Inscrição confirmada. Obrigado!';
+    } catch {
+      status.textContent = 'Não foi possível inscrever agora. Tente novamente mais tarde.';
+    }
+  });
+</script>

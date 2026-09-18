@@ -1,0 +1,137 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+import Newsletter from '../../components/Newsletter.astro';
+import { cta, site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
+const { Content } = await render(post);
+const all = (await getCollection('blog')).sort((a, b) => +b.data.pubDate - +a.data.pubDate);
+const recent = all.filter((p) => p.id !== post.id).slice(0, 5);
+const counts = Object.entries(
+  all.reduce<Record<string, number>>((acc, p) => ((acc[p.data.category] = (acc[p.data.category] ?? 0) + 1), acc), {}),
+).sort((a, b) => b[1] - a[1]);
+const fmt = (d: Date) => d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+const articleLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  image: post.data.cover ? new URL(post.data.cover, site.url).href : undefined,
+  author: { '@type': 'Organization', name: site.legalName },
+  publisher: { '@type': 'Organization', name: site.legalName },
+};
+---
+
+<Base title={post.data.title} description={post.data.description} image={post.data.cover} type="article">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleLd)} />
+  <PageHero title={post.data.title} image={post.data.cover ?? '/img/page-hero-bg.jpg'} crumbs={[{ href: '/blog', label: 'Blog' }, { label: post.data.title }]} />
+
+  <section class="bg-superficie py-12 md:py-16">
+    <div class="container-tb grid gap-12 lg:grid-cols-[1fr_280px]">
+      <article>
+        <div class="flex gap-3 rounded-md bg-azul p-5 text-white">
+          <Icon name="Quote" class="size-5 shrink-0" />
+          <p class="text-[13px] font-bold uppercase md:text-[14px]">{post.data.description}</p>
+        </div>
+        <p class="mt-4 text-[12px]">
+          Publicado em <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time> · {post.data.category}
+        </p>
+        <div
+          class="prose prose-neutral mt-6 max-w-none text-[15px] text-cinza-escuro prose-headings:font-display prose-headings:text-cinza-escuro prose-headings:uppercase prose-h2:text-[22px] prose-h3:text-[18px] prose-a:text-azul prose-strong:text-cinza-max prose-img:rounded-md"
+        >
+          <Content />
+        </div>
+
+        <aside class="mt-12 rounded-md bg-white p-6 shadow-sm md:p-8">
+          <p class="eyebrow mb-1.5">Conte com uma assessoria especializada</p>
+          <h2 class="font-display text-[20px] leading-tight font-black text-cinza-escuro uppercase md:text-[24px]">
+            Quer aplicar isso no seu negócio?
+          </h2>
+          <p class="mt-3 text-[15px]">
+            A Tech Blues entrega projetos de transformação digital e I.A que devolvem a empresários e gestores o controle e a
+            previsibilidade da operação: automações, integrações, chatbots, plataformas SaaS e infraestrutura cloud.
+          </p>
+          <a href={cta.page} class="btn-azul mt-5">{cta.label}</a>
+        </aside>
+
+        {
+          post.data.tags.length > 0 && (
+            <div class="mt-8 flex flex-wrap items-center gap-2">
+              <span class="mr-1 text-[13px] font-bold text-cinza-escuro uppercase">Tags do post:</span>
+              {post.data.tags.map((t) => (
+                <a href={`/blog?q=${encodeURIComponent(t)}`} class="tag bg-cinza-medio text-white hover:bg-azul">
+                  {t}
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </article>
+
+      <aside class="space-y-10">
+        <form action="/blog" method="get">
+          <h2 class="mb-3 text-[16px] font-bold text-cinza-escuro uppercase">Pesquisar</h2>
+          <label class="flex items-center rounded-md border border-cinza-medio bg-white px-3">
+            <span class="sr-only">Buscar no blog</span>
+            <input name="q" type="search" placeholder="Digite aqui o que você procura." class="min-w-0 flex-1 py-2.5 text-[13px] focus:outline-none" />
+            <button aria-label="Buscar"><Icon name="Search" class="size-5 text-cinza-escuro" /></button>
+          </label>
+        </form>
+        <div>
+          <h2 class="mb-4 text-[16px] font-bold text-cinza-escuro uppercase">Conteúdo recente</h2>
+          <ul class="space-y-4">
+            {
+              recent.map((p) => (
+                <li>
+                  <a href={`/blog/${p.id}`} class="group flex gap-3">
+                    <span class="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-md bg-gradient-to-br from-azul to-marinho p-1.5">
+                      {p.data.cover ? (
+                        <img src={p.data.cover} alt="" loading="lazy" class="size-full object-cover rounded-sm" />
+                      ) : (
+                        <img src="/img/techblues-logo-horizontal-branca.svg" alt="Tech Blues" class="w-full h-auto object-contain px-0.5" />
+                      )}
+                    </span>
+                    <span>
+                      <span class="block text-[13px] leading-snug font-bold text-azul group-hover:underline">{p.data.title}</span>
+                      <span class="text-[11px]">{fmt(p.data.pubDate)}</span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <h2 class="mb-3 text-[16px] font-bold text-cinza-escuro uppercase">Categorias</h2>
+          <ul class="divide-y divide-cinza-ea text-[14px]">
+            {
+              counts.map(([c, n]) => (
+                <li>
+                  <a href={`/blog?categoria=${encodeURIComponent(c)}`} class="flex justify-between py-2 hover:text-azul">
+                    {c} <span class="text-cinza-medio">{n}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <a href="/projetos/sindiops" class="block rounded-md bg-marinho p-5 text-white">
+          <span class="text-[11px] font-bold tracking-wide text-laranja uppercase">Projeto destaque</span>
+          <span class="mt-1 block font-display text-[20px] font-black">SindiOps</span>
+          <span class="mt-1 block text-[13px] opacity-90">I.A para síndicos profissionais, sempre com a fonte.</span>
+        </a>
+      </aside>
+    </div>
+  </section>
+
+  <Newsletter />
+</Base>
