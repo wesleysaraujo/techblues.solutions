@@ -1,0 +1,466 @@
+{
+  "name": "Tech Blues: leads do site → AgentOS (Directus)",
+  "nodes": [
+    {
+      "id": "e32f9df9-f4a7-4863-a1e7-f9d7ad1a1d35",
+      "name": "Site: lead e newsletter",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "45ac660a-ea49-409e-abf9-b2b5fcd9fa9f",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "techblues-lead",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://www.techblues.solutions,https://techblues.solutions,http://localhost:4321"
+        }
+      }
+    },
+    {
+      "id": "b5997017-032f-4b4e-a8f1-3a74fddec739",
+      "name": "Normalizar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// ===== CONFIGURAÇÃO =====\nconst CONFIG = {\n  directusUrl: 'https://techblues.integratudo.com.br',\n  // id (uuid) da etapa inicial em os_deal_stages, ex.: \"Lead\" / \"Novo\". Vazio = sem etapa.\n  etapaInicialId: '',\n  // id (uuid) do usuário responsável pelas oportunidades do site. Vazio = sem responsável.\n  responsavelId: '',\n  // temperaturas do diagnóstico que NÃO viram oportunidade (só contato com nota)\n  semOportunidade: ['nutrir', 'descartado'],\n};\n// ===== FIM DA CONFIGURAÇÃO =====\n\nconst b = $input.first().json.body ?? {};\nconst txt = (v, max = 500) => {\n  if (v === undefined || v === null) return '';\n  const s = Array.isArray(v) ? v.join(', ') : String(v);\n  return s.trim().slice(0, max);\n};\nconst html = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\"/g, '&quot;');\n\nconst email = txt(b.email, 254).toLowerCase();\nconst emailValido = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);\nconst telefone = txt(b.telefone || b.whatsapp, 40);\nconst tipo = b.origem === 'newsletter' ? 'newsletter' : 'lead';\n// O bot do Typebot envia pontuação/temperatura; o formulário do site não\nconst veioDoBot = b.temperatura !== undefined || b.score !== undefined;\nconst temperatura = txt(b.temperatura, 30);\n\nconst erros = [];\nif (txt(b.website)) erros.push('spam'); // campo-armadilha: humanos não preenchem\nif (tipo === 'newsletter' && !emailValido) erros.push('e-mail inválido');\nif (tipo === 'lead') {\n  if (!txt(b.nome)) erros.push('nome obrigatório');\n  if (!emailValido && !telefone) erros.push('informe e-mail ou telefone');\n}\n\n// ----- contato -----\nconst [primeiroNome, ...resto] = txt(b.nome, 150).split(/\\s+/).filter(Boolean);\nconst contato = { status: 'active' };\nif (primeiroNome) contato.first_name = primeiroNome;\nif (resto.length) contato.last_name = resto.join(' ');\nif (emailValido) contato.email = email;\nif (telefone) contato.phone = telefone;\nif (txt(b.papel)) contato.job_title = txt(b.papel, 120);\n\n// Busca o contato existente pelo e-mail; sem e-mail, pelo telefone\nconst filtroBusca = JSON.stringify(emailValido ? { email: { _eq: email } } : { phone: { _eq: telefone } });\n\n// ----- respostas em formato de tabela para as notas -----\nconst agora = new Date();\nconst dataBR = agora.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });\nconst campos = [\n  ['Empresa', b.empresa], ['Segmento', b.segmento], ['Interesse', b.interesse], ['Papel', b.papel], ['Porte', b.porte],\n  ['Desafios', b.desafio], ['Descrição', b.descricao], ['Mensagem', b.mensagem], ['Prazo', b.prazo],\n  ['Investimento', b.investimento], ['Pontuação', b.score], ['Temperatura', temperatura],\n  ['Triagem da I.A', b.ia_fit], ['Frente sugerida', b.ia_categoria], ['Resumo da I.A', b.ia_resumo],\n  ['E-mail', emailValido ? email : ''], ['Telefone', telefone],\n  ['Página', b.pagina], ['Origem', b.origem], ['UTM', [b.utm_source, b.utm_medium, b.utm_campaign].filter((x) => txt(x)).join(' / ')],\n].filter(([, v]) => txt(v, 5000));\nconst tabela = '<ul>' + campos.map(([k, v]) => '<li><strong>' + k + ':</strong> ' + html(txt(v, 5000)) + '</li>').join('') + '</ul>';\n\nconst fonte = tipo === 'newsletter' ? 'newsletter do site' : veioDoBot ? 'diagnóstico do site (chatbot)' : 'formulário do site';\nconst notaContato = tipo === 'newsletter'\n  ? '<p><strong>' + dataBR + '</strong> · Inscreveu-se na newsletter (' + html(txt(b.pagina, 300) || 'site') + ').</p>'\n  : '<p><strong>' + dataBR + '</strong> · Contato pelo ' + fonte + '.</p>' + tabela;\n\n// ----- oportunidade -----\nconst criarOportunidade = tipo === 'lead' && !CONFIG.semOportunidade.includes(temperatura);\nconst assunto = txt(b.ia_categoria) || txt(b.interesse) || txt(b.segmento) || 'Site';\nconst quem = txt(b.empresa, 120) || txt(b.nome, 120);\nconst proximoContato = new Date(agora.getTime() + (temperatura === 'quente' ? 0 : 24 * 60 * 60 * 1000));\nconst oportunidade = {\n  name: (quem + ' · ' + assunto).slice(0, 250),\n  description: txt(b.ia_resumo || b.descricao || b.mensagem, 1000) || 'Contato pelo ' + fonte + '.',\n  deal_notes: '<p><strong>' + dataBR + '</strong> · Oportunidade criada pelo ' + fonte + (temperatura ? ' · temperatura <strong>' + html(temperatura) + '</strong>' : '') + '.</p>' + tabela,\n  next_contact_date: proximoContato.toISOString(),\n};\nif (CONFIG.etapaInicialId) oportunidade.deal_stage = CONFIG.etapaInicialId;\nif (CONFIG.responsavelId) oportunidade.owner = CONFIG.responsavelId;\n\nreturn [{\n  json: {\n    tipo,\n    valido: erros.length === 0,\n    erro: erros.join('; '),\n    config: CONFIG,\n    filtroBusca,\n    contato,\n    notaContato,\n    criarOportunidade,\n    oportunidade,\n  },\n}];"
+      }
+    },
+    {
+      "id": "6d050d2e-8f3b-4432-a654-44b2ab1665c3",
+      "name": "Dados válidos?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        440,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3e390a4f-2c4e-43d3-9937-272d6001c25e",
+              "leftValue": "={{ $json.valido }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "a081fbe8-b89b-4a23-b8b8-a14baa9c7cf8",
+      "name": "Responder 400",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        520
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"ok\": false, \"erro\": $json.erro } }}",
+        "options": {
+          "responseCode": 400
+        }
+      }
+    },
+    {
+      "id": "97d8fb80-11ef-444d-98a2-62bdb223ac90",
+      "name": "Buscar contato",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        300
+      ],
+      "onError": "continueErrorOutput",
+      "credentials": {
+        "httpBearerAuth": {
+          "name": "Directus AgentOS"
+        }
+      },
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $('Normalizar').item.json.config.directusUrl }}/items/contacts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "filter",
+              "value": "={{ $json.filtroBusca }}"
+            },
+            {
+              "name": "fields",
+              "value": "id,contact_notes"
+            },
+            {
+              "name": "limit",
+              "value": "1"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "1b508fed-d37e-4e45-a025-5b1c15955329",
+      "name": "Contato existe?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        880,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c9aee5b7-bdd9-46f8-8396-8b140cae957f",
+              "leftValue": "={{ ($json.data ?? []).length }}",
+              "rightValue": 0,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "9dc47f58-da6f-4d1b-b200-bc6b776e5575",
+      "name": "Anotar no contato existente",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        180
+      ],
+      "onError": "continueErrorOutput",
+      "credentials": {
+        "httpBearerAuth": {
+          "name": "Directus AgentOS"
+        }
+      },
+      "parameters": {
+        "method": "PATCH",
+        "url": "={{ $('Normalizar').item.json.config.directusUrl }}/items/contacts/{{ $json.data[0].id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ contact_notes: ($json.data[0].contact_notes || '') + $('Normalizar').item.json.notaContato }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "0d6aa3f2-e98e-4c8b-aab5-1a2a748c8adb",
+      "name": "Criar contato",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        420
+      ],
+      "onError": "continueErrorOutput",
+      "credentials": {
+        "httpBearerAuth": {
+          "name": "Directus AgentOS"
+        }
+      },
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Normalizar').item.json.config.directusUrl }}/items/contacts",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ ...$('Normalizar').item.json.contato, contact_notes: $('Normalizar').item.json.notaContato }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "40d85059-e00a-4336-8c3b-e288fca9117b",
+      "name": "Criar oportunidade?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1320,
+        300
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "1c4fcc91-108d-46d7-a265-46af92dc414e",
+              "leftValue": "={{ $('Normalizar').item.json.criarOportunidade }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "a6d0a984-9747-4edc-a370-f6a7391d02b7",
+      "name": "Criar oportunidade",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1540,
+        220
+      ],
+      "onError": "continueErrorOutput",
+      "credentials": {
+        "httpBearerAuth": {
+          "name": "Directus AgentOS"
+        }
+      },
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Normalizar').item.json.config.directusUrl }}/items/os_deals",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpBearerAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ ...$('Normalizar').item.json.oportunidade, contacts: [{ contacts_id: $json.data.id }] }) }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "6a632c41-0563-4064-8d9a-c3691692aa3e",
+      "name": "Responder 200",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1760,
+        300
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"ok\": true\n}",
+        "options": {
+          "responseCode": 200
+        }
+      }
+    },
+    {
+      "id": "257858ff-a8dc-427e-a97c-fd21fa4e333e",
+      "name": "Responder 502",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1760,
+        560
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"ok\": false,\n  \"erro\": \"falha ao salvar no CRM\"\n}",
+        "options": {
+          "responseCode": 502
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Site: lead e newsletter": {
+      "main": [
+        [
+          {
+            "node": "Normalizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar": {
+      "main": [
+        [
+          {
+            "node": "Dados válidos?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dados válidos?": {
+      "main": [
+        [
+          {
+            "node": "Buscar contato",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder 400",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Buscar contato": {
+      "main": [
+        [
+          {
+            "node": "Contato existe?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder 502",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contato existe?": {
+      "main": [
+        [
+          {
+            "node": "Anotar no contato existente",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Criar contato",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anotar no contato existente": {
+      "main": [
+        [
+          {
+            "node": "Criar oportunidade?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder 502",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar contato": {
+      "main": [
+        [
+          {
+            "node": "Criar oportunidade?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder 502",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar oportunidade?": {
+      "main": [
+        [
+          {
+            "node": "Criar oportunidade",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder 200",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Criar oportunidade": {
+      "main": [
+        [
+          {
+            "node": "Responder 200",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder 502",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": []
+}

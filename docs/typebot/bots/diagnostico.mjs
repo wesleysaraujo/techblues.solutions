@@ -11,8 +11,8 @@ const SITE = 'https://www.techblues.solutions';
 const WHATSAPP = 'https://wa.me/5521986304148?text=' + encodeURIComponent('Olá! Acabei de fazer o diagnóstico no site da Tech Blues.');
 // Substitua pela sua página do Zoho Bookings (ou outro agendador)
 const AGENDA_URL = 'https://bookings.zoho.com/SUBSTITUIR-PELO-SEU-LINK';
-// Substitua pelo webhook do n8n / Zoho CRM que recebe o lead
-const WEBHOOK_URL = 'https://SEU-N8N.exemplo.com/webhook/diagnostico-techblues';
+// URL de produção do webhook do fluxo docs/n8n/lead-site-directus.json
+const WEBHOOK_URL = 'https://SEU-N8N.exemplo.com/webhook/techblues-lead'; // mesmo webhook do site (docs/n8n)
 const MODEL = 'gpt-4o-mini';
 
 const bot = createBot({

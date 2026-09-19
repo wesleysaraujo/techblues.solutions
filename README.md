@@ -1,6 +1,6 @@
 # techblues.solutions
 
-Site institucional da Tech Blues em Astro 5 + Tailwind 4, seguindo o template de `../design/TechBluesSite.pdf` e os tokens de `../docs/design-system/`.
+Site institucional da Tech Blues em Astro 5 + Tailwind 4, seguindo o template de `../design/TechBluesSite.pdf` e os tokens de `docs/design-system/`.
 
 ## Rodar
 
@@ -27,10 +27,10 @@ Para um novo segmento, solução ou produto Zoho basta adicionar um item no arra
 
 A chamada principal do site é **"Diagnosticar meu projeto"** (`cta` em `src/data/site.ts`). Ela leva à seção `#diagnostico`, presente em todas as páginas, e à página `/diagnostico`.
 
-- Com `PUBLIC_TYPEBOT_ID` definido, a seção mostra o chatbot de pré-qualificação do Typebot. O roteiro das perguntas, a pontuação e o envio ao CRM estão em `../docs/typebot-diagnostico.md`.
+- Com `PUBLIC_TYPEBOT_ID` definido, a seção mostra o chatbot de pré-qualificação do Typebot. O roteiro das perguntas, a pontuação e o envio ao CRM estão em `docs/typebot-diagnostico.md`.
 - Sem essa variável, a seção mostra o formulário simples. Ele envia um POST em JSON para `PUBLIC_LEAD_ENDPOINT` ou, se ela também estiver vazia, abre o WhatsApp com a mensagem preenchida.
 
-Veja `.env.example`.
+Os envios vão para um fluxo do n8n que grava no Directus do AgentOS: veja `docs/n8n/README.md`. Veja também `.env.example`.
 
 ## Deploy
 

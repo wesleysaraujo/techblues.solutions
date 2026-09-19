@@ -1,0 +1,360 @@
+{
+    "data": {
+        "contacts": {
+            "contact_notes": {
+                "type": "text",
+                "note": "Notas sobre este contato. Nunca visível para esta pessoa ou sua organização.",
+                "interface": {
+                    "type": "input-rich-text-html"
+                }
+            },
+            "date_created": {
+                "type": "timestamp",
+                "readonly": true,
+                "interface": {
+                    "type": "datetime"
+                }
+            },
+            "date_updated": {
+                "type": "timestamp",
+                "readonly": true,
+                "interface": {
+                    "type": "datetime"
+                }
+            },
+            "email": {
+                "type": "string",
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "first_name": {
+                "type": "string",
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "id": {
+                "type": "uuid",
+                "primary_key": true,
+                "readonly": true,
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "job_title": {
+                "type": "string",
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "last_name": {
+                "type": "string",
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "phone": {
+                "type": "string",
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "status": {
+                "type": "string",
+                "note": "Is this an active contact?",
+                "interface": {
+                    "type": "select-dropdown",
+                    "choices": [
+                        "active",
+                        "archived"
+                    ]
+                }
+            },
+            "user": {
+                "type": "uuid",
+                "note": "Nem todo contato terá login no portal. Esta é a conta de usuário vinculada para este contato.",
+                "interface": {
+                    "type": "select-dropdown-m2o"
+                },
+                "relation": {
+                    "type": "m2o",
+                    "collection": "directus_users"
+                }
+            },
+            "user_created": {
+                "type": "uuid",
+                "readonly": true,
+                "interface": {
+                    "type": "select-dropdown-m2o"
+                }
+            },
+            "user_updated": {
+                "type": "uuid",
+                "readonly": true,
+                "interface": {
+                    "type": "select-dropdown-m2o"
+                }
+            },
+            "activities": {
+                "type": "alias",
+                "interface": {
+                    "type": "list-m2m"
+                },
+                "relation": {
+                    "type": "m2m",
+                    "collection": "os_activities",
+                    "junction": {
+                        "collection": "os_activity_contacts",
+                        "many_field": "contacts_id",
+                        "junction_field": "os_activities_id"
+                    }
+                }
+            },
+            "deals": {
+                "type": "alias",
+                "interface": {
+                    "type": "list-m2m"
+                },
+                "relation": {
+                    "type": "m2m",
+                    "collection": "os_deals",
+                    "junction": {
+                        "collection": "os_deal_contacts",
+                        "many_field": "contacts_id",
+                        "junction_field": "os_deals_id"
+                    }
+                }
+            },
+            "organizations": {
+                "type": "alias",
+                "interface": {
+                    "type": "list-m2m"
+                },
+                "relation": {
+                    "type": "m2m",
+                    "collection": "organizations",
+                    "junction": {
+                        "collection": "organizations_contacts",
+                        "many_field": "contacts_id",
+                        "junction_field": "organizations_id",
+                        "sort_field": "sort"
+                    }
+                }
+            }
+        },
+        "os_deals": {
+            "close_date": {
+                "type": "date",
+                "interface": {
+                    "type": "datetime"
+                }
+            },
+            "date_created": {
+                "type": "timestamp",
+                "readonly": true,
+                "interface": {
+                    "type": "datetime"
+                }
+            },
+            "date_updated": {
+                "type": "timestamp",
+                "readonly": true,
+                "interface": {
+                    "type": "datetime"
+                }
+            },
+            "deal_notes": {
+                "type": "text",
+                "interface": {
+                    "type": "input-rich-text-html"
+                }
+            },
+            "deal_stage": {
+                "type": "uuid",
+                "note": "Etapa de negociação",
+                "interface": {
+                    "type": "select-dropdown-m2o"
+                },
+                "relation": {
+                    "type": "m2o",
+                    "collection": "os_deal_stages"
+                }
+            },
+            "deal_value": {
+                "type": "integer",
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "id": {
+                "type": "uuid",
+                "primary_key": true,
+                "readonly": true,
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "name": {
+                "type": "string",
+                "note": "Nome do projeto em potencial",
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "next_contact_date": {
+                "type": "dateTime",
+                "interface": {
+                    "type": "datetime"
+                }
+            },
+            "organization": {
+                "type": "uuid",
+                "interface": {
+                    "type": "select-dropdown-m2o"
+                },
+                "relation": {
+                    "type": "m2o",
+                    "collection": "organizations"
+                }
+            },
+            "owner": {
+                "type": "uuid",
+                "note": "Quem é o responsável pela venda/assinatura?",
+                "interface": {
+                    "type": "select-dropdown-m2o"
+                },
+                "relation": {
+                    "type": "m2o",
+                    "collection": "directus_users"
+                }
+            },
+            "sort": {
+                "type": "integer",
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "user_created": {
+                "type": "uuid",
+                "readonly": true,
+                "interface": {
+                    "type": "select-dropdown-m2o"
+                }
+            },
+            "user_updated": {
+                "type": "uuid",
+                "readonly": true,
+                "interface": {
+                    "type": "select-dropdown-m2o"
+                }
+            },
+            "description": {
+                "type": "text",
+                "interface": {
+                    "type": "input"
+                }
+            },
+            "system_prompt": {
+                "type": "text",
+                "note": "$t:mcp_prompts_collection_schema.system_prompt_note",
+                "interface": {
+                    "type": "input-rich-text-md"
+                }
+            },
+            "messages": {
+                "type": "json",
+                "note": "$t:mcp_prompts_collection_schema.messages_note",
+                "interface": {
+                    "type": "list"
+                },
+                "fields": {
+                    "role": {
+                        "type": "string",
+                        "required": true,
+                        "note": "$t:mcp_prompts_collection_schema.messages_role_note",
+                        "interface": {
+                            "type": "select-dropdown",
+                            "choices": [
+                                {
+                                    "text": "$t:mcp_prompts_collection_schema.messages_role_user",
+                                    "value": "user",
+                                    "icon": "person"
+                                },
+                                {
+                                    "text": "$t:mcp_prompts_collection_schema.messages_role_assistant",
+                                    "value": "assistant",
+                                    "icon": "smart_toy"
+                                }
+                            ]
+                        }
+                    },
+                    "text": {
+                        "type": "text",
+                        "required": true,
+                        "note": "The actual content of the message. You can use {{ curly_braces }} for placeholders that will be replaced with real data.",
+                        "interface": {
+                            "type": "input-rich-text-md"
+                        }
+                    }
+                }
+            },
+            "activities": {
+                "type": "alias",
+                "interface": {
+                    "type": "list-o2m"
+                },
+                "relation": {
+                    "type": "o2m",
+                    "collection": "os_activities",
+                    "many_field": "deal"
+                }
+            },
+            "proposals": {
+                "type": "alias",
+                "interface": {
+                    "type": "list-o2m"
+                },
+                "relation": {
+                    "type": "o2m",
+                    "collection": "os_proposals",
+                    "many_field": "deal"
+                }
+            },
+            "contacts": {
+                "type": "alias",
+                "interface": {
+                    "type": "list-m2m"
+                },
+                "relation": {
+                    "type": "m2m",
+                    "collection": "contacts",
+                    "junction": {
+                        "collection": "os_deal_contacts",
+                        "many_field": "os_deals_id",
+                        "junction_field": "contacts_id",
+                        "sort_field": "sort"
+                    }
+                }
+            },
+            "product_service_item": {
+                "type": "alias",
+                "interface": {
+                    "type": "list-m2a"
+                },
+                "relation": {
+                    "type": "m2a",
+                    "one_allowed_collections": [
+                        "products_services"
+                    ],
+                    "junction": {
+                        "collection": "os_deals_product_service_item",
+                        "many_field": "os_deals_id",
+                        "junction_field": "item",
+                        "one_collection_field": "collection"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,22 +1,22 @@
 {
   "version": "6.1",
-  "id": "tb05pyh6s19kq",
+  "id": "tb05prqf5esj4",
   "name": "Tech Blues: diagnóstico do projeto",
   "icon": "🧭",
   "events": [
     {
-      "id": "ev05nuypvvhso",
+      "id": "ev05n43ud652o",
       "type": "start",
       "graphCoordinates": {
         "x": -1550,
         "y": 400
       },
-      "outgoingEdgeId": "e05oz0qmcxfu"
+      "outgoingEdgeId": "e05oz2clkx5m"
     }
   ],
   "groups": [
     {
-      "id": "g00sg2s62227",
+      "id": "g00so8a35q5f",
       "title": "Enviar para o CRM",
       "graphCoordinates": {
         "x": 4200,
@@ -24,7 +24,7 @@
       },
       "blocks": [
         {
-          "id": "b00pk16bsva8",
+          "id": "b00pvj8o78j9",
           "type": "Webhook",
           "options": {
             "isCustomBody": true,
@@ -32,10 +32,10 @@
             "timeout": 20,
             "webhook": {
               "method": "POST",
-              "url": "https://SEU-N8N.exemplo.com/webhook/diagnostico-techblues",
+              "url": "https://SEU-N8N.exemplo.com/webhook/techblues-lead",
               "headers": [
                 {
-                  "id": "h00qgbcqqtp2",
+                  "id": "h00q3akou089",
                   "key": "Content-Type",
                   "value": "application/json"
                 }
@@ -45,7 +45,7 @@
           }
         },
         {
-          "id": "b00rw8faxgcn",
+          "id": "b00rvcptq2um",
           "type": "text",
           "content": {
             "richText": [
@@ -63,7 +63,7 @@
       ]
     },
     {
-      "id": "g00u74e5p4kz",
+      "id": "g00u7q5wgkhb",
       "title": "Quente: agendar",
       "graphCoordinates": {
         "x": 3850,
@@ -71,7 +71,7 @@
       },
       "blocks": [
         {
-          "id": "b00tssg1m5r0",
+          "id": "b00tvjtdme4i",
           "type": "text",
           "content": {
             "richText": [
@@ -120,12 +120,12 @@
               }
             ]
           },
-          "outgoingEdgeId": "e00vpgd6aums"
+          "outgoingEdgeId": "e00v89vx6k4v"
         }
       ]
     },
     {
-      "id": "g00xea63jspw",
+      "id": "g00x1th1thdk",
       "title": "Quente: recomendação da I.A",
       "graphCoordinates": {
         "x": 3500,
@@ -133,7 +133,7 @@
       },
       "blocks": [
         {
-          "id": "b00wxfa7z2mn",
+          "id": "b00wi8vig3uj",
           "type": "text",
           "content": {
             "richText": [
@@ -147,12 +147,12 @@
               }
             ]
           },
-          "outgoingEdgeId": "e00ywjaznk0q"
+          "outgoingEdgeId": "e00ys2371bdr"
         }
       ]
     },
     {
-      "id": "g015g3whdb4m",
+      "id": "g015jr4zdism",
       "title": "Quente",
       "graphCoordinates": {
         "x": 3150,
@@ -160,15 +160,15 @@
       },
       "blocks": [
         {
-          "id": "b00z7hv1p39v",
+          "id": "b00z5nunyqqj",
           "type": "Set variable",
           "options": {
-            "variableId": "vtemperatura00kuu1fltmg",
+            "variableId": "vtemperatura00k1tfg94lp",
             "expressionToEvaluate": "\"quente\""
           }
         },
         {
-          "id": "b010tykje71w",
+          "id": "b010kkg59uhw",
           "type": "openai",
           "options": {
             "action": "Create chat completion",
@@ -187,35 +187,35 @@
             "responseMapping": [
               {
                 "item": "Message content",
-                "variableId": "viarecomendacao00ozry9fp60"
+                "variableId": "viarecomendacao00opxorafil"
               }
             ]
           }
         },
         {
-          "id": "b0121207xe3u",
+          "id": "b012tds8gso0",
           "type": "Condition",
           "items": [
             {
-              "id": "i0137cg7keky",
+              "id": "i0132ujxl3et",
               "content": {
                 "comparisons": [
                   {
-                    "id": "c011b3nl23ib",
-                    "variableId": "viarecomendacao00ozry9fp60",
+                    "id": "c0114zj8eo1e",
+                    "variableId": "viarecomendacao00opxorafil",
                     "comparisonOperator": "Is set"
                   }
                 ]
               },
-              "outgoingEdgeId": "e0144ssb3s8s"
+              "outgoingEdgeId": "e014wz4bsynw"
             }
           ],
-          "outgoingEdgeId": "e016lhn8nlth"
+          "outgoingEdgeId": "e01659f8pyuh"
         }
       ]
     },
     {
-      "id": "g019e9cwfior",
+      "id": "g019z7t2y9ij",
       "title": "Morno",
       "graphCoordinates": {
         "x": 3150,
@@ -223,15 +223,15 @@
       },
       "blocks": [
         {
-          "id": "b0170owgbe4t",
+          "id": "b017yjsyeabo",
           "type": "Set variable",
           "options": {
-            "variableId": "vtemperatura00kuu1fltmg",
+            "variableId": "vtemperatura00k1tfg94lp",
             "expressionToEvaluate": "\"morno\""
           }
         },
         {
-          "id": "b0187l70co31",
+          "id": "b0181xnoc1mb",
           "type": "text",
           "content": {
             "richText": [
@@ -262,12 +262,12 @@
               }
             ]
           },
-          "outgoingEdgeId": "e01ar0wtk751"
+          "outgoingEdgeId": "e01aofoz4h26"
         }
       ]
     },
     {
-      "id": "g01cayqkas6h",
+      "id": "g01cmn2qtb9o",
       "title": "Nutrir: conteúdos",
       "graphCoordinates": {
         "x": 3850,
@@ -275,7 +275,7 @@
       },
       "blocks": [
         {
-          "id": "b01blchs5je9",
+          "id": "b01b1xp2f20k",
           "type": "text",
           "content": {
             "richText": [
@@ -351,12 +351,12 @@
               }
             ]
           },
-          "outgoingEdgeId": "e01di0uoykzb"
+          "outgoingEdgeId": "e01d0346qgzp"
         }
       ]
     },
     {
-      "id": "g01gyrhcrtp0",
+      "id": "g01gp13fhqms",
       "title": "Nutrir: pedir e-mail",
       "graphCoordinates": {
         "x": 3500,
@@ -364,7 +364,7 @@
       },
       "blocks": [
         {
-          "id": "b01ecg1jnin3",
+          "id": "b01eo6lnzq1o",
           "type": "text",
           "content": {
             "richText": [
@@ -380,22 +380,22 @@
           }
         },
         {
-          "id": "b01faxt1cnby",
+          "id": "b01fuyh36oq1",
           "type": "email input",
           "options": {
-            "variableId": "vemail00hyt26enyn",
+            "variableId": "vemail00hhbacvezk",
             "labels": {
               "placeholder": "nome@empresa.com.br",
               "button": "Enviar"
             },
             "retryMessageContent": "Esse e-mail não parece válido. Pode conferir?"
           },
-          "outgoingEdgeId": "e01hmqjtjqzd"
+          "outgoingEdgeId": "e01huyk5lu4q"
         }
       ]
     },
     {
-      "id": "g01oxc972eau",
+      "id": "g01o6366wm67",
       "title": "Nutrir",
       "graphCoordinates": {
         "x": 3150,
@@ -403,15 +403,15 @@
       },
       "blocks": [
         {
-          "id": "b01iwgsl1m5c",
+          "id": "b01igrj828iy",
           "type": "Set variable",
           "options": {
-            "variableId": "vtemperatura00kuu1fltmg",
+            "variableId": "vtemperatura00k1tfg94lp",
             "expressionToEvaluate": "\"nutrir\""
           }
         },
         {
-          "id": "b01jonx105oo",
+          "id": "b01jiaua73xv",
           "type": "text",
           "content": {
             "richText": [
@@ -427,29 +427,29 @@
           }
         },
         {
-          "id": "b01ledj3vyxt",
+          "id": "b01lwirdzytt",
           "type": "Condition",
           "items": [
             {
-              "id": "i01m0cr8ngom",
+              "id": "i01marxog4m6",
               "content": {
                 "comparisons": [
                   {
-                    "id": "c01keubukcwx",
-                    "variableId": "vemail00hyt26enyn",
+                    "id": "c01k9xrkf3xu",
+                    "variableId": "vemail00hhbacvezk",
                     "comparisonOperator": "Is empty"
                   }
                 ]
               },
-              "outgoingEdgeId": "e01ni4a9n53m"
+              "outgoingEdgeId": "e01ndf3gmnoh"
             }
           ],
-          "outgoingEdgeId": "e01pf3w1ublx"
+          "outgoingEdgeId": "e01p5mpbi4mb"
         }
       ]
     },
     {
-      "id": "g01sojs8mhnk",
+      "id": "g01sy7pb21ua",
       "title": "Fora do perfil",
       "graphCoordinates": {
         "x": 2500,
@@ -457,15 +457,15 @@
       },
       "blocks": [
         {
-          "id": "b01q9wylkkdw",
+          "id": "b01qlmd5ekrh",
           "type": "Set variable",
           "options": {
-            "variableId": "vtemperatura00kuu1fltmg",
+            "variableId": "vtemperatura00k1tfg94lp",
             "expressionToEvaluate": "\"descartado\""
           }
         },
         {
-          "id": "b01r81i4n20c",
+          "id": "b01rnaukpvrf",
           "type": "text",
           "content": {
             "richText": [
@@ -487,12 +487,12 @@
               }
             ]
           },
-          "outgoingEdgeId": "e01tvtr298iu"
+          "outgoingEdgeId": "e01tmxzeovlb"
         }
       ]
     },
     {
-      "id": "g0216eb3qpc7",
+      "id": "g0219jko6pp4",
       "title": "Classificação",
       "graphCoordinates": {
         "x": 2800,
@@ -500,44 +500,44 @@
       },
       "blocks": [
         {
-          "id": "b01woqs1f8z8",
+          "id": "b01wpz0o01gv",
           "type": "Condition",
           "items": [
             {
-              "id": "i01xn147plun",
+              "id": "i01x3qsqljyg",
               "content": {
                 "comparisons": [
                   {
-                    "id": "c01uihzymx3k",
-                    "variableId": "vscore00i4eoexh1m",
+                    "id": "c01upxfmwgey",
+                    "variableId": "vscore00ixx2sbi0m",
                     "comparisonOperator": "Greater or equal to",
                     "value": "9"
                   }
                 ]
               },
-              "outgoingEdgeId": "e01yau47s12y"
+              "outgoingEdgeId": "e01yws8hsdak"
             },
             {
-              "id": "i01zy1hkq2lm",
+              "id": "i01zd75t6mr7",
               "content": {
                 "comparisons": [
                   {
-                    "id": "c01vl2dld00b",
-                    "variableId": "vscore00i4eoexh1m",
+                    "id": "c01vugfsec0p",
+                    "variableId": "vscore00ixx2sbi0m",
                     "comparisonOperator": "Greater or equal to",
                     "value": "5"
                   }
                 ]
               },
-              "outgoingEdgeId": "e020fgxhrezp"
+              "outgoingEdgeId": "e0200j2g3gl9"
             }
           ],
-          "outgoingEdgeId": "e022pn4m1nwf"
+          "outgoingEdgeId": "e022figdnalw"
         }
       ]
     },
     {
-      "id": "g029gnh7m9nu",
+      "id": "g029jn4eau53",
       "title": "8. Contato",
       "graphCoordinates": {
         "x": 2450,
@@ -545,7 +545,7 @@
       },
       "blocks": [
         {
-          "id": "b023sja4zso5",
+          "id": "b023lx28xcyj",
           "type": "text",
           "content": {
             "richText": [
@@ -561,10 +561,10 @@
           }
         },
         {
-          "id": "b0240z12qqng",
+          "id": "b02404yn8zzc",
           "type": "text input",
           "options": {
-            "variableId": "vempresa00f933f533v",
+            "variableId": "vempresa00f8snqaq7p",
             "isLong": false,
             "labels": {
               "placeholder": "Nome da empresa",
@@ -573,7 +573,7 @@
           }
         },
         {
-          "id": "b025zoe5qghl",
+          "id": "b025ssa4fh2a",
           "type": "text",
           "content": {
             "richText": [
@@ -589,10 +589,10 @@
           }
         },
         {
-          "id": "b026oq5vf59n",
+          "id": "b026pmurx7es",
           "type": "phone number input",
           "options": {
-            "variableId": "vwhatsapp00gr0yj5k5z",
+            "variableId": "vwhatsapp00gyx7gpsd1",
             "defaultCountryCode": "BR",
             "labels": {
               "placeholder": "(21) 99999-9999",
@@ -602,7 +602,7 @@
           }
         },
         {
-          "id": "b0274mzde1yz",
+          "id": "b027d36rzd98",
           "type": "text",
           "content": {
             "richText": [
@@ -618,22 +618,22 @@
           }
         },
         {
-          "id": "b0283imfbfsu",
+          "id": "b0282pzobh36",
           "type": "email input",
           "options": {
-            "variableId": "vemail00hyt26enyn",
+            "variableId": "vemail00hhbacvezk",
             "labels": {
               "placeholder": "nome@empresa.com.br",
               "button": "Enviar"
             },
             "retryMessageContent": "Esse e-mail não parece válido. Pode conferir?"
           },
-          "outgoingEdgeId": "e02anyymxlsz"
+          "outgoingEdgeId": "e02a4p45e6xu"
         }
       ]
     },
     {
-      "id": "g02kgua0z8kc",
+      "id": "g02k787q8l1i",
       "title": "7a. Investimento",
       "graphCoordinates": {
         "x": 2100,
@@ -641,7 +641,7 @@
       },
       "blocks": [
         {
-          "id": "b02bnwh1ya9h",
+          "id": "b02b8r0hejo6",
           "type": "text",
           "content": {
             "richText": [
@@ -657,55 +657,55 @@
           }
         },
         {
-          "id": "b02cijtfwjyp",
+          "id": "b02cdun38n6l",
           "type": "choice input",
           "items": [
             {
-              "id": "i02dv1csgxot",
+              "id": "i02drqx1j8xg",
               "content": "Até R$ 5 mil"
             },
             {
-              "id": "i02e87htaybp",
+              "id": "i02eh7dq0gwb",
               "content": "R$ 5 mil a R$ 20 mil"
             },
             {
-              "id": "i02fhca5uqin",
+              "id": "i02fzgcj25i0",
               "content": "R$ 20 mil a R$ 50 mil"
             },
             {
-              "id": "i02gvhjkkyxv",
+              "id": "i02g2o95fcfj",
               "content": "Acima de R$ 50 mil"
             },
             {
-              "id": "i02hu1hubs6j",
+              "id": "i02hdfzofhzc",
               "content": "Ainda não sei"
             }
           ],
           "options": {
-            "variableId": "vinvestimento00ejflp6y1b"
+            "variableId": "vinvestimento00enatgroqs"
           }
         },
         {
-          "id": "b02i9ho82y63",
+          "id": "b02if4eas1df",
           "type": "Set variable",
           "options": {
-            "variableId": "vpts00jszkqiehn",
+            "variableId": "vpts00jhbsqkg89",
             "expressionToEvaluate": "({\"Até R$ 5 mil\":1,\"R$ 5 mil a R$ 20 mil\":2,\"R$ 20 mil a R$ 50 mil\":3,\"Acima de R$ 50 mil\":3,\"Ainda não sei\":1})[{{investimento}}] ?? 0"
           }
         },
         {
-          "id": "b02jcaen6t57",
+          "id": "b02j3n1b1leg",
           "type": "Set variable",
           "options": {
-            "variableId": "vscore00i4eoexh1m",
+            "variableId": "vscore00ixx2sbi0m",
             "expressionToEvaluate": "{{score}} + {{pts}}"
           },
-          "outgoingEdgeId": "e02lfblm1102"
+          "outgoingEdgeId": "e02lv9l966si"
         }
       ]
     },
     {
-      "id": "g02ulwvwo33w",
+      "id": "g02ujskih06g",
       "title": "7b. Usuários Zoho",
       "graphCoordinates": {
         "x": 2100,
@@ -713,7 +713,7 @@
       },
       "blocks": [
         {
-          "id": "b02mh0o2cu7x",
+          "id": "b02mtlw5uzs4",
           "type": "text",
           "content": {
             "richText": [
@@ -729,51 +729,51 @@
           }
         },
         {
-          "id": "b02nko1y6sw2",
+          "id": "b02n5ibtfm83",
           "type": "choice input",
           "items": [
             {
-              "id": "i02ogd3t1gen",
+              "id": "i02optrv28iv",
               "content": "1 a 5 usuários"
             },
             {
-              "id": "i02pl8zjt1lf",
+              "id": "i02pfs94il69",
               "content": "6 a 20 usuários"
             },
             {
-              "id": "i02qj2id76b8",
+              "id": "i02q2oh4aeff",
               "content": "21 a 50 usuários"
             },
             {
-              "id": "i02rek0bufij",
+              "id": "i02rbhxtrqpf",
               "content": "Mais de 50 usuários"
             }
           ],
           "options": {
-            "variableId": "vinvestimento00ejflp6y1b"
+            "variableId": "vinvestimento00enatgroqs"
           }
         },
         {
-          "id": "b02swa3fqsop",
+          "id": "b02s52yh8xkg",
           "type": "Set variable",
           "options": {
-            "variableId": "vpts00jszkqiehn",
+            "variableId": "vpts00jhbsqkg89",
             "expressionToEvaluate": "({\"1 a 5 usuários\":1,\"6 a 20 usuários\":2,\"21 a 50 usuários\":3,\"Mais de 50 usuários\":3})[{{investimento}}] ?? 0"
           }
         },
         {
-          "id": "b02tg8807vg8",
+          "id": "b02tmnemktyv",
           "type": "Set variable",
           "options": {
-            "variableId": "vscore00i4eoexh1m",
+            "variableId": "vscore00ixx2sbi0m",
             "expressionToEvaluate": "{{score}} + {{pts}}"
           },
-          "outgoingEdgeId": "e02vt3p4s4qx"
+          "outgoingEdgeId": "e02vpclqbo26"
         }
       ]
     },
     {
-      "id": "g030c5q5exft",
+      "id": "g03070xvy09n",
       "title": "7. Investimento (rota)",
       "graphCoordinates": {
         "x": 1800,
@@ -781,30 +781,30 @@
       },
       "blocks": [
         {
-          "id": "b02xhxstkxes",
+          "id": "b02xndhswqh1",
           "type": "Condition",
           "items": [
             {
-              "id": "i02ya97eoetq",
+              "id": "i02yq9adw0n2",
               "content": {
                 "comparisons": [
                   {
-                    "id": "c02wh5swgsd1",
-                    "variableId": "vsegmento002sj66lppg",
+                    "id": "c02w2ywt3ein",
+                    "variableId": "vsegmento00289xmuakm",
                     "comparisonOperator": "Contains",
                     "value": "Zoho"
                   }
                 ]
               },
-              "outgoingEdgeId": "e02zqekfn0ga"
+              "outgoingEdgeId": "e02zo6moiov3"
             }
           ],
-          "outgoingEdgeId": "e0319vxpgkqq"
+          "outgoingEdgeId": "e031kjmszn07"
         }
       ]
     },
     {
-      "id": "g03ah8ulvjj7",
+      "id": "g03apw8hdket",
       "title": "6. Prazo",
       "graphCoordinates": {
         "x": 1450,
@@ -812,7 +812,7 @@
       },
       "blocks": [
         {
-          "id": "b0371ewi9meg",
+          "id": "b03743xuwj9l",
           "type": "text",
           "content": {
             "richText": [
@@ -828,52 +828,52 @@
           }
         },
         {
-          "id": "b032nnx9ibng",
+          "id": "b032qr06z91l",
           "type": "choice input",
           "items": [
             {
-              "id": "i033p1ir47lq",
+              "id": "i033b8lj5ue6",
               "content": "O quanto antes (até 30 dias)"
             },
             {
-              "id": "i034p5ki1lwz",
+              "id": "i0347jcc239c",
               "content": "Em 1 a 3 meses"
             },
             {
-              "id": "i035jz5gwh7x",
+              "id": "i035hzwplqbj",
               "content": "Em 3 a 6 meses"
             },
             {
-              "id": "i0369409kzqj",
+              "id": "i036gi1gycc8",
               "content": "Só estou pesquisando",
-              "outgoingEdgeId": "e03cq1mgmqab"
+              "outgoingEdgeId": "e03c8zk0nm2y"
             }
           ],
           "options": {
-            "variableId": "vprazo00deyhnb100"
+            "variableId": "vprazo00dwjct0vut"
           }
         },
         {
-          "id": "b038blnz8qeq",
+          "id": "b038fsj8u8eb",
           "type": "Set variable",
           "options": {
-            "variableId": "vpts00jszkqiehn",
+            "variableId": "vpts00jhbsqkg89",
             "expressionToEvaluate": "({\"O quanto antes (até 30 dias)\":3,\"Em 1 a 3 meses\":2,\"Em 3 a 6 meses\":1,\"Só estou pesquisando\":0})[{{prazo}}] ?? 0"
           }
         },
         {
-          "id": "b0398vibkr98",
+          "id": "b039m2m8yxwi",
           "type": "Set variable",
           "options": {
-            "variableId": "vscore00i4eoexh1m",
+            "variableId": "vscore00ixx2sbi0m",
             "expressionToEvaluate": "{{score}} + {{pts}}"
           },
-          "outgoingEdgeId": "e03bkxtwnt75"
+          "outgoingEdgeId": "e03bbkcm9t9p"
         }
       ]
     },
     {
-      "id": "g03lgxmp5xer",
+      "id": "g03l8fh3u8hf",
       "title": "5. Triagem com I.A",
       "graphCoordinates": {
         "x": 1100,
@@ -881,15 +881,15 @@
       },
       "blocks": [
         {
-          "id": "b03ds5goof2s",
+          "id": "b03dukm1538h",
           "type": "Set variable",
           "options": {
-            "variableId": "vdesafiotxt00bql0560qm",
+            "variableId": "vdesafiotxt00bocgj6rs3",
             "expressionToEvaluate": "Array.isArray({{desafio}}) ? {{desafio}}.join(\", \") : ({{desafio}} ?? \"\")"
           }
         },
         {
-          "id": "b03ethon0pmx",
+          "id": "b03e9uig79hr",
           "type": "openai",
           "options": {
             "action": "Generate variables",
@@ -898,7 +898,7 @@
             "variablesToExtract": [
               {
                 "type": "enum",
-                "variableId": "viafit00lk19bfrun",
+                "variableId": "viafit00l0ehvw2xy",
                 "values": [
                   "cliente_potencial",
                   "fornecedor_vendendo",
@@ -911,7 +911,7 @@
               },
               {
                 "type": "enum",
-                "variableId": "viacategoria00m20ew1f64",
+                "variableId": "viacategoria00m3mqwwgah",
                 "values": [
                   "Automações com I.A",
                   "Integrações de sistemas",
@@ -926,7 +926,7 @@
               },
               {
                 "type": "string",
-                "variableId": "viaresumo00ndojc8ube",
+                "variableId": "viaresumo00nd5z24mxe",
                 "description": "Resumo de uma frase, em português do Brasil, do que o contato precisa, escrito para o vendedor ler antes da reunião",
                 "isRequired": true
               }
@@ -934,43 +934,43 @@
           }
         },
         {
-          "id": "b03i6edd7j6a",
+          "id": "b03irq6x3ydg",
           "type": "Condition",
           "items": [
             {
-              "id": "i03jnj8ch601",
+              "id": "i03j5gg071w2",
               "content": {
                 "comparisons": [
                   {
-                    "id": "c03fp7bixdtf",
-                    "variableId": "viafit00lk19bfrun",
+                    "id": "c03fcx2c0quj",
+                    "variableId": "viafit00l0ehvw2xy",
                     "comparisonOperator": "Equal to",
                     "value": "fornecedor_vendendo"
                   },
                   {
-                    "id": "c03gtahar956",
-                    "variableId": "viafit00lk19bfrun",
+                    "id": "c03gykiv2vyl",
+                    "variableId": "viafit00l0ehvw2xy",
                     "comparisonOperator": "Equal to",
                     "value": "candidato_emprego"
                   },
                   {
-                    "id": "c03hmxb522b3",
-                    "variableId": "viafit00lk19bfrun",
+                    "id": "c03h6z4yxcxa",
+                    "variableId": "viafit00l0ehvw2xy",
                     "comparisonOperator": "Equal to",
                     "value": "sem_sentido"
                   }
                 ],
                 "logicalOperator": "OR"
               },
-              "outgoingEdgeId": "e03kg8iiu1lv"
+              "outgoingEdgeId": "e03k72cgyozm"
             }
           ],
-          "outgoingEdgeId": "e03m6csz048y"
+          "outgoingEdgeId": "e03m77fuf3sw"
         }
       ]
     },
     {
-      "id": "g03zpyvp9gbo",
+      "id": "g03zwjqhukue",
       "title": "4. Desafio",
       "graphCoordinates": {
         "x": 750,
@@ -978,7 +978,7 @@
       },
       "blocks": [
         {
-          "id": "b03nx206pbzq",
+          "id": "b03ntocyfpjj",
           "type": "text",
           "content": {
             "richText": [
@@ -994,54 +994,54 @@
           }
         },
         {
-          "id": "b03or7lwkzwj",
+          "id": "b03od6h4a8hv",
           "type": "choice input",
           "items": [
             {
-              "id": "i03pyiqydra0",
+              "id": "i03pez2b38ev",
               "content": "Atendimento e WhatsApp sobrecarregados"
             },
             {
-              "id": "i03qqhnvm0q9",
+              "id": "i03qpqp17xyj",
               "content": "Tarefas manuais e retrabalho"
             },
             {
-              "id": "i03rjy41nxcy",
+              "id": "i03rghh0j8pn",
               "content": "Sistemas que não conversam entre si"
             },
             {
-              "id": "i03sf5i0u66h",
+              "id": "i03smqua5o9c",
               "content": "Criar uma plataforma / produto digital"
             },
             {
-              "id": "i03tm7yflrsm",
+              "id": "i03tnxtw0sb6",
               "content": "Nuvem, servidores e segurança"
             },
             {
-              "id": "i03u2pz6xw76",
+              "id": "i03urky8sl6u",
               "content": "Licenças e implantação Zoho"
             },
             {
-              "id": "i03vd9jtkswn",
+              "id": "i03vfwju63fj",
               "content": "Usar I.A no dia a dia do negócio"
             }
           ],
           "options": {
-            "variableId": "vdesafio00as25puczb",
+            "variableId": "vdesafio00ayk1m4t3i",
             "isMultipleChoice": true,
             "buttonLabel": "Continuar"
           }
         },
         {
-          "id": "b03w3ywwwzfa",
+          "id": "b03wxdelxkua",
           "type": "Set variable",
           "options": {
-            "variableId": "vscore00i4eoexh1m",
+            "variableId": "vscore00ixx2sbi0m",
             "expressionToEvaluate": "{{score}} + 2"
           }
         },
         {
-          "id": "b03xgnjppsjh",
+          "id": "b03xn456semy",
           "type": "text",
           "content": {
             "richText": [
@@ -1057,22 +1057,22 @@
           }
         },
         {
-          "id": "b03yodhn999j",
+          "id": "b03yfp1z2cu2",
           "type": "text input",
           "options": {
-            "variableId": "vdescricao00c8fgbvteo",
+            "variableId": "vdescricao00cgldvt14n",
             "isLong": true,
             "labels": {
               "placeholder": "Ex.: perdemos prazos de renovação de contrato porque tudo está no e-mail…",
               "button": "Enviar"
             }
           },
-          "outgoingEdgeId": "e040vkwx6wmu"
+          "outgoingEdgeId": "e040hq0py122"
         }
       ]
     },
     {
-      "id": "g049jjsevodh",
+      "id": "g049nhj7v8dv",
       "title": "3a. Porte (pessoas)",
       "graphCoordinates": {
         "x": 400,
@@ -1080,7 +1080,7 @@
       },
       "blocks": [
         {
-          "id": "b041410zbgvj",
+          "id": "b041pp6bivxc",
           "type": "text",
           "content": {
             "richText": [
@@ -1096,51 +1096,51 @@
           }
         },
         {
-          "id": "b042ojms1qjq",
+          "id": "b0421uyjt42h",
           "type": "choice input",
           "items": [
             {
-              "id": "i043sewygv4h",
+              "id": "i0430wlrdc2g",
               "content": "Só eu"
             },
             {
-              "id": "i044u42ex0bm",
+              "id": "i0447ojf01xl",
               "content": "2 a 10"
             },
             {
-              "id": "i045meltwkn8",
+              "id": "i045ihs6sn38",
               "content": "11 a 50"
             },
             {
-              "id": "i046y3nuu4rg",
+              "id": "i04638opnhl6",
               "content": "Mais de 50"
             }
           ],
           "options": {
-            "variableId": "vporte009gktyrezp"
+            "variableId": "vporte009yq1b6a1x"
           }
         },
         {
-          "id": "b0471t8p2m9s",
+          "id": "b047qe6w2pcx",
           "type": "Set variable",
           "options": {
-            "variableId": "vpts00jszkqiehn",
+            "variableId": "vpts00jhbsqkg89",
             "expressionToEvaluate": "({\"Só eu\":0,\"2 a 10\":1,\"11 a 50\":2,\"Mais de 50\":3})[{{porte}}] ?? 0"
           }
         },
         {
-          "id": "b048hk8s8xz9",
+          "id": "b048stafimzs",
           "type": "Set variable",
           "options": {
-            "variableId": "vscore00i4eoexh1m",
+            "variableId": "vscore00ixx2sbi0m",
             "expressionToEvaluate": "{{score}} + {{pts}}"
           },
-          "outgoingEdgeId": "e04alggzf8sa"
+          "outgoingEdgeId": "e04ak6zzzwq4"
         }
       ]
     },
     {
-      "id": "g04jdsuxzl35",
+      "id": "g04j1aa7avjo",
       "title": "3b. Porte (condomínios)",
       "graphCoordinates": {
         "x": 400,
@@ -1148,7 +1148,7 @@
       },
       "blocks": [
         {
-          "id": "b04b3spyvr8n",
+          "id": "b04bxguh6yha",
           "type": "text",
           "content": {
             "richText": [
@@ -1164,51 +1164,51 @@
           }
         },
         {
-          "id": "b04clpvt1hh1",
+          "id": "b04c2wpibme4",
           "type": "choice input",
           "items": [
             {
-              "id": "i04dw9ahygng",
+              "id": "i04dq8it3ani",
               "content": "1 a 3 condomínios"
             },
             {
-              "id": "i04e5yf7wmks",
+              "id": "i04e0ttp88qi",
               "content": "4 a 10 condomínios"
             },
             {
-              "id": "i04fdsdxmev4",
+              "id": "i04flpbmfn79",
               "content": "11 a 30 condomínios"
             },
             {
-              "id": "i04g5r5dc2ph",
+              "id": "i04gw1flkc4v",
               "content": "Mais de 30 condomínios"
             }
           ],
           "options": {
-            "variableId": "vporte009gktyrezp"
+            "variableId": "vporte009yq1b6a1x"
           }
         },
         {
-          "id": "b04hmsgp8vf6",
+          "id": "b04hdb6wocfk",
           "type": "Set variable",
           "options": {
-            "variableId": "vpts00jszkqiehn",
+            "variableId": "vpts00jhbsqkg89",
             "expressionToEvaluate": "({\"1 a 3 condomínios\":0,\"4 a 10 condomínios\":1,\"11 a 30 condomínios\":2,\"Mais de 30 condomínios\":3})[{{porte}}] ?? 0"
           }
         },
         {
-          "id": "b04iwjmnqr21",
+          "id": "b04inn2646hm",
           "type": "Set variable",
           "options": {
-            "variableId": "vscore00i4eoexh1m",
+            "variableId": "vscore00ixx2sbi0m",
             "expressionToEvaluate": "{{score}} + {{pts}}"
           },
-          "outgoingEdgeId": "e04kv7qq6nuq"
+          "outgoingEdgeId": "e04k9abq0n6d"
         }
       ]
     },
     {
-      "id": "g04pqxwi0aea",
+      "id": "g04prnukk5fg",
       "title": "3. Porte (rota)",
       "graphCoordinates": {
         "x": 100,
@@ -1216,30 +1216,30 @@
       },
       "blocks": [
         {
-          "id": "b04m2814w4i6",
+          "id": "b04mio9pc1z7",
           "type": "Condition",
           "items": [
             {
-              "id": "i04ngk1t1t9l",
+              "id": "i04nnf3bpswn",
               "content": {
                 "comparisons": [
                   {
-                    "id": "c04l816ot9us",
-                    "variableId": "vsegmento002sj66lppg",
+                    "id": "c04l7ptsxxws",
+                    "variableId": "vsegmento00289xmuakm",
                     "comparisonOperator": "Contains",
                     "value": "índico"
                   }
                 ]
               },
-              "outgoingEdgeId": "e04oxdlzi2o6"
+              "outgoingEdgeId": "e04o03f03wmt"
             }
           ],
-          "outgoingEdgeId": "e04qwkgh2du0"
+          "outgoingEdgeId": "e04qe13rii0m"
         }
       ]
     },
     {
-      "id": "g04zc96e4swu",
+      "id": "g04zufxecfj3",
       "title": "2. Papel na decisão",
       "graphCoordinates": {
         "x": -250,
@@ -1247,7 +1247,7 @@
       },
       "blocks": [
         {
-          "id": "b04w3le4s033",
+          "id": "b04wp9mqvkrr",
           "type": "text",
           "content": {
             "richText": [
@@ -1263,52 +1263,52 @@
           }
         },
         {
-          "id": "b04rc83nqjpq",
+          "id": "b04rawue0zp7",
           "type": "choice input",
           "items": [
             {
-              "id": "i04svwt40xz3",
+              "id": "i04syux8kcz5",
               "content": "Sócio / dono / síndico responsável"
             },
             {
-              "id": "i04tlgm87chn",
+              "id": "i04tbleifof1",
               "content": "Gestor da área"
             },
             {
-              "id": "i04u3spqz7sc",
+              "id": "i04uki07jllg",
               "content": "Colaborador levantando opções"
             },
             {
-              "id": "i04vwe6vsi0s",
+              "id": "i04vvd24pan1",
               "content": "Estudante / pesquisa",
-              "outgoingEdgeId": "e051phwhs8a5"
+              "outgoingEdgeId": "e0513bc1e8x7"
             }
           ],
           "options": {
-            "variableId": "vpapel008wlsg8kg2"
+            "variableId": "vpapel008vkqale78"
           }
         },
         {
-          "id": "b04x8uqlqt66",
+          "id": "b04xv1zo4i6n",
           "type": "Set variable",
           "options": {
-            "variableId": "vpts00jszkqiehn",
+            "variableId": "vpts00jhbsqkg89",
             "expressionToEvaluate": "({\"Sócio / dono / síndico responsável\":3,\"Gestor da área\":2,\"Colaborador levantando opções\":1})[{{papel}}] ?? 0"
           }
         },
         {
-          "id": "b04ydg22n5hg",
+          "id": "b04y0mhg3jm7",
           "type": "Set variable",
           "options": {
-            "variableId": "vscore00i4eoexh1m",
+            "variableId": "vscore00ixx2sbi0m",
             "expressionToEvaluate": "{{score}} + {{pts}}"
           },
-          "outgoingEdgeId": "e050niu64ovc"
+          "outgoingEdgeId": "e050t40mfsnx"
         }
       ]
     },
     {
-      "id": "g05alazue1uz",
+      "id": "g05arlr2z1la",
       "title": "1. Segmento",
       "graphCoordinates": {
         "x": -600,
@@ -1316,7 +1316,7 @@
       },
       "blocks": [
         {
-          "id": "b052ij988e6j",
+          "id": "b0527220ds4k",
           "type": "text",
           "content": {
             "richText": [
@@ -1332,43 +1332,43 @@
           }
         },
         {
-          "id": "b053w86fjzno",
+          "id": "b053lv4ujyf7",
           "type": "choice input",
           "items": [
             {
-              "id": "i054eef2zrwo",
+              "id": "i054whlrs08s",
               "content": "Escritório de advocacia"
             },
             {
-              "id": "i055oa6qcwmd",
+              "id": "i055hhie9pu7",
               "content": "Síndico profissional / administradora"
             },
             {
-              "id": "i056zq40lxii",
+              "id": "i0567z3qr1i9",
               "content": "Contabilidade"
             },
             {
-              "id": "i057e2zjtn7p",
+              "id": "i057lfm72ltp",
               "content": "Engenharia / construção"
             },
             {
-              "id": "i058db9p1o8i",
+              "id": "i058hnvnq2oe",
               "content": "Fornecedor para condomínios"
             },
             {
-              "id": "i059hj8453aq",
+              "id": "i059s5d0ohuf",
               "content": "Outro"
             }
           ],
           "options": {
-            "variableId": "vsegmento002sj66lppg"
+            "variableId": "vsegmento00289xmuakm"
           },
-          "outgoingEdgeId": "e05bi44dql70"
+          "outgoingEdgeId": "e05b016d15ef"
         }
       ]
     },
     {
-      "id": "g05gzpxi3b6d",
+      "id": "g05g8coquxxq",
       "title": "1. Segmento (rota)",
       "graphCoordinates": {
         "x": -950,
@@ -1376,29 +1376,29 @@
       },
       "blocks": [
         {
-          "id": "b05doydf7efx",
+          "id": "b05dk1v6fxvk",
           "type": "Condition",
           "items": [
             {
-              "id": "i05e9x0e8l8q",
+              "id": "i05erp39jpkb",
               "content": {
                 "comparisons": [
                   {
-                    "id": "c05cn0c1nbnk",
-                    "variableId": "vsegmento002sj66lppg",
+                    "id": "c05coydcnkn0",
+                    "variableId": "vsegmento00289xmuakm",
                     "comparisonOperator": "Is set"
                   }
                 ]
               },
-              "outgoingEdgeId": "e05fnhlw7zzo"
+              "outgoingEdgeId": "e05foy5uq36r"
             }
           ],
-          "outgoingEdgeId": "e05h9n9sbm9d"
+          "outgoingEdgeId": "e05h6wqq9zjc"
         }
       ]
     },
     {
-      "id": "g05l0wjs3kz9",
+      "id": "g05lbc3xe3br",
       "title": "0. Boas-vindas",
       "graphCoordinates": {
         "x": -1300,
@@ -1406,15 +1406,15 @@
       },
       "blocks": [
         {
-          "id": "b05iigq9zve2",
+          "id": "b05i3e4k01ew",
           "type": "Set variable",
           "options": {
-            "variableId": "vscore00i4eoexh1m",
+            "variableId": "vscore00ixx2sbi0m",
             "expressionToEvaluate": "0"
           }
         },
         {
-          "id": "b05joh5fpbl7",
+          "id": "b05j1us5ei9o",
           "type": "text",
           "content": {
             "richText": [
@@ -1446,434 +1446,434 @@
           }
         },
         {
-          "id": "b05kca52w9xj",
+          "id": "b05ky7xv11au",
           "type": "text input",
           "options": {
-            "variableId": "vnome00783u4zx4t",
+            "variableId": "vnome007mppukjbg",
             "isLong": false,
             "labels": {
               "placeholder": "Seu nome",
               "button": "Enviar"
             }
           },
-          "outgoingEdgeId": "e05mskz4wqp4"
+          "outgoingEdgeId": "e05mj9chkebv"
         }
       ]
     }
   ],
   "edges": [
     {
-      "id": "e00vpgd6aums",
+      "id": "e00v89vx6k4v",
       "from": {
-        "blockId": "b00tssg1m5r0"
+        "blockId": "b00tvjtdme4i"
       },
       "to": {
-        "groupId": "g00sg2s62227"
+        "groupId": "g00so8a35q5f"
       }
     },
     {
-      "id": "e00ywjaznk0q",
+      "id": "e00ys2371bdr",
       "from": {
-        "blockId": "b00wxfa7z2mn"
+        "blockId": "b00wi8vig3uj"
       },
       "to": {
-        "groupId": "g00u74e5p4kz"
+        "groupId": "g00u7q5wgkhb"
       }
     },
     {
-      "id": "e0144ssb3s8s",
+      "id": "e014wz4bsynw",
       "from": {
-        "blockId": "b0121207xe3u",
-        "itemId": "i0137cg7keky"
+        "blockId": "b012tds8gso0",
+        "itemId": "i0132ujxl3et"
       },
       "to": {
-        "groupId": "g00xea63jspw"
+        "groupId": "g00x1th1thdk"
       }
     },
     {
-      "id": "e016lhn8nlth",
+      "id": "e01659f8pyuh",
       "from": {
-        "blockId": "b0121207xe3u"
+        "blockId": "b012tds8gso0"
       },
       "to": {
-        "groupId": "g00u74e5p4kz"
+        "groupId": "g00u7q5wgkhb"
       }
     },
     {
-      "id": "e01ar0wtk751",
+      "id": "e01aofoz4h26",
       "from": {
-        "blockId": "b0187l70co31"
+        "blockId": "b0181xnoc1mb"
       },
       "to": {
-        "groupId": "g00sg2s62227"
+        "groupId": "g00so8a35q5f"
       }
     },
     {
-      "id": "e01di0uoykzb",
+      "id": "e01d0346qgzp",
       "from": {
-        "blockId": "b01blchs5je9"
+        "blockId": "b01b1xp2f20k"
       },
       "to": {
-        "groupId": "g00sg2s62227"
+        "groupId": "g00so8a35q5f"
       }
     },
     {
-      "id": "e01hmqjtjqzd",
+      "id": "e01huyk5lu4q",
       "from": {
-        "blockId": "b01faxt1cnby"
+        "blockId": "b01fuyh36oq1"
       },
       "to": {
-        "groupId": "g01cayqkas6h"
+        "groupId": "g01cmn2qtb9o"
       }
     },
     {
-      "id": "e01ni4a9n53m",
+      "id": "e01ndf3gmnoh",
       "from": {
-        "blockId": "b01ledj3vyxt",
-        "itemId": "i01m0cr8ngom"
+        "blockId": "b01lwirdzytt",
+        "itemId": "i01marxog4m6"
       },
       "to": {
-        "groupId": "g01gyrhcrtp0"
+        "groupId": "g01gp13fhqms"
       }
     },
     {
-      "id": "e01pf3w1ublx",
+      "id": "e01p5mpbi4mb",
       "from": {
-        "blockId": "b01ledj3vyxt"
+        "blockId": "b01lwirdzytt"
       },
       "to": {
-        "groupId": "g01cayqkas6h"
+        "groupId": "g01cmn2qtb9o"
       }
     },
     {
-      "id": "e01tvtr298iu",
+      "id": "e01tmxzeovlb",
       "from": {
-        "blockId": "b01r81i4n20c"
+        "blockId": "b01rnaukpvrf"
       },
       "to": {
-        "groupId": "g00sg2s62227"
+        "groupId": "g00so8a35q5f"
       }
     },
     {
-      "id": "e01yau47s12y",
+      "id": "e01yws8hsdak",
       "from": {
-        "blockId": "b01woqs1f8z8",
-        "itemId": "i01xn147plun"
+        "blockId": "b01wpz0o01gv",
+        "itemId": "i01x3qsqljyg"
       },
       "to": {
-        "groupId": "g015g3whdb4m"
+        "groupId": "g015jr4zdism"
       }
     },
     {
-      "id": "e020fgxhrezp",
+      "id": "e0200j2g3gl9",
       "from": {
-        "blockId": "b01woqs1f8z8",
-        "itemId": "i01zy1hkq2lm"
+        "blockId": "b01wpz0o01gv",
+        "itemId": "i01zd75t6mr7"
       },
       "to": {
-        "groupId": "g019e9cwfior"
+        "groupId": "g019z7t2y9ij"
       }
     },
     {
-      "id": "e022pn4m1nwf",
+      "id": "e022figdnalw",
       "from": {
-        "blockId": "b01woqs1f8z8"
+        "blockId": "b01wpz0o01gv"
       },
       "to": {
-        "groupId": "g01oxc972eau"
+        "groupId": "g01o6366wm67"
       }
     },
     {
-      "id": "e02anyymxlsz",
+      "id": "e02a4p45e6xu",
       "from": {
-        "blockId": "b0283imfbfsu"
+        "blockId": "b0282pzobh36"
       },
       "to": {
-        "groupId": "g0216eb3qpc7"
+        "groupId": "g0219jko6pp4"
       }
     },
     {
-      "id": "e02lfblm1102",
+      "id": "e02lv9l966si",
       "from": {
-        "blockId": "b02jcaen6t57"
+        "blockId": "b02j3n1b1leg"
       },
       "to": {
-        "groupId": "g029gnh7m9nu"
+        "groupId": "g029jn4eau53"
       }
     },
     {
-      "id": "e02vt3p4s4qx",
+      "id": "e02vpclqbo26",
       "from": {
-        "blockId": "b02tg8807vg8"
+        "blockId": "b02tmnemktyv"
       },
       "to": {
-        "groupId": "g029gnh7m9nu"
+        "groupId": "g029jn4eau53"
       }
     },
     {
-      "id": "e02zqekfn0ga",
+      "id": "e02zo6moiov3",
       "from": {
-        "blockId": "b02xhxstkxes",
-        "itemId": "i02ya97eoetq"
+        "blockId": "b02xndhswqh1",
+        "itemId": "i02yq9adw0n2"
       },
       "to": {
-        "groupId": "g02ulwvwo33w"
+        "groupId": "g02ujskih06g"
       }
     },
     {
-      "id": "e0319vxpgkqq",
+      "id": "e031kjmszn07",
       "from": {
-        "blockId": "b02xhxstkxes"
+        "blockId": "b02xndhswqh1"
       },
       "to": {
-        "groupId": "g02kgua0z8kc"
+        "groupId": "g02k787q8l1i"
       }
     },
     {
-      "id": "e03bkxtwnt75",
+      "id": "e03bbkcm9t9p",
       "from": {
-        "blockId": "b0398vibkr98"
+        "blockId": "b039m2m8yxwi"
       },
       "to": {
-        "groupId": "g030c5q5exft"
+        "groupId": "g03070xvy09n"
       }
     },
     {
-      "id": "e03cq1mgmqab",
+      "id": "e03c8zk0nm2y",
       "from": {
-        "blockId": "b032nnx9ibng",
-        "itemId": "i0369409kzqj"
+        "blockId": "b032qr06z91l",
+        "itemId": "i036gi1gycc8"
       },
       "to": {
-        "groupId": "g01oxc972eau"
+        "groupId": "g01o6366wm67"
       }
     },
     {
-      "id": "e03kg8iiu1lv",
+      "id": "e03k72cgyozm",
       "from": {
-        "blockId": "b03i6edd7j6a",
-        "itemId": "i03jnj8ch601"
+        "blockId": "b03irq6x3ydg",
+        "itemId": "i03j5gg071w2"
       },
       "to": {
-        "groupId": "g01sojs8mhnk"
+        "groupId": "g01sy7pb21ua"
       }
     },
     {
-      "id": "e03m6csz048y",
+      "id": "e03m77fuf3sw",
       "from": {
-        "blockId": "b03i6edd7j6a"
+        "blockId": "b03irq6x3ydg"
       },
       "to": {
-        "groupId": "g03ah8ulvjj7"
+        "groupId": "g03apw8hdket"
       }
     },
     {
-      "id": "e040vkwx6wmu",
+      "id": "e040hq0py122",
       "from": {
-        "blockId": "b03yodhn999j"
+        "blockId": "b03yfp1z2cu2"
       },
       "to": {
-        "groupId": "g03lgxmp5xer"
+        "groupId": "g03l8fh3u8hf"
       }
     },
     {
-      "id": "e04alggzf8sa",
+      "id": "e04ak6zzzwq4",
       "from": {
-        "blockId": "b048hk8s8xz9"
+        "blockId": "b048stafimzs"
       },
       "to": {
-        "groupId": "g03zpyvp9gbo"
+        "groupId": "g03zwjqhukue"
       }
     },
     {
-      "id": "e04kv7qq6nuq",
+      "id": "e04k9abq0n6d",
       "from": {
-        "blockId": "b04iwjmnqr21"
+        "blockId": "b04inn2646hm"
       },
       "to": {
-        "groupId": "g03zpyvp9gbo"
+        "groupId": "g03zwjqhukue"
       }
     },
     {
-      "id": "e04oxdlzi2o6",
+      "id": "e04o03f03wmt",
       "from": {
-        "blockId": "b04m2814w4i6",
-        "itemId": "i04ngk1t1t9l"
+        "blockId": "b04mio9pc1z7",
+        "itemId": "i04nnf3bpswn"
       },
       "to": {
-        "groupId": "g04jdsuxzl35"
+        "groupId": "g04j1aa7avjo"
       }
     },
     {
-      "id": "e04qwkgh2du0",
+      "id": "e04qe13rii0m",
       "from": {
-        "blockId": "b04m2814w4i6"
+        "blockId": "b04mio9pc1z7"
       },
       "to": {
-        "groupId": "g049jjsevodh"
+        "groupId": "g049nhj7v8dv"
       }
     },
     {
-      "id": "e050niu64ovc",
+      "id": "e050t40mfsnx",
       "from": {
-        "blockId": "b04ydg22n5hg"
+        "blockId": "b04y0mhg3jm7"
       },
       "to": {
-        "groupId": "g04pqxwi0aea"
+        "groupId": "g04prnukk5fg"
       }
     },
     {
-      "id": "e051phwhs8a5",
+      "id": "e0513bc1e8x7",
       "from": {
-        "blockId": "b04rc83nqjpq",
-        "itemId": "i04vwe6vsi0s"
+        "blockId": "b04rawue0zp7",
+        "itemId": "i04vvd24pan1"
       },
       "to": {
-        "groupId": "g01oxc972eau"
+        "groupId": "g01o6366wm67"
       }
     },
     {
-      "id": "e05bi44dql70",
+      "id": "e05b016d15ef",
       "from": {
-        "blockId": "b053w86fjzno"
+        "blockId": "b053lv4ujyf7"
       },
       "to": {
-        "groupId": "g04zc96e4swu"
+        "groupId": "g04zufxecfj3"
       }
     },
     {
-      "id": "e05fnhlw7zzo",
+      "id": "e05foy5uq36r",
       "from": {
-        "blockId": "b05doydf7efx",
-        "itemId": "i05e9x0e8l8q"
+        "blockId": "b05dk1v6fxvk",
+        "itemId": "i05erp39jpkb"
       },
       "to": {
-        "groupId": "g04zc96e4swu"
+        "groupId": "g04zufxecfj3"
       }
     },
     {
-      "id": "e05h9n9sbm9d",
+      "id": "e05h6wqq9zjc",
       "from": {
-        "blockId": "b05doydf7efx"
+        "blockId": "b05dk1v6fxvk"
       },
       "to": {
-        "groupId": "g05alazue1uz"
+        "groupId": "g05arlr2z1la"
       }
     },
     {
-      "id": "e05mskz4wqp4",
+      "id": "e05mj9chkebv",
       "from": {
-        "blockId": "b05kca52w9xj"
+        "blockId": "b05ky7xv11au"
       },
       "to": {
-        "groupId": "g05gzpxi3b6d"
+        "groupId": "g05g8coquxxq"
       }
     },
     {
-      "id": "e05oz0qmcxfu",
+      "id": "e05oz2clkx5m",
       "from": {
-        "eventId": "ev05nuypvvhso"
+        "eventId": "ev05n43ud652o"
       },
       "to": {
-        "groupId": "g05l0wjs3kz9"
+        "groupId": "g05lbc3xe3br"
       }
     }
   ],
   "variables": [
     {
-      "id": "vorigem001w54atuf5",
+      "id": "vorigem001qnrqcpx7",
       "name": "origem"
     },
     {
-      "id": "vsegmento002sj66lppg",
+      "id": "vsegmento00289xmuakm",
       "name": "segmento"
     },
     {
-      "id": "vpagina00355gynctn",
+      "id": "vpagina003033n0vzo",
       "name": "pagina"
     },
     {
-      "id": "vutmsource0041wybl57d",
+      "id": "vutmsource004l0a1la0p",
       "name": "utm_source"
     },
     {
-      "id": "vutmmedium0050ygrnf27",
+      "id": "vutmmedium005y19n0hax",
       "name": "utm_medium"
     },
     {
-      "id": "vutmcampaign00697xp7nik",
+      "id": "vutmcampaign0068uxts72s",
       "name": "utm_campaign"
     },
     {
-      "id": "vnome00783u4zx4t",
+      "id": "vnome007mppukjbg",
       "name": "nome"
     },
     {
-      "id": "vpapel008wlsg8kg2",
+      "id": "vpapel008vkqale78",
       "name": "papel"
     },
     {
-      "id": "vporte009gktyrezp",
+      "id": "vporte009yq1b6a1x",
       "name": "porte"
     },
     {
-      "id": "vdesafio00as25puczb",
+      "id": "vdesafio00ayk1m4t3i",
       "name": "desafio"
     },
     {
-      "id": "vdesafiotxt00bql0560qm",
+      "id": "vdesafiotxt00bocgj6rs3",
       "name": "desafio_txt"
     },
     {
-      "id": "vdescricao00c8fgbvteo",
+      "id": "vdescricao00cgldvt14n",
       "name": "descricao"
     },
     {
-      "id": "vprazo00deyhnb100",
+      "id": "vprazo00dwjct0vut",
       "name": "prazo"
     },
     {
-      "id": "vinvestimento00ejflp6y1b",
+      "id": "vinvestimento00enatgroqs",
       "name": "investimento"
     },
     {
-      "id": "vempresa00f933f533v",
+      "id": "vempresa00f8snqaq7p",
       "name": "empresa"
     },
     {
-      "id": "vwhatsapp00gr0yj5k5z",
+      "id": "vwhatsapp00gyx7gpsd1",
       "name": "whatsapp"
     },
     {
-      "id": "vemail00hyt26enyn",
+      "id": "vemail00hhbacvezk",
       "name": "email"
     },
     {
-      "id": "vscore00i4eoexh1m",
+      "id": "vscore00ixx2sbi0m",
       "name": "score"
     },
     {
-      "id": "vpts00jszkqiehn",
+      "id": "vpts00jhbsqkg89",
       "name": "pts"
     },
     {
-      "id": "vtemperatura00kuu1fltmg",
+      "id": "vtemperatura00k1tfg94lp",
       "name": "temperatura"
     },
     {
-      "id": "viafit00lk19bfrun",
+      "id": "viafit00l0ehvw2xy",
       "name": "ia_fit"
     },
     {
-      "id": "viacategoria00m20ew1f64",
+      "id": "viacategoria00m3mqwwgah",
       "name": "ia_categoria"
     },
     {
-      "id": "viaresumo00ndojc8ube",
+      "id": "viaresumo00nd5z24mxe",
       "name": "ia_resumo"
     },
     {
-      "id": "viarecomendacao00ozry9fp60",
+      "id": "viarecomendacao00opxorafil",
       "name": "ia_recomendacao"
     }
   ],
@@ -1964,8 +1964,8 @@
       "allowIndexing": false
     }
   },
-  "createdAt": "2026-09-18T17:10:22.594Z",
-  "updatedAt": "2026-09-18T17:10:22.594Z",
+  "createdAt": "2026-09-18T22:16:25.078Z",
+  "updatedAt": "2026-09-18T22:16:25.078Z",
   "folderId": null,
   "publicId": null,
   "customDomain": null,
