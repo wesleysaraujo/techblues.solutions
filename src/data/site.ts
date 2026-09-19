@@ -2,12 +2,12 @@ export const site = {
   name: 'Tech Blues',
   legalName: 'Tech Blues Solutions',
   tagline: 'tecnologia corajosamente disruptiva.',
-  url: 'https://www.techblues.solutions',
+  url: 'https://www.techblues.com.br',
   description:
     'Transformação digital e Inteligência Artificial para escritórios de advocacia, síndicos profissionais, contabilidades, engenharia e fornecedores do mercado condominial. Automações, integrações, plataformas SaaS, infraestrutura cloud e parceiro Zoho.',
   phone: '21 98630-4148',
   phoneE164: '5521986304148',
-  email: 'falecom@techblues.solutions',
+  email: 'falecom@techblues.com.br',
   social: {
     linkedin: 'https://www.linkedin.com/company/techbluessolutions',
     instagram: 'https://www.instagram.com/techbluesautomacoes',

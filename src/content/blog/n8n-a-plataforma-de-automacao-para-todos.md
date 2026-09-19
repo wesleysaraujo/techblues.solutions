@@ -18,7 +18,7 @@ tags: ["ciencias de dados","cloud computing","dados","etl","Integração","maker
 
 <p>N8N (pronuncia-se n-eight-n) ajuda você a conectar qualquer aplicativo com qualquer API e manipular seus dados com pouco ou nenhum código.</p>
 
-<p><em>Referente ao licenciamento é importante esclarecer que embora N8N seja um software Open Source (código aberto), sua licença não é livre, N8N é distribuído por um tipo de licenciamento que se chama <a href="www.techblues.solutions//faircode.io/">Fair-Code</a>, o que eles chamam de código justo, você pode saber mais sobre essa licença no link <a href="www.techblues.solutions//faircode.io/">www.techblues.solutions//faircode.io/</a>, mas basicamente significa que é uma licença grátis porém sustentável, que se sua empresa obtém lucros a partir do uso de uma ferramenta aberta, é justo que ela adquira uma licença paga para contribuir com o projeto.</em></p>
+<p><em>Referente ao licenciamento é importante esclarecer que embora N8N seja um software Open Source (código aberto), sua licença não é livre, N8N é distribuído por um tipo de licenciamento que se chama <a href="https://faircode.io/" target="_blank" rel="noopener nofollow">Fair-Code</a>, o que eles chamam de código justo, você pode saber mais sobre essa licença no link <a href="https://faircode.io/" target="_blank" rel="noopener nofollow">www.techblues.com.br//faircode.io/</a>, mas basicamente significa que é uma licença grátis porém sustentável, que se sua empresa obtém lucros a partir do uso de uma ferramenta aberta, é justo que ela adquira uma licença paga para contribuir com o projeto.</em></p>
 
 <h2>N8N como ETL</h2>
 
@@ -48,7 +48,7 @@ tags: ["ciencias de dados","cloud computing","dados","etl","Integração","maker
 <li>Ou via One Click Install que possibilita instalar o N8N nas nuvens públicas como Digital Ocean, AWS, Heroku e etc&#8230;</li>
 </ul>
 
-<p>Você pode saber mais detalhes de instalação na <a href="www.techblues.solutions//docs.n8n.io/choose-n8n/" target="_blank" rel="noopener nofollow" title="">documentação oficial </a>da plataforma ou caso queira ajuda especializada para configurar seu próprio servidor N8N, fale com a Tech Blues que podemos ajuda-lo.</p>
+<p>Você pode saber mais detalhes de instalação na <a href="https://docs.n8n.io/choose-n8n/" target="_blank" rel="noopener nofollow" title="">documentação oficial </a>da plataforma ou caso queira ajuda especializada para configurar seu próprio servidor N8N, fale com a Tech Blues que podemos ajuda-lo.</p>
 
 <p>Depois de instalar a plataforma, você irá acessar a url local ou do seu servidor e o primeiro passo será cadastrar uma conta de administrador da plataforma.</p>
 

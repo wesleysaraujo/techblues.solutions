@@ -292,7 +292,7 @@
                 "children": [
                   {
                     "type": "a",
-                    "url": "https://www.techblues.solutions/blog/5-passos-para-comecar-a-usar-a-i-a-generativa-no-seu-negocio",
+                    "url": "https://www.techblues.com.br/blog/5-passos-para-comecar-a-usar-a-i-a-generativa-no-seu-negocio",
                     "children": [
                       {
                         "text": "5 passos para começar a usar I.A generativa no seu negócio"
@@ -306,7 +306,7 @@
                 "children": [
                   {
                     "type": "a",
-                    "url": "https://www.techblues.solutions/blog/bpa-automacao-de-processos-de-negocios",
+                    "url": "https://www.techblues.com.br/blog/bpa-automacao-de-processos-de-negocios",
                     "children": [
                       {
                         "text": "BPA: automação de processos de negócio e seus benefícios"
@@ -320,7 +320,7 @@
                 "children": [
                   {
                     "type": "a",
-                    "url": "https://www.techblues.solutions/blog/a-importancia-da-integracao-de-dados-para-sua-empresa",
+                    "url": "https://www.techblues.com.br/blog/a-importancia-da-integracao-de-dados-para-sua-empresa",
                     "children": [
                       {
                         "text": "A importância da integração de dados para sua empresa"
@@ -337,10 +337,10 @@
                   },
                   {
                     "type": "a",
-                    "url": "https://www.techblues.solutions/blog",
+                    "url": "https://www.techblues.com.br/blog",
                     "children": [
                       {
-                        "text": "techblues.solutions/blog"
+                        "text": "techblues.com.br/blog"
                       }
                     ]
                   },
@@ -481,7 +481,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Para outros assuntos (parcerias, fornecedores, currículos), escreva para falecom@techblues.solutions."
+                    "text": "Para outros assuntos (parcerias, fornecedores, currículos), escreva para falecom@techblues.com.br."
                   }
                 ]
               }
@@ -1895,7 +1895,7 @@
       },
       "hostAvatar": {
         "isEnabled": true,
-        "url": "https://www.techblues.solutions/img/techblues-mark-colorida.svg"
+        "url": "https://www.techblues.com.br/img/techblues-mark-colorida.svg"
       },
       "guestAvatar": {
         "isEnabled": false
@@ -1960,7 +1960,7 @@
     "metadata": {
       "title": "Diagnóstico do projeto | Tech Blues",
       "description": "Responda algumas perguntas rápidas e fale com um especialista da Tech Blues.",
-      "favIconUrl": "https://www.techblues.solutions/favicon.svg",
+      "favIconUrl": "https://www.techblues.com.br/favicon.svg",
       "allowIndexing": false
     }
   },

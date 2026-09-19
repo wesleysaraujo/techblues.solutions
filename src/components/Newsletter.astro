@@ -26,7 +26,7 @@ const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? '';
     const status = document.querySelector<HTMLElement>('.nl-status')!;
     const endpoint = form.dataset.endpoint;
     if (!endpoint) {
-      location.href = `mailto:falecom@techblues.solutions?subject=${encodeURIComponent('Quero receber a newsletter')}&body=${encodeURIComponent(`E-mail: ${email}`)}`;
+      location.href = `mailto:falecom@techblues.com.br?subject=${encodeURIComponent('Quero receber a newsletter')}&body=${encodeURIComponent(`E-mail: ${email}`)}`;
       return;
     }
     try {

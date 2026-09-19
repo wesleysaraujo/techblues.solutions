@@ -1,4 +1,4 @@
-Construído a partir do arquivo Figma "TechBlues - Site" (redesign do site institucional) e do site em produção, techblues.solutions. A Tech Blues é uma empresa de tecnologia focada em automação de processos de negócio, com o posicionamento "tecnologia corajosamente disruptiva."
+Construído a partir do arquivo Figma "TechBlues - Site" (redesign do site institucional) e do site em produção, techblues.com.br. A Tech Blues é uma empresa de tecnologia focada em automação de processos de negócio, com o posicionamento "tecnologia corajosamente disruptiva."
 
 ## Fundamentos de conteúdo
 

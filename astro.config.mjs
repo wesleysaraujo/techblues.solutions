@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://www.techblues.solutions',
+  site: 'https://www.techblues.com.br',
   output: 'static',
   trailingSlash: 'ignore',
   integrations: [sitemap()],

@@ -84,7 +84,7 @@ No topo do código do nó **Normalizar** (ou em `gerar-fluxo-lead.mjs`, antes de
 
 ## Segurança
 
-- **CORS:** o webhook só aceita chamadas do navegador vindas de `techblues.solutions` e de `localhost:4321` (opção *Allowed Origins* do nó Webhook).
+- **CORS:** o webhook só aceita chamadas do navegador vindas de `techblues.com.br` e de `localhost:4321` (opção *Allowed Origins* do nó Webhook).
 - **Permissões mínimas:** o token do n8n só consegue ler contatos, criar contatos e oportunidades e acrescentar notas. Nunca apaga nada.
 - **Nenhum segredo no site:** o site só conhece a URL do webhook. O token do Directus fica nas credenciais do n8n (e no `.env` local, que está no `.gitignore`).
 - **Oportunidades repetidas:** cada envio do formulário cria uma oportunidade nova. Se a mesma pessoa enviar duas vezes, o comercial vê as duas no mesmo contato e pode mesclar.

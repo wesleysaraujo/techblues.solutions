@@ -16,7 +16,7 @@
         "path": "techblues-lead",
         "responseMode": "responseNode",
         "options": {
-          "allowedOrigins": "https://www.techblues.solutions,https://techblues.solutions,http://localhost:4321"
+          "allowedOrigins": "https://www.techblues.com.br,https://techblues.com.br,http://localhost:4321"
         }
       }
     },

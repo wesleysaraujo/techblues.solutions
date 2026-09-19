@@ -4,7 +4,7 @@ Este pacote é uma cópia portátil do design system "Tech Blues" (o mesmo conte
 
 ## Em um Projeto do claude.ai
 
-1. Abra (ou crie) o Projeto do techblues.solutions em claude.ai.
+1. Abra (ou crie) o Projeto do techblues.com.br em claude.ai.
 2. Em "Project knowledge", adicione os arquivos deste pacote: `README.md`, `tokens.json` e os `README.md` de cada componente em `components/`.
 3. A partir daí, qualquer conversa dentro do projeto já enxerga as cores, tipografia, espaçamento e regras de cada componente — não precisa colar isso de novo a cada prompt.
 

@@ -11,7 +11,7 @@ import path from 'node:path';
 const alpha = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
 /** Tema padrão da Tech Blues (docs/design-system/tokens.json). */
-export const temaTechBlues = (site = 'https://www.techblues.solutions') => ({
+export const temaTechBlues = (site = 'https://www.techblues.com.br') => ({
   general: {
     font: { type: 'Google', family: 'Open Sans' },
     background: { type: 'Color', content: '#FFFFFF' },
@@ -29,7 +29,7 @@ export const temaTechBlues = (site = 'https://www.techblues.solutions') => ({
 });
 
 /** Configurações padrão em português. */
-export const configuracoesPadrao = ({ title, description, site = 'https://www.techblues.solutions' }) => ({
+export const configuracoesPadrao = ({ title, description, site = 'https://www.techblues.com.br' }) => ({
   general: {
     isBrandingEnabled: false,
     isInputPrefillEnabled: false,

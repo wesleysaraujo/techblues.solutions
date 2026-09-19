@@ -1,4 +1,4 @@
-# techblues.solutions
+# techblues.com.br
 
 Site institucional da Tech Blues em Astro 5 + Tailwind 4, seguindo o template de `../design/TechBluesSite.pdf` e os tokens de `docs/design-system/`.
 

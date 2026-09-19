@@ -7,7 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createBot, configuracoesPadrao } from '../lib/typebot-builder.mjs';
 
-const SITE = 'https://www.techblues.solutions';
+const SITE = 'https://www.techblues.com.br';
 const WHATSAPP = 'https://wa.me/5521986304148?text=' + encodeURIComponent('Olá! Acabei de fazer o diagnóstico no site da Tech Blues.');
 // Substitua pela sua página do Zoho Bookings (ou outro agendador)
 const AGENDA_URL = 'https://bookings.zoho.com/SUBSTITUIR-PELO-SEU-LINK';
@@ -91,7 +91,7 @@ const gNutrirFim = then(group('Nutrir: conteúdos', 3850, 800, [
     [a('5 passos para começar a usar I.A generativa no seu negócio', `${SITE}/blog/5-passos-para-comecar-a-usar-a-i-a-generativa-no-seu-negocio`)],
     [a('BPA: automação de processos de negócio e seus benefícios', `${SITE}/blog/bpa-automacao-de-processos-de-negocios`)],
     [a('A importância da integração de dados para sua empresa', `${SITE}/blog/a-importancia-da-integracao-de-dados-para-sua-empresa`)],
-    ['Todos os artigos ficam em ', a('techblues.solutions/blog', `${SITE}/blog`), '. Quando o projeto amadurecer, é só voltar aqui.'],
+    ['Todos os artigos ficam em ', a('techblues.com.br/blog', `${SITE}/blog`), '. Quando o projeto amadurecer, é só voltar aqui.'],
   ),
 ]), gCrm);
 
@@ -110,7 +110,7 @@ const gDesvio = then(group('Fora do perfil', 2500, 1100, [
   setVar('temperatura', '"descartado"'),
   text(
     'Obrigado pelo contato, {{nome}}! Este canal é para empresas que querem um projeto de tecnologia com a Tech Blues.',
-    'Para outros assuntos (parcerias, fornecedores, currículos), escreva para falecom@techblues.solutions.',
+    'Para outros assuntos (parcerias, fornecedores, currículos), escreva para falecom@techblues.com.br.',
   ),
 ]), gCrm);
 

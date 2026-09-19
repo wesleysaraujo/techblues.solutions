@@ -16,7 +16,7 @@ import { randomUUID } from 'node:crypto';
 
 const DIRECTUS_URL = 'https://techblues.integratudo.com.br';
 const WEBHOOK_PATH = 'techblues-lead';
-const ORIGENS_PERMITIDAS = 'https://www.techblues.solutions,https://techblues.solutions,http://localhost:4321';
+const ORIGENS_PERMITIDAS = 'https://www.techblues.com.br,https://techblues.com.br,http://localhost:4321';
 const CREDENCIAL = { httpBearerAuth: { name: 'Directus AgentOS' } };
 
 // ---------- código do nó "Normalizar" (roda dentro do n8n) ----------

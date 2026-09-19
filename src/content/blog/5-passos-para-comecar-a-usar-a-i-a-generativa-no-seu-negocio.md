@@ -23,7 +23,7 @@ cover: "/img/blog/5-passos-para-comecar-a-usar-a-i-a-generativa-no-seu-negocio.p
 
 <h3>Passo 2: Defina um Caso de Uso</h3>
 
-<p>Definir um caso de uso claro e tangível é o segundo passo. Isso poderia ser qualquer coisa que gere valor para o negócio, como melhorar o atendimento ao cliente com <a href="https://www.techblues.solutions/categoria/automacao-e-integracao/chatbots/" target="_blank" rel="noopener" title="Chatbots">chatbots</a> avançados ou acelerar o desenvolvimento de produtos com design assistido por IA.</p>
+<p>Definir um caso de uso claro e tangível é o segundo passo. Isso poderia ser qualquer coisa que gere valor para o negócio, como melhorar o atendimento ao cliente com <a href="/blog?categoria=Chatbots" title="Chatbots">chatbots</a> avançados ou acelerar o desenvolvimento de produtos com design assistido por IA.</p>
 
 <h3>Passo 3: Estruture um Plano de Implantação</h3>
 
