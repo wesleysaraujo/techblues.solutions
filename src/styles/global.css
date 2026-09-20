@@ -33,6 +33,13 @@
   option {
     @apply bg-white text-cinza-max;
   }
+  /* Grade sem colunas definidas cria uma coluna "auto" que o Safari/WebKit
+     alarga até a largura original das imagens (capas de 1800px estouravam a
+     tela no iPhone). Por padrão, uma coluna que nunca passa do espaço
+     disponível; md:/lg:grid-cols-* continuam valendo por cima. */
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
   body {
     @apply bg-white font-sans text-[15px] leading-relaxed text-cinza-escuro antialiased;
   }

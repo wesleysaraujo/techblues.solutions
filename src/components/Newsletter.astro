@@ -37,6 +37,7 @@ const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? '';
       });
       if (!res.ok) throw new Error();
       form.reset();
+      ((window as any).dataLayer ||= []).push({ event: 'newsletter_inscricao', pagina: location.pathname });
       status.textContent = 'Inscrição confirmada. Obrigado!';
     } catch {
       status.textContent = 'Não foi possível inscrever agora. Tente novamente mais tarde.';

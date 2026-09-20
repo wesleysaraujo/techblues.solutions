@@ -12,6 +12,7 @@ interface Props {
 }
 const { title, description = site.description, image = '/img/og-techblues.png', type = 'website' } = Astro.props;
 const fullTitle = title ? `${title} | Tech Blues` : 'Tech Blues | Transformação Digital e Inteligência Artificial';
+const gtm = import.meta.env.PROD ? site.gtmId : '';
 const canonical = new URL(Astro.url.pathname.replace(/(.+)\/$/, '$1'), site.url).href;
 
 const orgLd = {
@@ -29,6 +30,14 @@ const orgLd = {
 <!doctype html>
 <html lang="pt-BR">
   <head>
+    {
+      gtm && (
+        <script
+          is:inline
+          set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtm}');`}
+        />
+      )
+    }
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
@@ -56,6 +65,13 @@ const orgLd = {
     <slot name="head" />
   </head>
   <body>
+    {
+      gtm && (
+        <noscript>
+          <iframe src={`https://www.googletagmanager.com/ns.html?id=${gtm}`} height="0" width="0" style="display:none;visibility:hidden" />
+        </noscript>
+      )
+    }
     <a href="#conteudo" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-md focus:bg-white focus:p-3">
       Pular para o conteúdo
     </a>
@@ -64,5 +80,20 @@ const orgLd = {
       <slot />
     </main>
     <Footer />
+    <script>
+      // Cliques em qualquer link de WhatsApp viram evento no dataLayer (GTM)
+      document.addEventListener('click', (e) => {
+        const a = (e.target as HTMLElement).closest?.('a[href*="wa.me/"]');
+        if (!a) return;
+        const local = a.closest('header')
+          ? 'topo'
+          : a.closest('footer')
+            ? 'rodape'
+            : a.classList.contains('fixed')
+              ? 'botao_flutuante'
+              : a.closest('section[id]')?.id || 'pagina';
+        ((window as any).dataLayer ||= []).push({ event: 'whatsapp_clique', pagina: location.pathname, local });
+      });
+    </script>
   </body>
 </html>

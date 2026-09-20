@@ -43,6 +43,7 @@ const vars = JSON.stringify({ origem: source, segmento: segment });
         typebot: el.dataset.typebot,
         ...(el.dataset.apiHost ? { apiHost: el.dataset.apiHost } : {}),
         prefilledVariables: vars,
+        onEnd: () => (window.dataLayer ||= []).push({ event: 'diagnostico_concluido', origem: vars.origem }),
       });
     };
     // Carrega o bot só quando a seção se aproxima da tela

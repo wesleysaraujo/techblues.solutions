@@ -32,6 +32,19 @@ A chamada principal do site é **"Diagnosticar meu projeto"** (`cta` em `src/dat
 
 Os envios vão para um fluxo do n8n que grava no Directus do AgentOS: veja `docs/n8n/README.md`. Veja também `.env.example`.
 
+## Google Tag Manager
+
+O container `GTM-5L7CKWGX` (`gtmId` em `src/data/site.ts`) é carregado em todas as páginas, **só no build de produção**: em `npm run dev` ele fica desligado para não sujar os dados.
+
+O site envia estes eventos para o `dataLayer`, prontos para virar gatilhos (*Custom Event*) no GTM:
+
+| Evento | Quando | Parâmetros |
+| --- | --- | --- |
+| `lead_enviado` | formulário enviado | `origem` (seção/página), `canal`: `formulario` (gravou no CRM) ou `whatsapp` (caiu no plano B) |
+| `diagnostico_concluido` | o bot do Typebot chegou ao fim | `origem` |
+| `newsletter_inscricao` | inscrição confirmada | `pagina` |
+| `whatsapp_clique` | clique em qualquer link de WhatsApp | `pagina`, `local`: `topo`, `rodape`, `botao_flutuante` ou o id da seção |
+
 ## Deploy
 
 Pensado para a Vercel (`vercel.json`). O arquivo já traz redirects 301 das URLs do WordPress

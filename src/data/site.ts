@@ -8,6 +8,8 @@ export const site = {
   phone: '21 98630-4148',
   phoneE164: '5521986304148',
   email: 'falecom@techblues.com.br',
+  // Google Tag Manager (carregado só no build de produção)
+  gtmId: 'GTM-5L7CKWGX',
   social: {
     linkedin: 'https://www.linkedin.com/company/techbluessolutions',
     instagram: 'https://www.instagram.com/techbluesautomacoes',
