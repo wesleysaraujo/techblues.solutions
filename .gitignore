@@ -6,3 +6,6 @@ dist/
 !.env.example
 .DS_Store
 .vercel
+
+# gerado por docs/cartao-visitas/gerar-cartao.mjs
+docs/cartao-visitas/cartao.html

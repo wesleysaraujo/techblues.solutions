@@ -16,5 +16,10 @@
     "lucide-static": "^0.460.0",
     "simple-icons": "^13.0.0",
     "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "pdf-lib": "^1.17.1",
+    "puppeteer-core": "^23.11.1",
+    "qrcode": "^1.5.4"
   }
 }
