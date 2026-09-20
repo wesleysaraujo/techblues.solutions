@@ -53,6 +53,12 @@ const columns = [
           </a>
         </li>
         <li>
+          <a href={whatsapp(undefined, site.phone2E164)} target="_blank" rel="noopener" class="flex items-center gap-2 hover:underline">
+            <Icon name="Whatsapp" class="size-4" />
+            {site.phone2}
+          </a>
+        </li>
+        <li>
           <a href={`mailto:${site.email}`} class="flex items-center gap-2 break-all hover:underline">
             <Icon name="Mail" class="size-4 shrink-0" />
             {site.email}

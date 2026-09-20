@@ -7,6 +7,8 @@ export const site = {
     'Transformação digital e Inteligência Artificial para escritórios de advocacia, síndicos profissionais, contabilidades, engenharia e fornecedores do mercado condominial. Automações, integrações, plataformas SaaS, infraestrutura cloud e parceiro Zoho.',
   phone: '21 98630-4148',
   phoneE164: '5521986304148',
+  phone2: '21 97107-6672',
+  phone2E164: '5521971076672',
   email: 'falecom@techblues.com.br',
   // Google Tag Manager (carregado só no build de produção)
   gtmId: 'GTM-5L7CKWGX',
@@ -28,8 +30,8 @@ export const cta = {
   page: '/diagnostico',
 };
 
-export const whatsapp = (text = 'Olá! Vim pelo site da Tech Blues e gostaria de conversar.') =>
-  `https://wa.me/${site.phoneE164}?text=${encodeURIComponent(text)}`;
+export const whatsapp = (text = 'Olá! Vim pelo site da Tech Blues e gostaria de conversar.', numero: string = site.phoneE164) =>
+  `https://wa.me/${numero}?text=${encodeURIComponent(text)}`;
 
 export const nav = [
   { href: '/', label: 'Home' },
