@@ -2,6 +2,12 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "astro",
   "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/lead",
+      "destination": "https://automacoes.integratudo.com.br/webhook/techblues-lead"
+    }
+  ],
   "redirects": [
     {
       "source": "/sobre-a-techblues",

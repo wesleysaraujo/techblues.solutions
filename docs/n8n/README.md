@@ -71,8 +71,8 @@ No topo do código do nó **Normalizar** (ou em `gerar-fluxo-lead.mjs`, antes de
 
 ### 4. Ligar o site e o bot
 
-- Na Vercel, defina `PUBLIC_LEAD_ENDPOINT` com a Production URL e faça um novo deploy. O site não precisa da `DIRECTUS_KEY`: ela é só do n8n.
-- No bot do Typebot, use a mesma URL em `WEBHOOK_URL` (`docs/typebot/bots/diagnostico.mjs`) e gere o JSON de novo.
+- O site usa por padrão o proxy `/api/lead` (definido no `vercel.json` e no `astro.config.mjs`), que repassa as chamadas ao n8n sem problemas de CORS. Na Vercel, `PUBLIC_LEAD_ENDPOINT` pode ser deixado como `/api/lead`. O site não precisa da `DIRECTUS_KEY`: ela é só do n8n.
+- No bot do Typebot, use a URL direta do webhook em `WEBHOOK_URL` (`docs/typebot/bots/diagnostico.mjs`) e gere o JSON de novo.
 
 ## O que o fluxo faz com os dados
 

@@ -10,7 +10,8 @@ interface Props {
 }
 const { source, interestLabel = 'Segmento', interests, submitLabel = 'Enviar' } = Astro.props;
 const options = interests ?? segments.map((s) => s.title).concat('Outro');
-const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? '';
+const rawEndpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? '';
+const endpoint = !rawEndpoint || rawEndpoint === 'https://techblues.integratudo.com.br' ? '/api/lead' : rawEndpoint;
 ---
 
 <form class="lead-form grid gap-2.5 sm:grid-cols-2" data-endpoint={endpoint} data-source={source} data-whatsapp={whatsapp('')}>

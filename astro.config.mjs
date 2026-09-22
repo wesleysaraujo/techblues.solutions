@@ -10,5 +10,14 @@ export default defineConfig({
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      proxy: {
+        '/api/lead': {
+          target: 'https://automacoes.integratudo.com.br',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/lead/, '/webhook/techblues-lead'),
+        },
+      },
+    },
   },
 });
