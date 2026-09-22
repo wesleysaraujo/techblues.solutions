@@ -1,7 +1,8 @@
 ---
 const rawEndpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? '';
-// Se não informado ou se apontar incorretamente para a raiz do Directus, usa o proxy /api/lead
-const endpoint = !rawEndpoint || rawEndpoint === 'https://techblues.integratudo.com.br' ? '/api/lead' : rawEndpoint;
+// O navegador sempre usa o proxy local /api/lead (configurado no vercel.json e vite)
+// para evitar bloqueios de CORS ao chamar o webhook do n8n diretamente.
+const endpoint = rawEndpoint && rawEndpoint.startsWith('/') ? rawEndpoint : '/api/lead';
 ---
 
 <section class="bg-cinza-ea">
