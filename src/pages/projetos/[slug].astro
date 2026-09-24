@@ -4,14 +4,22 @@ import PageHero from '../../components/PageHero.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import Icon from '../../components/Icon.astro';
 import ContactSection from '../../components/ContactSection.astro';
-import { getProject } from '../../data/projects';
+import { projects, type Project } from '../../data/projects';
 import { getSolution } from '../../data/solutions';
 
-const p = getProject('sindiops')!;
+export function getStaticPaths() {
+  return projects.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props as { p: Project };
 const services = p.services.map((s) => getSolution(s)!);
+const outros = projects.filter((o) => o.slug !== p.slug);
+const titulos: Record<string, string> = {
+  sindiops: 'SindiOps: I.A para síndicos profissionais',
+  suiteops: 'SuiteOps: gestão inteligente para quem vende projeto',
+};
 ---
 
-<Base title="SindiOps: I.A para síndicos profissionais" description={p.summary} image={p.cover}>
+<Base title={titulos[p.slug] ?? p.name} description={p.summary} image={p.cover}>
   <PageHero
     title={p.name}
     subtitle={p.kind}
@@ -28,30 +36,34 @@ const services = p.services.map((s) => getSolution(s)!);
         </div>
         <h2 class="mt-4 font-display text-[24px] leading-tight font-black text-cinza-escuro md:text-[34px]">{p.headline}</h2>
         <p class="mt-5 text-[15px]">{p.summary}</p>
-        <p class="mt-3 text-[15px]">
-          O SindiOps nasceu dentro da Tech Blues, da convivência com síndicos profissionais que administram vários
-          condomínios e precisam prestar contas de cada decisão. É incubado pela empresa, que cuida de produto, engenharia,
-          I.A e infraestrutura.
-        </p>
+        <p class="mt-3 text-[15px]">{p.story}</p>
         <p class="mt-5 text-[13px] font-bold text-cinza-escuro uppercase">Feito para</p>
         <ul class="mt-2 flex flex-wrap gap-2">
           {p.audience.map((a) => <li class="tag bg-cinza-claro text-cinza-escuro">{a}</li>)}
         </ul>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href={p.url} target="_blank" rel="noopener" class="btn-laranja">
-            Quero acesso antecipado <Icon name="ExternalLink" class="size-4" />
-          </a>
+          {
+            p.url ? (
+              <a href={p.url} target="_blank" rel="noopener" class="btn-laranja">
+                Quero acesso antecipado <Icon name="ExternalLink" class="size-4" />
+              </a>
+            ) : (
+              <a href="#diagnostico" class="btn-laranja">
+                Quero acompanhar o lançamento
+              </a>
+            )
+          }
           <a href="#funcionalidades" class="btn-contorno">Ver funcionalidades</a>
         </div>
       </div>
-      <img src={p.cover} alt="Painel do SindiOps" class="w-full rounded-md shadow-xl ring-1 ring-cinza-ea" />
+      <img src={p.cover} alt={`Tela do ${p.name}`} class="w-full rounded-md shadow-xl ring-1 ring-cinza-ea" />
     </div>
   </section>
 
   <!-- Funcionalidades -->
   <section id="funcionalidades" class="scroll-mt-24 bg-superficie py-16 md:py-24">
     <div class="container-tb">
-      <SectionTitle eyebrow="Funcionalidades" title="Três rotinas do síndico, resolvidas com fonte" />
+      <SectionTitle eyebrow="Funcionalidades" title={`O que o ${p.name} resolve`} />
       <div class="space-y-12 md:space-y-20">
         {
           p.features.map((f, i) => (
@@ -63,7 +75,12 @@ const services = p.services.map((s) => getSolution(s)!);
                 <h3 class="mt-4 font-display text-[22px] font-black text-cinza-escuro uppercase md:text-[28px]">{f.title}</h3>
                 <p class="mt-3 text-[15px]">{f.text}</p>
               </div>
-              <img src={f.image} alt={`Tela do SindiOps: ${f.title}`} loading="lazy" class="w-full rounded-md bg-white shadow-lg ring-1 ring-cinza-ea" />
+              <img
+                src={f.image}
+                alt={`Tela do ${p.name}: ${f.title}`}
+                loading="lazy"
+                class="w-full rounded-md bg-white shadow-lg ring-1 ring-cinza-ea"
+              />
             </div>
           ))
         }
@@ -86,16 +103,14 @@ const services = p.services.map((s) => getSolution(s)!);
           ))
         }
       </div>
-      <p class="mx-auto mt-10 max-w-2xl text-center text-[13px] opacity-80">
-        O SindiOps é apoio à decisão, não parecer jurídico: quando o assunto pede um advogado, a ferramenta sinaliza.
-      </p>
+      <p class="mx-auto mt-10 max-w-2xl text-center text-[13px] opacity-80">{p.note}</p>
     </div>
   </section>
 
-  <!-- O que a Tech Blues fez -->
+  <!-- O que a Tech Blues faz no produto -->
   <section class="py-16 md:py-24">
     <div class="container-tb">
-      <SectionTitle eyebrow="Bastidores" title="O que a Tech Blues entrega no SindiOps">
+      <SectionTitle eyebrow="Bastidores" title={`O que a Tech Blues entrega no ${p.name}`}>
         <p class="mx-auto mt-4 max-w-2xl text-[15px]">
           As mesmas frentes que oferecemos aos nossos clientes estão por trás do produto. Se funciona para a nossa startup,
           funciona para o seu projeto.
@@ -117,12 +132,34 @@ const services = p.services.map((s) => getSolution(s)!);
     </div>
   </section>
 
+  <!-- Outros projetos -->
+  {
+    outros.length > 0 && (
+      <section class="bg-cinza-claro py-14">
+        <div class="container-tb">
+          <p class="eyebrow mb-6 text-center">Outros projetos</p>
+          <div class="grid gap-4 md:grid-cols-2">
+            {outros.map((o) => (
+              <a href={`/projetos/${o.slug}`} class="card flex items-center gap-4 p-5 transition-transform hover:-translate-y-1">
+                <img src={o.logo} alt="" class="size-10 shrink-0" />
+                <span>
+                  <span class="block text-[15px] font-bold text-cinza-escuro uppercase">{o.name}</span>
+                  <span class="mt-0.5 block text-[13px] leading-snug">{o.summary.slice(0, 110)}…</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   <ContactSection
-    eyebrow="Síndico profissional?"
-    title="Fale com a gente sobre o SindiOps ou sobre o seu próprio produto"
-    source="sindiops"
-    segment="SindiOps"
+    eyebrow={`Interessado no ${p.name}?`}
+    title={`Fale com a gente sobre o ${p.name} ou sobre o seu próprio produto`}
+    source={p.slug}
+    segment={p.name}
     interestLabel="Interesse"
-    interests={['Quero usar o SindiOps', 'Quero desenvolver uma plataforma SaaS', 'Outro assunto']}
+    interests={[`Quero usar o ${p.name}`, 'Quero desenvolver uma plataforma SaaS', 'Outro assunto']}
   />
 </Base>

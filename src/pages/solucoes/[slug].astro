@@ -5,7 +5,7 @@ import SectionTitle from '../../components/SectionTitle.astro';
 import Icon from '../../components/Icon.astro';
 import CheckItem from '../../components/CheckItem.astro';
 import ContactSection from '../../components/ContactSection.astro';
-import SindiOpsHighlight from '../../components/SindiOpsHighlight.astro';
+import ProjetosDestaque from '../../components/ProjetosDestaque.astro';
 import { solutions, type Solution } from '../../data/solutions';
 import { segments } from '../../data/segments';
 import { cta } from '../../data/site';
@@ -84,7 +84,7 @@ const others = solutions.filter((o) => o.slug !== s.slug);
     )
   }
 
-  {s.slug === 'plataformas-saas' && <SindiOpsHighlight />}
+  {s.slug === 'plataformas-saas' && <ProjetosDestaque />}
 
   <section class="py-16">
     <div class="container-tb">

@@ -5,7 +5,7 @@ import SectionTitle from '../../components/SectionTitle.astro';
 import Icon from '../../components/Icon.astro';
 import StatsBar from '../../components/StatsBar.astro';
 import ContactSection from '../../components/ContactSection.astro';
-import SindiOpsHighlight from '../../components/SindiOpsHighlight.astro';
+import ProjetosDestaque from '../../components/ProjetosDestaque.astro';
 import { segments, type Segment } from '../../data/segments';
 import { getSolution } from '../../data/solutions';
 import { cta } from '../../data/site';
@@ -79,7 +79,7 @@ const others = segments.filter((o) => o.slug !== s.slug);
     </div>
   </section>
 
-  {s.highlight?.project === 'sindiops' && <SindiOpsHighlight />}
+  {s.highlight?.project && <ProjetosDestaque slug={s.highlight.project} />}
 
   <!-- Zoho -->
   <section class="bg-cinza-claro py-16">

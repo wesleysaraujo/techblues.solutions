@@ -1,0 +1,103 @@
+---
+import Icon from './Icon.astro';
+import SectionTitle from './SectionTitle.astro';
+import { projects, getProject, type Project } from '../data/projects';
+
+interface Props {
+  /** Um slug destaca só aquele produto (páginas de segmento e de solução). */
+  slug?: string;
+  eyebrow?: string;
+  title?: string;
+}
+const { slug, eyebrow = 'Projetos em destaque', title = 'Produtos que a Tech Blues constrói e opera' } = Astro.props;
+const lista: Project[] = slug ? [getProject(slug)!] : projects;
+const sozinho = lista.length === 1;
+---
+
+<section class="overflow-hidden bg-marinho text-white">
+  <div class="container-tb py-16 md:py-24">
+    {
+      sozinho ? (
+        <p class="eyebrow mb-6 text-laranja!">Projeto destaque</p>
+      ) : (
+        <SectionTitle eyebrow={eyebrow} title={title} light>
+          <p class="mx-auto mt-4 max-w-2xl text-[15px] opacity-90">
+            Antes de vender tecnologia, usamos a nossa. Estes produtos nascem dentro da Tech Blues, resolvendo uma dor que
+            a gente conhece de perto.
+          </p>
+        </SectionTitle>
+      )
+    }
+
+    <div class:list={['grid gap-10', !sozinho && 'lg:grid-cols-2 lg:gap-8']}>
+      {
+        lista.map((p) => (
+          <article class:list={['grid items-center gap-8', sozinho && 'lg:grid-cols-[1fr_1.15fr]']}>
+            <div class:list={[!sozinho && 'order-2']}>
+              <div class="flex items-center gap-3">
+                <img src={p.logo} alt="" class="size-12 rounded-md bg-white p-1.5" />
+                <div>
+                  <h3 class="font-display text-[28px] leading-none font-black md:text-[34px]">{p.name}</h3>
+                  <p class="mt-1 text-[12px] font-bold tracking-wide text-laranja uppercase">{p.kind}</p>
+                </div>
+              </div>
+              <p class:list={['mt-5 font-display leading-tight font-black', sozinho ? 'text-[20px] md:text-[26px]' : 'text-[19px] md:text-[22px]']}>
+                “{p.headline}”
+              </p>
+              <p class="mt-4 text-[15px] opacity-90">{p.summary}</p>
+              {sozinho && (
+                <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+                  {p.principles.map((pr) => (
+                    <li class="flex items-start gap-2 text-[13px]">
+                      <Icon name="CircleCheck" class="mt-0.5 size-4 shrink-0 text-laranja" />
+                      <span>
+                        <strong class="uppercase">{pr.title}.</strong> {pr.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <ul class="mt-5 flex flex-wrap gap-2">
+                {p.audience.map((a) => (
+                  <li class="tag bg-white/15 text-white">{a}</li>
+                ))}
+              </ul>
+              <div class="mt-7 flex flex-wrap gap-3">
+                <a href={`/projetos/${p.slug}`} class="btn-laranja">
+                  Conhecer o {p.name}
+                </a>
+                {p.url && (
+                  <a href={p.url} target="_blank" rel="noopener" class="btn-branco">
+                    Acessar <Icon name="ExternalLink" class="size-4" />
+                  </a>
+                )}
+              </div>
+            </div>
+            <div class:list={['relative', !sozinho && 'order-1']}>
+              <div class="absolute -top-5 -right-5 size-20 rounded-md bg-laranja/90" aria-hidden="true" />
+              <a href={`/projetos/${p.slug}`} class="relative block overflow-hidden rounded-md shadow-2xl ring-1 ring-white/10">
+                {/* recorte igual para os dois: as capturas têm proporções diferentes */}
+                <img
+                  src={p.cover}
+                  alt={`Tela do ${p.name}`}
+                  loading="lazy"
+                  class:list={['w-full object-cover object-top transition-transform duration-300 hover:scale-[1.02]', !sozinho && 'aspect-[16/10]']}
+                />
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    {
+      !sozinho && (
+        <p class="mt-12 text-center text-[14px]">
+          <a href="/projetos" class="font-bold text-laranja uppercase hover:underline">
+            Ver todos os projetos
+          </a>
+        </p>
+      )
+    }
+  </div>
+</section>
