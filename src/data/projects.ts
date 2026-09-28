@@ -156,6 +156,11 @@ export const projects: Project[] = [
         text: 'Cada unidade de negócio tem funil, propostas e permissões próprias. A pessoa enxerga só onde trabalha, e a direção enxerga o consolidado.',
       },
       {
+        icon: 'NotebookPen',
+        title: 'Notas IA',
+        text: 'Notas pessoais inteligentes dentro do próprio sistema: o lugar de registrar o que ainda não virou lead, tarefa ou projeto, com a I.A ajudando a organizar e a reencontrar o que foi escrito.',
+      },
+      {
         icon: 'Bot',
         title: 'I.A que opera dentro do sistema',
         text: 'A I.A não fica num chat à parte: ela registra lead, move estágio, rascunha proposta e cria tarefa dentro do SuiteOps, com as mesmas permissões de quem pediu. Enviar ao cliente continua sendo ato da pessoa.',
