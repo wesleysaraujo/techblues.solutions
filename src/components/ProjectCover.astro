@@ -1,0 +1,42 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props {
+  project: Project;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+}
+const { project: p, class: className = '', loading = 'lazy' } = Astro.props;
+
+// Enquanto um produto não tem print de tela, a capa é um painel tipográfico com
+// as etapas que ele cobre. Melhor um bloco da marca do que um espaço vazio.
+const etapas = p.flow?.map((f) => f.title) ?? p.features.map((f) => f.title);
+---
+
+{
+  p.cover ? (
+    <img src={p.cover} alt={`Tela do ${p.name}`} loading={loading} class:list={['object-cover object-left-top', className]} />
+  ) : (
+    <div
+      class:list={[
+        'relative grid place-items-center overflow-hidden bg-gradient-to-br from-marinho to-azul-profundo p-8 text-white',
+        className,
+      ]}
+    >
+      <div
+        class="absolute -top-10 -right-10 size-40 rounded-full bg-azul-claro/20 blur-2xl"
+        aria-hidden="true"
+      />
+      <div class="relative w-full max-w-sm text-center">
+        <img src={p.logo} alt="" width="56" height="56" class="mx-auto size-14 rounded-md bg-white p-2" />
+        <p class="mt-4 font-display text-[28px] leading-none font-black">{p.name}</p>
+        <p class="mt-2 text-[12px] font-bold tracking-wide text-laranja uppercase">{p.category}</p>
+        <ul class="mt-6 flex flex-wrap justify-center gap-1.5">
+          {etapas.map((e) => (
+            <li class="rounded-tag bg-white/10 px-2.5 py-1 text-[11px] font-bold ring-1 ring-white/15">{e}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}

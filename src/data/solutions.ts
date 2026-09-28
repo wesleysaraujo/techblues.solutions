@@ -78,7 +78,7 @@ export const solutions: Solution[] = [
     short: 'Do MVP ao produto em escala: desenvolvemos plataformas web e mobile para o seu negócio ou para o seu mercado.',
     headline: 'Sua ideia vira produto. Nós já fazemos isso para nós mesmos.',
     intro:
-      'Desenvolvemos plataformas SaaS, portais de clientes e aplicativos com arquitetura pensada para crescer: multiempresa, planos e cobrança, permissões, auditoria e I.A embarcada. É a mesma engenharia que usamos no SindiOps, startup incubada pela Tech Blues.',
+      'Desenvolvemos plataformas SaaS, portais de clientes e aplicativos com arquitetura pensada para crescer: multiempresa, planos e cobrança, permissões, auditoria e I.A embarcada. É a mesma engenharia que usamos no SindiOps e no SuiteOps, os produtos que a Tech Blues incuba.',
     deliverables: [
       {
         title: 'Discovery e MVP',
