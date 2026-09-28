@@ -163,8 +163,11 @@ const comImagem = p.features.every((f) => f.image);
     <div class="container-tb">
       <SectionTitle eyebrow="Bastidores" title={`O que a Tech Blues entrega no ${p.name}`}>
         <p class="mx-auto mt-4 max-w-2xl text-[15px]">
-          As mesmas frentes que oferecemos aos nossos clientes estão por trás do produto. Se funciona para a nossa startup,
-          funciona para o seu projeto.
+          {
+            p.client
+              ? 'As frentes que sustentam este projeto são as mesmas que oferecemos a qualquer cliente. O que foi feito aqui, fazemos para o seu negócio.'
+              : 'As mesmas frentes que oferecemos aos nossos clientes estão por trás do produto. Se funciona para a nossa startup, funciona para o seu projeto.'
+          }
         </p>
       </SectionTitle>
       <div class="grid gap-6 md:grid-cols-3">

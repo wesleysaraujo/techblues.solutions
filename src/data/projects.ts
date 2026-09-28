@@ -2,6 +2,10 @@ export type Project = {
   slug: string;
   name: string;
   logo: string;
+  /** Logo deitado (lockup horizontal): ocupa uma faixa em vez do quadrado */
+  logoWide?: boolean;
+  /** Projeto de cliente, não incubado pela casa. Muda o texto de bastidores */
+  client?: boolean;
   kind: string;
   status: string;
   url?: string;
@@ -176,6 +180,103 @@ export const projects: Project[] = [
       interests: ['Quero usar o SuiteOps', 'Quero desenvolver uma plataforma SaaS', 'Outro assunto'],
     },
   },
+  {
+    slug: 'easysim4u',
+    name: 'EasySIM4U',
+    logo: '/img/easysim4u/logo.svg',
+    logoWide: true,
+    client: true,
+    kind: 'Plataforma desenvolvida para cliente',
+    status: 'Em operação',
+    url: 'https://www.easysim4u.com',
+    urlLabel: 'Visitar a loja',
+    category: 'E-commerce de conectividade',
+    headline: 'Vender o eSIM é a parte fácil. O difícil é entregar, cobrar e saber onde cada pedido parou.',
+    summary:
+      'Loja, checkout e operação de eSIM e chip internacional num sistema só: o viajante compra por destino e período, paga em cartão ou Pix, e a equipe acompanha pagamento, ativação e expedição sem sair do painel.',
+    origin:
+      'O EasySIM4U é cliente da Tech Blues, não um produto incubado. A empresa vende conectividade para quem viaja e nos procurou para construir a plataforma que sustenta a operação: a loja, o checkout, o painel administrativo e o programa de afiliados. A Tech Blues cuida de engenharia, integrações de pagamento e infraestrutura.',
+    audience: ['Viajantes internacionais', 'Agências de viagem', 'Afiliados e parceiros', 'Equipe de operação'],
+    cover: '/img/easysim4u/01-loja.jpg',
+    seoTitle: 'EasySIM4U: e-commerce de eSIM e chip internacional',
+    flowEyebrow: 'Da vitrine à ativação',
+    flowTitle: 'Um pedido atravessa o sistema inteiro sem passar por planilha',
+    flowNote:
+      'Cada etapa alimenta a seguinte: o plano escolhido na loja define o que o checkout cobra, o pagamento confirmado libera a ativação, e a expedição só vê o que é chip físico. É por isso que a equipe não precisa reconciliar sistemas no fim do dia.',
+    flow: [
+      {
+        title: 'Escolha do plano',
+        text: 'O viajante seleciona destino, período e variação (só dados, voz e dados, número local). O preço é calculado por dia, com a cotação do dólar sincronizada.',
+        done: true,
+      },
+      {
+        title: 'Checkout e pagamento',
+        text: 'Cartão via Stripe ou Pix, com cupom, cálculo de frete para chip físico e webhook confirmando o pagamento. O status do pedido muda sozinho quando a cobrança compensa.',
+        done: true,
+      },
+      {
+        title: 'Ativação e expedição',
+        text: 'eSIM sai digital; chip físico entra na fila de expedição com endereço, etiqueta térmica e prazo. Cada pedido carrega o histórico do que foi feito e por quem.',
+        done: true,
+      },
+      {
+        title: 'Pós-venda e recompra',
+        text: 'Carrinho abandonado dispara e-mail de recuperação, o cliente acompanha os próprios pedidos e o afiliado que originou a venda recebe a comissão calculada.',
+        done: true,
+      },
+    ],
+    featuresEyebrow: 'O que foi construído',
+    featuresTitle: 'Uma loja na frente, uma operação inteira atrás',
+    features: [
+      {
+        icon: 'ShoppingCart',
+        title: 'Loja e checkout por destino',
+        text: 'Página de plano com período, variação e preço por dia calculado na hora. Pagamento em cartão ou Pix, cupom de desconto e frete calculado para quem leva chip físico.',
+        image: '/img/easysim4u/02-plano.jpg',
+      },
+      {
+        icon: 'LayoutDashboard',
+        title: 'Painel de operação',
+        text: 'Pedidos do dia, receita, ticket médio e volume mês a mês na mesma tela. Quatro papéis com permissão granular: quem cuida da expedição não enxerga o financeiro.',
+        image: '/img/easysim4u/03-painel.jpg',
+      },
+      {
+        icon: 'Smartphone',
+        title: 'Catálogo de planos e fornecedores',
+        text: 'Planos de eSIM e chip físico por região, com código, preço base, valor por dia e o fornecedor por trás de cada um — T-Mobile, bics, CMHK. Mudança de preço não exige deploy.',
+        image: '/img/easysim4u/04-catalogo.jpg',
+      },
+      {
+        icon: 'Link',
+        title: 'Portal de afiliados',
+        text: 'O parceiro gera o próprio link com UTM, acompanha cliques, conversão e comissão, e vê o que já foi aprovado ou pago. Do outro lado, o admin define a taxa e audita cada venda.',
+        image: '/img/easysim4u/05-afiliados.jpg',
+      },
+      {
+        icon: 'MailCheck',
+        title: 'Recuperação de carrinho',
+        text: 'Carrinho deixado para trás vira lista de remarketing com receita potencial, e-mail automático de recuperação e taxa de recuperação medida. Venda perdida deixa de ser invisível.',
+        image: '/img/easysim4u/06-remarketing.jpg',
+      },
+    ],
+    principlesTitle: 'Engenharia que a operação consegue auditar',
+    principles: [
+      { title: 'Cada acesso no seu lugar', text: 'Quatro papéis com permissão por recurso, e um registro de atividade que mostra quem alterou o quê.' },
+      { title: 'Pagamento rastreável', text: 'Webhook do Stripe move o status do pedido. O que o sistema mostra é o que a operadora de pagamento confirmou.' },
+      { title: 'LGPD desde o início', text: 'Consentimento de cookies, base legal mapeada e dado pessoal tratado como dado pessoal, não como coluna de tabela.' },
+      { title: 'Preço sem deploy', text: 'Plano, cupom, frete e cotação mudam pelo painel. Ajuste comercial não depende da agenda do time técnico.' },
+    ],
+    note: 'Os números e nomes que aparecem nas telas deste case foram substituídos por dados fictícios: a operação real do cliente não é exposta aqui.',
+    services: ['plataformas-saas', 'integracoes', 'infraestrutura-cloud'],
+    cta: {
+      eyebrow: 'Vende online e a operação vive em planilha?',
+      title: 'Fale com a gente sobre o seu e-commerce ou a sua plataforma',
+      source: 'easysim4u',
+      segment: 'EasySIM4U',
+      interests: ['Quero uma plataforma de e-commerce', 'Quero desenvolver uma plataforma SaaS', 'Outro assunto'],
+    },
+  },
 ];
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
+

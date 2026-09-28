@@ -11,7 +11,7 @@ import { projects } from '../../data/projects';
 
 <Base
   title="Projetos em destaque"
-  description="Produtos e plataformas incubados pela Tech Blues: o SindiOps, I.A para síndicos profissionais, e o SuiteOps, plataforma de operação para negócios de serviço."
+  description="Projetos em destaque da Tech Blues: o EasySIM4U, e-commerce de conectividade para viajantes, e os produtos incubados pela casa — SindiOps e SuiteOps."
 >
   <PageHero title="Projetos em destaque" crumbs={[{ href: '/', label: 'Home' }, { label: 'Projetos' }]} />
 
@@ -19,12 +19,12 @@ import { projects } from '../../data/projects';
     <div class="container-tb">
       <SectionTitle eyebrow="Do papel para o mercado" title="Tecnologia que a gente constrói e coloca para rodar">
         <p class="mx-auto mt-4 max-w-2xl text-[15px]">
-          Além dos projetos para clientes, a Tech Blues incuba produtos próprios. É onde testamos, na pele, a mesma
-          engenharia e a mesma I.A que entregamos para você.
+          Plataformas que construímos para clientes e produtos que a Tech Blues incuba por conta própria. Em todos, a
+          mesma engenharia e a mesma I.A que entregamos para você.
         </p>
       </SectionTitle>
 
-      <Carousel label="Projetos incubados pela Tech Blues">
+      <Carousel label="Projetos em destaque da Tech Blues" autoplay={6000}>
         {
           projects.map((p, i) => (
             <div data-slide class="w-full shrink-0 snap-start px-0.5 pb-2">
@@ -39,7 +39,13 @@ import { projects } from '../../data/projects';
                     <span class="tag bg-azul text-white">{p.status}</span>
                   </div>
                   <div class="mt-4 flex items-center gap-3">
-                    <img src={p.logo} alt="" width="40" height="40" class="size-10" />
+                    <img
+                      src={p.logo}
+                      alt=""
+                      width="40"
+                      height="40"
+                      class:list={[p.logoWide ? 'h-10 w-auto max-w-[150px] object-contain' : 'size-10']}
+                    />
                     <h2 class="font-display text-[30px] font-black text-cinza-escuro">{p.name}</h2>
                   </div>
                   <p class="mt-1 text-[13px] font-bold text-azul uppercase">{p.category}</p>

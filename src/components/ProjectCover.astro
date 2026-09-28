@@ -28,7 +28,16 @@ const etapas = p.flow?.map((f) => f.title) ?? p.features.map((f) => f.title);
         aria-hidden="true"
       />
       <div class="relative w-full max-w-sm text-center">
-        <img src={p.logo} alt="" width="56" height="56" class="mx-auto size-14 rounded-md bg-white p-2" />
+        <img
+          src={p.logo}
+          alt=""
+          width="56"
+          height="56"
+          class:list={[
+            'mx-auto rounded-md bg-white p-2',
+            p.logoWide ? 'h-14 w-auto max-w-[220px] object-contain px-3' : 'size-14',
+          ]}
+        />
         <p class="mt-4 font-display text-[28px] leading-none font-black">{p.name}</p>
         <p class="mt-2 text-[12px] font-bold tracking-wide text-laranja uppercase">{p.category}</p>
         <ul class="mt-6 flex flex-wrap justify-center gap-1.5">
