@@ -7,13 +7,17 @@ interface Props {
   /** Sobre fundo escuro, os controles invertem */
   theme?: 'light' | 'dark';
   class?: string;
+  /** Autoplay em milissegundos ou true para padrão (5000ms) */
+  autoplay?: boolean | number;
 }
-const { label, theme = 'light', class: className = '' } = Astro.props;
+const { label, theme = 'light', class: className = '', autoplay = false } = Astro.props;
 
 const botao =
   theme === 'dark'
     ? 'border-white/40 text-white hover:bg-white hover:text-marinho disabled:opacity-25'
     : 'border-azul/30 bg-white text-azul hover:bg-azul hover:text-white disabled:opacity-25';
+
+const autoplayDelay = typeof autoplay === 'number' ? autoplay : autoplay ? 5000 : null;
 ---
 
 <!--
@@ -26,6 +30,7 @@ const botao =
   class:list={['relative', className]}
   data-carousel
   data-carousel-theme={theme}
+  data-carousel-autoplay={autoplayDelay}
   role="group"
   aria-roledescription="carrossel"
   aria-label={label}
@@ -70,9 +75,33 @@ const botao =
     const corDoPonto = root.dataset.carouselTheme === 'dark' ? 'bg-white' : 'bg-azul';
     controls.hidden = false;
 
+    const autoplayDelay = Number(root.dataset.carouselAutoplay) || 0;
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    const pararAutoplay = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+
+    const iniciarAutoplay = () => {
+      if (autoplayDelay <= 0) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      pararAutoplay();
+      timer = setInterval(() => {
+        const proximo = (atual + 1) % slides.length;
+        irPara(proximo);
+      }, autoplayDelay);
+    };
+
     const irPara = (i: number) => {
       const alvo = slides[Math.max(0, Math.min(slides.length - 1, i))];
       if (alvo) track.scrollTo({ left: alvo.offsetLeft - slides[0].offsetLeft, behavior: 'smooth' });
+      if (autoplayDelay > 0) {
+        pararAutoplay();
+        iniciarAutoplay();
+      }
     };
 
     const botoes = slides.map((_, i) => {
@@ -112,6 +141,18 @@ const botao =
 
     prev.addEventListener('click', () => irPara(atual - 1));
     next.addEventListener('click', () => irPara(atual + 1));
+
+    if (autoplayDelay > 0) {
+      iniciarAutoplay();
+      root.addEventListener('mouseenter', pararAutoplay);
+      root.addEventListener('mouseleave', iniciarAutoplay);
+      root.addEventListener('focusin', pararAutoplay);
+      root.addEventListener('focusout', iniciarAutoplay);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) pararAutoplay();
+        else iniciarAutoplay();
+      });
+    }
 
     pintar();
   };

@@ -16,10 +16,10 @@ const lista = only ? projects.filter((p) => only.includes(p.slug)) : projects;
   <div class="container-tb py-16 md:py-24">
     <p class="eyebrow mb-6 text-laranja!">{lista.length > 1 ? 'Projetos destaque' : 'Projeto destaque'}</p>
 
-    <Carousel label="Projetos incubados pela Tech Blues" theme="dark">
+    <Carousel label="Projetos incubados pela Tech Blues" theme="dark" autoplay={6000}>
       {
         lista.map((p, i) => (
-          <article data-slide class="w-full min-w-full shrink-0 snap-start">
+          <article data-slide class="w-full min-w-full shrink-0 snap-start overflow-hidden">
             {/* minmax(0,…): sem isso a coluna adota a largura intrínseca do print e estoura o slide */}
             <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
               <div>
@@ -44,13 +44,17 @@ const lista = only ? projects.filter((p) => only.includes(p.slug)) : projects;
                 </ul>
                 <div class="mt-8 flex flex-wrap gap-3">
                   <a href={`/projetos/${p.slug}`} class="btn-laranja">Conheça o case</a>
-                  <a href={p.url} target="_blank" rel="noopener" class="btn-branco">
-                    {p.urlLabel} <Icon name="ExternalLink" class="size-4" />
-                  </a>
+                  {
+                    p.url && p.urlLabel && (
+                      <a href={p.url} target="_blank" rel="noopener" class="btn-branco">
+                        {p.urlLabel} <Icon name="ExternalLink" class="size-4" />
+                      </a>
+                    )
+                  }
                 </div>
               </div>
-              <div class="relative">
-                <div class="absolute -top-6 -right-6 size-24 rounded-md bg-laranja/90" aria-hidden="true" />
+              <div class="relative pt-6 pr-6">
+                <div class="absolute top-0 right-0 size-24 rounded-md bg-laranja/90" aria-hidden="true" />
                 <ProjectCover
                   project={p}
                   loading={i === 0 ? 'eager' : 'lazy'}

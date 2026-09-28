@@ -4,9 +4,9 @@ export type Project = {
   logo: string;
   kind: string;
   status: string;
-  url: string;
+  url?: string;
   /** Rótulo do botão que leva ao produto */
-  urlLabel: string;
+  urlLabel?: string;
   /** A categoria do sistema, em duas ou três palavras. Aparece como selo e no <title> */
   category: string;
   headline: string;
@@ -102,20 +102,19 @@ export const projects: Project[] = [
     logo: '/img/suiteops/logo.svg',
     kind: 'Plataforma incubada pela Tech Blues',
     status: 'Em operação',
-    url: 'https://app.suiteops.techblues.com.br',
-    urlLabel: 'Acessar o SuiteOps',
     category: 'Plataforma de operação',
     headline: 'O CRM registra a venda. E o que acontece depois que o cliente assina?',
     summary:
-      'O SuiteOps é a plataforma que opera o negócio de serviços de ponta a ponta: funil, proposta, contrato, projeto, tarefa e cobrança num fluxo só. Não é mais um CRM ao lado do sistema de projetos e da planilha do financeiro. É o sistema onde a operação inteira acontece.',
+      'O SuiteOps é a plataforma que opera o negócio de serviços de ponta a ponta: funil, proposta, contrato, projeto e tarefas num fluxo só. Não é mais um CRM ao lado de ferramentas de projetos e planilhas avulsas. É o sistema onde a operação inteira acontece.',
     origin:
-      'O SuiteOps nasceu da própria operação da Tech Blues: um negócio de serviços que vendia num CRM, entregava numa ferramenta de projetos e cobrava numa planilha, perdendo o fio da meada a cada troca de sistema. É incubado pela empresa, que cuida de produto, engenharia, I.A e infraestrutura.',
+      'O SuiteOps nasceu da própria operação da Tech Blues: um negócio de serviços que vendia num CRM e entregava em ferramentas de projetos à parte, perdendo o fio da meada a cada troca de sistema. É incubado pela empresa, que cuida de produto, engenharia, I.A e infraestrutura.',
     audience: ['Empresas de serviço', 'Agências e consultorias', 'Escritórios técnicos', 'Operações multiunidade'],
+    cover: '/img/suiteops/01-painel.jpg',
     seoTitle: 'SuiteOps: plataforma de operação para negócios de serviço',
     flowEyebrow: 'Além do CRM',
-    flowTitle: 'Um ciclo fechado, do primeiro contato ao último pagamento',
+    flowTitle: 'Um ciclo fechado, do primeiro contato à entrega do projeto',
     flowNote:
-      'Cada etapa entrega a próxima: a proposta aceita abre o projeto, a tarefa concluída alimenta a fatura. É por isso que ninguém precisa redigitar nada entre um sistema e outro.',
+      'Cada etapa entrega a próxima: o lead vira proposta, a proposta aceita abre o projeto e desdobra as tarefas. É por isso que ninguém precisa redigitar nada entre um sistema e outro.',
     flow: [
       {
         title: 'Funil e relacionamento',
@@ -132,10 +131,6 @@ export const projects: Project[] = [
         text: 'A proposta aceita vira projeto a partir de um template, com tarefas, responsáveis, prazos, comentários, arquivos e atualizações de andamento para o cliente.',
         done: true,
       },
-      {
-        title: 'Financeiro',
-        text: 'Faturas com itens e condições de pagamento, recebimentos e despesas ligados ao projeto que os gerou. O resultado por projeto deixa de ser estimativa.',
-      },
     ],
     featuresEyebrow: 'O que torna o SuiteOps diferente',
     featuresTitle: 'Não é integração entre sistemas. É um sistema só',
@@ -144,26 +139,25 @@ export const projects: Project[] = [
         icon: 'Workflow',
         title: 'Automações que você simula antes de ativar',
         text: 'Regras de gatilho, condição e ação montadas por você. Toda automação nasce inativa: primeiro você simula e vê o que ela faria, depois ativa. Cada execução fica registrada.',
+        image: '/img/suiteops/05-automacoes.jpg',
       },
       {
-        icon: 'FileSearch',
-        title: 'Histórico com a fonte de cada afirmação',
-        text: 'O resumo de um negócio não é um texto solto: cada fato vem com o trecho que o prova, seja um e-mail, uma anotação ou um registro de contato. O que ninguém disse, o sistema não completa.',
+        icon: 'Kanban',
+        title: 'Quadro de tarefas e entregas',
+        text: 'Visualização kanban das tarefas da operação por estágio, prazos e responsáveis. As entregas ficam vinculadas ao projeto sem retrabalho de cadastro.',
+        image: '/img/suiteops/03-tarefas.jpg',
       },
       {
-        icon: 'Building2',
-        title: 'Multiunidade de verdade',
-        text: 'Cada unidade de negócio tem funil, propostas e permissões próprias. A pessoa enxerga só onde trabalha, e a direção enxerga o consolidado.',
+        icon: 'LayoutDashboard',
+        title: 'Cockpit de projeto e consumo de escopo',
+        text: 'Horas apontadas versus vendidas, status das entregas e auditoria de margem com comandos MCP integrados para acompanhamento contínuo.',
+        image: '/img/suiteops/02-projeto.jpg',
       },
       {
         icon: 'NotebookPen',
         title: 'Notas IA',
         text: 'Notas pessoais inteligentes dentro do próprio sistema: o lugar de registrar o que ainda não virou lead, tarefa ou projeto, com a I.A ajudando a organizar e a reencontrar o que foi escrito.',
-      },
-      {
-        icon: 'Bot',
-        title: 'I.A que opera dentro do sistema',
-        text: 'A I.A não fica num chat à parte: ela registra lead, move estágio, rascunha proposta e cria tarefa dentro do SuiteOps, com as mesmas permissões de quem pediu. Enviar ao cliente continua sendo ato da pessoa.',
+        image: '/img/suiteops/06-notas.jpg',
       },
     ],
     principlesTitle: 'Um sistema que você audita',
@@ -175,7 +169,7 @@ export const projects: Project[] = [
     ],
     services: ['plataformas-saas', 'automacoes', 'infraestrutura-cloud'],
     cta: {
-      eyebrow: 'Sua operação vive em três sistemas?',
+      eyebrow: 'Sua operação vive em sistemas separados?',
       title: 'Fale com a gente sobre o SuiteOps ou sobre a sua própria plataforma',
       source: 'suiteops',
       segment: 'SuiteOps',
