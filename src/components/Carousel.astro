@@ -1,0 +1,161 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  /** Nome do carrossel para leitores de tela */
+  label: string;
+  /** Sobre fundo escuro, os controles invertem */
+  theme?: 'light' | 'dark';
+  class?: string;
+  /** Autoplay em milissegundos ou true para padrão (5000ms) */
+  autoplay?: boolean | number;
+}
+const { label, theme = 'light', class: className = '', autoplay = false } = Astro.props;
+
+const botao =
+  theme === 'dark'
+    ? 'border-white/40 text-white hover:bg-white hover:text-marinho disabled:opacity-25'
+    : 'border-azul/30 bg-white text-azul hover:bg-azul hover:text-white disabled:opacity-25';
+
+const autoplayDelay = typeof autoplay === 'number' ? autoplay : autoplay ? 5000 : null;
+---
+
+<!--
+  Carrossel de rolagem nativa: o track é um scroller com scroll-snap, então
+  arrastar no celular já funciona sem JS. Os botões e os pontos são um extra
+  para o desktop, e só aparecem quando há mais de um slide.
+  Cada filho do slot precisa ter o atributo data-slide.
+-->
+<div
+  class:list={['relative', className]}
+  data-carousel
+  data-carousel-theme={theme}
+  data-carousel-autoplay={autoplayDelay}
+  role="group"
+  aria-roledescription="carrossel"
+  aria-label={label}
+>
+  <div class="no-scrollbar flex snap-x snap-mandatory scroll-smooth overflow-x-auto" data-carousel-track>
+    <slot />
+  </div>
+
+  <div class="mt-6 flex items-center justify-center gap-4" data-carousel-controls hidden>
+    <button
+      type="button"
+      data-carousel-prev
+      aria-label="Item anterior"
+      class:list={['grid size-10 shrink-0 place-items-center rounded-full border transition-colors', botao]}
+    >
+      <Icon name="ArrowLeft" class="size-4" />
+    </button>
+
+    <div class="flex items-center gap-2" data-carousel-dots></div>
+
+    <button
+      type="button"
+      data-carousel-next
+      aria-label="Próximo item"
+      class:list={['grid size-10 shrink-0 place-items-center rounded-full border transition-colors', botao]}
+    >
+      <Icon name="ArrowRight" class="size-4" />
+    </button>
+  </div>
+</div>
+
+<script>
+  const init = (root: HTMLElement) => {
+    const track = root.querySelector<HTMLElement>('[data-carousel-track]');
+    const controls = root.querySelector<HTMLElement>('[data-carousel-controls]');
+    const dots = root.querySelector<HTMLElement>('[data-carousel-dots]');
+    const prev = root.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-carousel-next]');
+    const slides = Array.from(track?.querySelectorAll<HTMLElement>('[data-slide]') ?? []);
+    if (!track || !controls || !dots || !prev || !next || slides.length < 2) return;
+
+    const corDoPonto = root.dataset.carouselTheme === 'dark' ? 'bg-white' : 'bg-azul';
+    controls.hidden = false;
+
+    const autoplayDelay = Number(root.dataset.carouselAutoplay) || 0;
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    const pararAutoplay = () => {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+
+    const iniciarAutoplay = () => {
+      if (autoplayDelay <= 0) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      pararAutoplay();
+      timer = setInterval(() => {
+        const proximo = (atual + 1) % slides.length;
+        irPara(proximo);
+      }, autoplayDelay);
+    };
+
+    const irPara = (i: number) => {
+      const alvo = slides[Math.max(0, Math.min(slides.length - 1, i))];
+      if (alvo) track.scrollTo({ left: alvo.offsetLeft - slides[0].offsetLeft, behavior: 'smooth' });
+      if (autoplayDelay > 0) {
+        pararAutoplay();
+        iniciarAutoplay();
+      }
+    };
+
+    const botoes = slides.map((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', `Ir para o item ${i + 1} de ${slides.length}`);
+      b.className = `h-2 rounded-full transition-all ${corDoPonto}`;
+      b.addEventListener('click', () => irPara(i));
+      dots.append(b);
+      return b;
+    });
+
+    let atual = 0;
+    const pintar = () => {
+      botoes.forEach((b, i) => {
+        b.classList.toggle('w-6', i === atual);
+        b.classList.toggle('w-2', i !== atual);
+        b.classList.toggle('opacity-100', i === atual);
+        b.classList.toggle('opacity-40', i !== atual);
+        b.setAttribute('aria-current', i === atual ? 'true' : 'false');
+      });
+      prev.disabled = atual === 0;
+      next.disabled = atual === slides.length - 1;
+    };
+
+    // Slide ativo é o que ocupa a maior parte do scroller.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visivel = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visivel) return;
+        atual = slides.indexOf(visivel.target as HTMLElement);
+        pintar();
+      },
+      { root: track, threshold: [0.25, 0.5, 0.75] },
+    );
+    slides.forEach((s) => observer.observe(s));
+
+    prev.addEventListener('click', () => irPara(atual - 1));
+    next.addEventListener('click', () => irPara(atual + 1));
+
+    if (autoplayDelay > 0) {
+      iniciarAutoplay();
+      root.addEventListener('mouseenter', pararAutoplay);
+      root.addEventListener('mouseleave', iniciarAutoplay);
+      root.addEventListener('focusin', pararAutoplay);
+      root.addEventListener('focusout', iniciarAutoplay);
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) pararAutoplay();
+        else iniciarAutoplay();
+      });
+    }
+
+    pintar();
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(init);
+</script>

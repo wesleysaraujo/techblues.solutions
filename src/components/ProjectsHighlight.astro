@@ -1,0 +1,70 @@
+---
+import Icon from './Icon.astro';
+import Carousel from './Carousel.astro';
+import ProjectCover from './ProjectCover.astro';
+import { projects } from '../data/projects';
+
+interface Props {
+  /** Restringe o carrossel a projetos específicos. Sem isso, entram todos. */
+  only?: string[];
+}
+const { only } = Astro.props;
+const lista = only ? projects.filter((p) => only.includes(p.slug)) : projects;
+---
+
+<section class="overflow-hidden bg-marinho text-white">
+  <div class="container-tb py-16 md:py-24">
+    <p class="eyebrow mb-6 text-laranja!">{lista.length > 1 ? 'Projetos destaque' : 'Projeto destaque'}</p>
+
+    <Carousel label="Projetos incubados pela Tech Blues" theme="dark" autoplay={6000}>
+      {
+        lista.map((p, i) => (
+          <article data-slide class="w-full min-w-full shrink-0 snap-start overflow-hidden">
+            {/* minmax(0,…): sem isso a coluna adota a largura intrínseca do print e estoura o slide */}
+            <div class="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+              <div>
+                <div class="flex items-center gap-3">
+                  <img src={p.logo} alt="" width="48" height="48" class="size-12 rounded-md bg-white p-1.5" />
+                  <div>
+                    <h2 class="font-display text-[28px] leading-none font-black md:text-[40px]">{p.name}</h2>
+                    <p class="mt-1 text-[12px] font-bold tracking-wide text-laranja uppercase">{p.kind}</p>
+                  </div>
+                </div>
+                <p class="mt-6 font-display text-[20px] leading-tight font-black md:text-[26px]">“{p.headline}”</p>
+                <p class="mt-4 text-[15px] opacity-90">{p.summary}</p>
+                <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+                  {p.principles.map((pr) => (
+                    <li class="flex items-start gap-2 text-[13px]">
+                      <Icon name="CircleCheck" class="mt-0.5 size-4 shrink-0 text-laranja" />
+                      <span>
+                        <strong class="uppercase">{pr.title}.</strong> {pr.text}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <div class="mt-8 flex flex-wrap gap-3">
+                  <a href={`/projetos/${p.slug}`} class="btn-laranja">Conheça o case</a>
+                  {
+                    p.url && p.urlLabel && (
+                      <a href={p.url} target="_blank" rel="noopener" class="btn-branco">
+                        {p.urlLabel} <Icon name="ExternalLink" class="size-4" />
+                      </a>
+                    )
+                  }
+                </div>
+              </div>
+              <div class="relative pt-6 pr-6">
+                <div class="absolute top-0 right-0 size-24 rounded-md bg-laranja/90" aria-hidden="true" />
+                <ProjectCover
+                  project={p}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  class="relative aspect-[16/10] w-full rounded-md shadow-2xl ring-1 ring-white/10"
+                />
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </Carousel>
+  </div>
+</section>

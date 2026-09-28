@@ -87,3 +87,13 @@
 @utility field {
   @apply w-full rounded-md border-0 bg-cinza-claro px-3 py-2.5 text-[13px] text-cinza-max placeholder:text-cinza-escuro focus:ring-2 focus:ring-azul-claro focus:outline-none;
 }
+
+/* Scroller do carrossel: a barra nativa polui o layout, mas o scroll continua
+   valendo (arrastar, teclado e trackpad seguem funcionando). */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
