@@ -106,6 +106,8 @@ export const projects: Project[] = [
     logo: '/img/suiteops/logo.svg',
     kind: 'Plataforma incubada pela Tech Blues',
     status: 'Em operação',
+    url: 'https://www.suiteops.com.br',
+    urlLabel: 'Conhecer o SuiteOps',
     category: 'Plataforma de operação',
     headline: 'O CRM registra a venda. E o que acontece depois que o cliente assina?',
     summary:
